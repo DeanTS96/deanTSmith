@@ -1,0 +1,12 @@
+* {
+    font-size: 32px;
+}
+
+/*h1 {
+    font-size: 2em
+}*/
+
+table, th, td {
+    border-collapse: collapse;
+    border: 1px solid black;
+}
