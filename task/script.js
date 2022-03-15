@@ -4,10 +4,13 @@ const alertFun = () => {
     alert("button");
 }
 
-const but = document.getElementById("butOne");
-but.addEventListener("click", alertFun);
+const alertFun2 = () => {
+    alert("button shorthand");
+}
 
-/*but.onClick = function() {
-    alert("button")
-};*/
+const but = document.getElementById("butOne");
+
+/*but.addEventListener("click", alertFun);*/
+
+but.onClick = alertFun2();
 
