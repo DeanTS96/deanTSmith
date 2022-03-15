@@ -1,7 +1,13 @@
 alert("helloooooo");
 
+const alertFun = () => {
+    alert("button");
+}
+
 const but = document.getElementById("butOne");
-but.onClick = function() {
+but.addEventListener("click", alertFun);
+
+/*but.onClick = function() {
     alert("button")
-};
+};*/
 
