@@ -20,7 +20,7 @@ but.onclick = () => {
 
 				if (result.status.name == "ok") {
 
-					$('#results').html(result['data'][0]['clouds']);
+					$('#results').html(result['data']['clouds']);
 				}
 			
 			},
