@@ -12,7 +12,7 @@ const but = document.getElementById("butOne");
 
 //but.addEventListener("click", alertFun);
 
-but.onclick = nono;
+but.onclick = nono();
 
 const nono = () => {
     alert("nonononononon");
