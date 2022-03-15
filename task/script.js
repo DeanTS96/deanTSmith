@@ -10,7 +10,7 @@ but.onclick = () => {
 
 		$.ajax({
 			url: "getWeather.php",
-			type: 'POST',
+			type: 'GET',
 			dataType: 'json',
 			data: {
 				icao: $('#inputOne').val()
