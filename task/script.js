@@ -10,7 +10,7 @@ but.onclick = () => {
 
 		$.ajax({
 			url: "getWeather.php",
-			type: 'GET',
+			type: 'POST',
 			dataType: 'json',
 			data: {
 				icao: $('#inputOne').val()
@@ -29,6 +29,7 @@ but.onclick = () => {
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
 				// your error code
+				console.log("error");
 			}
 		}); 
 	
