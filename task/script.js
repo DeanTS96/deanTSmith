@@ -6,6 +6,7 @@ but.onclick = () => {
     };*/
 
     $('#butOne').click(function() {
+		console.log("hi 1")
 
 		$.ajax({
 			url: "getWeather.php",
@@ -15,12 +16,14 @@ but.onclick = () => {
 				icao: $('#inputOne').val()
 			},
 			success: function(result) {
+				console.log("hi 2")
 
 				console.log(JSON.stringify(result));
 
 				if (result.status.name == "ok") {
+					console.log("hi 3")
 
-					$('#results').html(result['data']['clouds']);
+					$('#results').html("hi");
 				}
 			
 			},
