@@ -1,7 +1,5 @@
 * {
     font-size: 32px;
-    background-color: red;
-    color: rgb(0, 255, 98);
 }
 
 table {
@@ -14,8 +12,4 @@ table {
 table, th, td {
     border-collapse: collapse;
     border: 1px solid black;
-}
-
-body {
-    color: red;
 }
