@@ -1,6 +1,6 @@
 * {
     font-size: 32px;
-    background-color: blue;
+    background-color: red;
     color: rgb(0, 255, 98);
 }
 
@@ -17,5 +17,5 @@ table, th, td {
 }
 
 body {
-    color: blue;
+    color: red;
 }
