@@ -1,8 +1,9 @@
 alert("helloooooo");
 alert("yh");
+alert("fsiufsfsgf");
 
 const but = document.getElementById("butOne");
-but.onClick = () => {
-    but.style.color = 'blue';
+but.onClick = function() {
+    document.getElementById("testing").style.color = 'red';
 };
 
