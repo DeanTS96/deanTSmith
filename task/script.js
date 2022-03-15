@@ -10,7 +10,7 @@ const but = document.getElementById("butOne");
 
 //but.addEventListener("click", alertFun);
 
-but.onclick = alertFun();
+but.onclick = alertFun2();
 
 const alertFun = () => {
     alert("button");
