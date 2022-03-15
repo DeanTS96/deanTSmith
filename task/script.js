@@ -13,9 +13,10 @@ but.onclick = () => {
 			type: 'POST',
 			dataType: 'json',
 			data: {
-				country: "GB" ,
-				lang: "en" , 
-				icao: $('#inputOne').val()
+				icao: $('#inputOne').val(),
+				lang: "en",
+				country: "GB"
+
 			},
 			success: function(result) {
 				console.log("hi 2")
@@ -25,7 +26,8 @@ but.onclick = () => {
 				if (result.status.name == "ok") {
 					console.log("hi 3")
 
-					$('#results').html("hi");
+					//$('#results').html("hi");
+					$('#results').html(result['data']['clouds']);
 				}
 			
 			},
