@@ -9,10 +9,12 @@ but.onclick = () => {
 		console.log("hi 1")
 
 		$.ajax({
-			url: "getWeather.php",
+			url: "../../geonamesExample/libs/php/getCountryInfo.php",
 			type: 'POST',
 			dataType: 'json',
 			data: {
+				country: "GB" ,
+				lang: "en" , 
 				icao: $('#inputOne').val()
 			},
 			success: function(result) {
