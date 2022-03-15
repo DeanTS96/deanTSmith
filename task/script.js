@@ -12,5 +12,5 @@ const but = document.getElementById("butOne");
 
 /*but.addEventListener("click", alertFun);*/
 
-but.onClick = alertFun2();
+but.onclick = alertFun2();
 
