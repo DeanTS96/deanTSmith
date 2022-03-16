@@ -1,23 +1,12 @@
-/*alert("helloooooo");
-
-const but = document.getElementById("butOne");
-but.onclick = () => {
-        but.style.color = "blue";
-    };*/
-
-    $('#butOne').click(function() {
+ $('#butOne').click(function() {
 		console.log("hi 1")
 
 		$.ajax({
-			//url: "../../geonamesExample/libs/php/getCountryInfo.php",
-			url: "getWeather.php",
+			url:  "getWeather.php",
 			type: 'POST',
 			dataType: 'json',
 			data: {
 				icao: $('#inputOne').val(),
-				lang: "en",
-				country: "GB"
-
 			},
 			success: function(result) {
 				console.log("hi 2")
@@ -29,6 +18,16 @@ but.onclick = () => {
 
 					//$('#results').html("hi");
 					$('#results').html(result['data']['clouds']);
+					$('#results').html(result['data']['datetime']);
+					$('#results').html(result['data']['temperature']);
+					$('#results').html(result['data']['humidity']);
+					$('#results').html("<p>" + 
+					"Clouds: " + result['data']['clouds'] + "<br>" + 
+					"Wind Speed: " + result['data']['windSpeed'] + "<br>" + 
+					"Humidity: " + result['data']['humidity'] + "<br>" + 
+					"Temperature: " + result['data']['temperature'] + "<br>" + 
+					"Date & Time: " + result['data']['datetime'] + 
+					"</p>");
 				}
 			
 			},

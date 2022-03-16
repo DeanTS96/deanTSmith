@@ -7,7 +7,7 @@
 
 	$executionStartTime = microtime(true);
 
-	$url='http://api.geonames.org/weatherIcaoJSON?formatted=true&ICAO=LESO&username=deantsmith&style=full';
+	$url='http://api.geonames.org/weatherIcaoJSON?formatted=true&ICAO=' .  $_REQUEST['icao'] . '&username=deantsmith&style=full';
 
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
