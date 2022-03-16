@@ -1,5 +1,4 @@
  $('#butOne').click(function() {
-		console.log("hi 1")
 
 		$.ajax({
 			url:  "getWeather.php",
@@ -9,12 +8,10 @@
 				icao: $('#inputOne').val(),
 			},
 			success: function(result) {
-				console.log("hi 2")
 
 				console.log(JSON.stringify(result));
 
 				if (result.status.name == "ok") {
-					console.log("hi 3")
 
 					$('#results').html("<p>" + 
 					"Clouds: " + result['data']['clouds'] + "<br>" + 
@@ -27,8 +24,8 @@
 			
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
-				// your error code
 				console.log("error");
+				$("#results").html("Invalid location");
 			}
 		}); 
 	
@@ -42,7 +39,6 @@
 
 
 	$('#butTwo').click(function() {
-		console.log("hi 1")
 
 		$.ajax({
 			url:  "getWeatherStation.php",
@@ -53,24 +49,24 @@
 				lng: $('#inputTwoB').val()
 			},
 			success: function(result) {
-				console.log("hi 2")
 
 				console.log(JSON.stringify(result));
 
 				if (result.status.name == "ok") {
-					console.log("hi 3")
 
-					//$('#results').html("hi");
-					$('#results').html(result['data']['clouds']);
-					/*$('#results').html("<p>" + 
+					$('#results').html("<p>" + 
+					"ICAO: " + result['data']['ICAO'] + "<br>" + 
+					"Date & Time: " + result['data']['datetime'] + "<br>" + 
+					"Country Code: " + result['data']['countryCode'] + "<br>" + 
+					"Station Name: " + result['data']['stationName'] + "<br>" + 
+					"</p>");
 					
-					"</p>");*/
 				}
 			
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
-				// your error code
 				console.log("error");
+				$("#results").html("Invalid location");
 			}
 		}); 
 	
@@ -84,7 +80,6 @@
 
 
 	$('#butThree').click(function() {
-		console.log("hi 1")
 
 		$.ajax({
 			url:  "getEarthquakes.php",
@@ -97,28 +92,23 @@
 				west: $('#inputThreeD').val()
 			},
 			success: function(result) {
-				console.log("hi 2")
 
 				console.log(JSON.stringify(result));
 
 				if (result.status.name == "ok") {
-					console.log("hi 3")
 
-					$('#results').html(result['data'][0]['datetime']);
-
-					/*$('#results').html("<p>" + 
-					"Clouds: " + result['data']['clouds'] + "<br>" + 
-					"Wind Speed: " + result['data']['windSpeed'] + "<br>" + 
-					"Humidity: " + result['data']['humidity'] + "<br>" + 
-					"Temperature: " + result['data']['temperature'] + "<br>" + 
-					"Date & Time: " + result['data']['datetime'] + 
-					"</p>");*/
+					$('#results').html("<p>" + 
+					"Date & Time: " + result['data'][0]['datetime'] + "<br>" + 
+					"Latitude: " + result['data'][0]['lat'] + "<br>" + 
+					"Longitude: " + result['data'][0]['lng'] + "<br>" + 
+					"Magnitude: " + result['data'][0]['magnitude'] + "<br>" + 
+					"</p>");
 				}
 			
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
-				// your error code
 				console.log("error");
+				$("#results").html("Invalid location");
 			}
 		}); 
 	
