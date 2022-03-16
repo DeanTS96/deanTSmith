@@ -9,7 +9,8 @@ but.onclick = () => {
 		console.log("hi 1")
 
 		$.ajax({
-			url: "../../geonamesExample/libs/php/getCountryInfo.php",
+			//url: "../../geonamesExample/libs/php/getCountryInfo.php",
+			url: "getWeather.php",
 			type: 'POST',
 			dataType: 'json',
 			data: {
