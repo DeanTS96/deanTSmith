@@ -4,7 +4,7 @@
             <meta charset="utf-8">
             <meta name="author" content="deantsmith">
             <title>Task</title>
-            <link rel="stylesheet" type="text/css" href="styles2.css">
+            <link rel="stylesheet" type="text/css" href="css/styles.css">
         </head>
         <body>
             <h1 id="testing">helllllllo</h1>
@@ -16,23 +16,33 @@
                         <th></th>
                     </tr>
                     <tr>
-                        <td></td>
-                        <td>Get weather by ICAO number<input id="inputOne"></td>
+                        <td>Weather Station with most recent weather observation</td>
+                        <td>Get weather by ICAO number 
+                            <br>
+                            <label for="inputOne">ICAO Number: </label> <input id="inputOne"></td>
                         <td><button id="butOne">Submit</button></td>
                     </tr>
                     <tr>
-                        <td></td>
-                        <td>Get weather station by lat & lng<input id="inputTwoA">
-                            <input id="inputTwoB">
+                        <td>Weather Station with most recent weather observation / reverse geocoding</td>
+                        <td>Get weather station by lat & lng 
+                            <br>
+                            <label for="inputTwoA">Latitude: </label><input id="inputTwoA">
+                            <br>
+                            <label for="inputTwoB">Longitude: </label><input id="inputTwoB">
                         </td>
                         <td><button id="butTwo">Submit</button></td>
                     </tr>
                     <tr>
-                        <td></td>
-                        <td>Find recent earth quakes by N-S-E-W co-ordinates Ex. 44.1, -9.9, -22.4, 55.2<input id="inputThreeA">
-                            <input id="inputThreeB">
-                            <input id="inputThreeC">
-                            <input id="inputThreeD"></td>
+                        <td>Earthquakes</td>
+                        <td>Find recent earth quakes by N-S-E-W co-ordinates Ex. 44.1, -9.9, -22.4, 55.2
+                            <br>
+                            <label for="inputThreeA">North: </label> <input id="inputThreeA">
+                            <br>
+                            <label for="inputThreeB">South: </label> <input id="inputThreeB">
+                            <br>
+                            <label for="inputThreeC">East: </label> <input id="inputThreeC">
+                            <br>
+                            <label for="inputThreeD">West: </label> <input id="inputThreeD"></td>
                         <td><button id="butThree">Submit</button></td>
                     </tr>
                     <tr>
@@ -40,8 +50,8 @@
                     </tr>
                 </tbody>
             </table>
-            <script type="application/javascript" src="jquery-2.2.3.min.js"></script>
-            <script type="application/javascript" src="script.js"></script>
+            <script type="application/javascript" src="js/jquery-2.2.3.min.js"></script>
+            <script type="application/javascript" src="js/script.js"></script>
         </body>
         <footer>
 
