@@ -8,9 +8,26 @@
 	$executionStartTime = microtime(true);
 
     $url='http://api.geonames.org/weatherIcaoJSON?formatted=true&ICAO=' .  $_REQUEST['icao'] . '&username=deantsmith&style=full';
-    $url2='http://api.geonames.org/countryInfoJSON?formatted=true&lang=en&country=GB&username=flightltd&style=full';
+    //$url2='http://api.geonames.org/countryInfoJSON?formatted=true&lang=en&country=GB&username=flightltd&style=full';
+    $url2='';
+    //$myUrl='http://api.geonames.org/countryInfoJSON?formatted=true&lang=en&country=GB&username=flightltd&style=full';
 
+    $myArray= array('http://api.geonames.org/countryInfoJSON?formatted=true&lang=en&country=GB&username=flightltd&style=full');
 
+    /*function urls(&$url2, $myUrl) {
+        $url2=$myUrl;
+    }
+
+    urls($url2, $myUrl,);*/
+
+    function yesAll($myArray, &$url2) {
+        for ($i = 0; $i < count($myArray); $i++) {
+            //$url2='http://api.geonames.org/countryInfoJSON?formatted=true&lang=en&country=GB&username=flightltd&style=full';
+            $url2= $myArray[$i];
+        };
+    };
+
+    yesAll($myArray, $url2);
 
 
     $ch2 = curl_init();
@@ -30,25 +47,14 @@
     curl_close($ch);
     $decode = json_decode($result,true);
 
-    $strdecode = $decode['weatherObservation']['clouds'].$decode['weatherObservation']['clouds'];
+    //$strdecode = $decode['weatherObservation']['clouds'].$decode['weatherObservation']['clouds'];
 
 
     //$array = array("clouds" => $decode['weatherObservation']['clouds'], "clouds2" => $decode['weatherObservation']['clouds']);
 
-    //class foo 
-    //{
-      //  function do_foo()
-      //  {
-        //    echo "doing foo.";
-      //  }
- //   }
 
-   //$bar = new foo;
-   // $bar->do_foo();*/
-
-
-        //$mydecode = $decode['weatherObservation']['ICAO'];
-       // $mydecode2 = $decode2['geonames'][0]['capital'];
+          //$mydecode = $decode['weatherObservation']['ICAO'];
+          //$mydecode2 = $decode2['geonames'][0]['capital'];
 
         //$decodeTogether = $result.$result2;
 
@@ -57,7 +63,7 @@
 	$output['status']['name'] = "ok";
 	$output['status']['description'] = "success";
 	$output['status']['returnedIn'] = intval((microtime(true) - $executionStartTime) * 1000) . " ms";
-    $output['data'] = array("clouds" => $decode['weatherObservation']['clouds'], "clouds2" => $decode['weatherObservation']['clouds']);
+    $output['data'] = array("clouds" => $decode2['geonames'][0]['capital'], "clouds2" => $decode['weatherObservation']['clouds']);
     //$output['data'] = $array;
     //$output['data'] = $mydecode + $mydecode2;
     //$output['data'] = "{"."clouds:". $decode['weatherObservation']['clouds'].'"'.$decode['weatherObservation']['ICAO']."}";
