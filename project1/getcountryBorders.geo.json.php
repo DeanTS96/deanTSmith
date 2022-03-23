@@ -8,26 +8,35 @@
 	$executionStartTime = microtime(true);
 
 	$result = file_get_contents("countryBorders.geo.json");
-    //var_dump($strJsonFileContents);
 
-	/*$url='countryBorders.geo.json';
+	$decode = json_decode($result,true);
+	$countriesArray= $decode['features'];
+	//$returningArray= [];
+	//$whatever= $countriesArray[0]['properties']['name'];
 
-	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_URL,$url);
+	foreach($countriesArray as $countryObject) {
+		$returningArray[]= array("country" => $countryObject['properties']['name'], "iso" => $countryObject['properties']['iso_a2']);
+		};
 
-	$result=curl_exec($ch);
+	/*$newArray= [];
+	$newArray[]= array("tree" => "me");
+	$newArray[]= "tree";
+	$newArray[]= "tree";
+	$newArray[]= "tree";*/
 
-	curl_close($ch);*/
 
-	$decode = json_decode($result,true);	
+	/*$array= array('red', 'green');
+	array_push($array, 'blue', 'yellow');*/
+
 
 	$output['status']['code'] = "200";
 	$output['status']['name'] = "ok";
 	$output['status']['description'] = "success";
 	$output['status']['returnedIn'] = intval((microtime(true) - $executionStartTime) * 1000) . " ms";
-	$output['data'] = $decode;
+	//$output['data'] = $countriesArray;
+	//$output['data'] = $newArray;
+	//$output['data']= $whatever;
+	$output['data'] = $returningArray;
 	
 	header('Content-Type: application/json; charset=UTF-8');
 
