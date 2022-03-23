@@ -13,6 +13,7 @@
     //$myUrl='http://api.geonames.org/countryInfoJSON?formatted=true&lang=en&country=GB&username=flightltd&style=full';
 
     $myArray= array('http://api.geonames.org/countryInfoJSON?formatted=true&lang=en&country=GB&username=flightltd&style=full');
+    $mysecondArray= array(&$url2);
 
     /*function urls(&$url2, $myUrl) {
         $url2=$myUrl;
@@ -20,14 +21,15 @@
 
     urls($url2, $myUrl,);*/
 
-    function yesAll($myArray, &$url2) {
+
+    function yesAll($myArray, &$url2, &$mysecondArray) {
         for ($i = 0; $i < count($myArray); $i++) {
-            //$url2='http://api.geonames.org/countryInfoJSON?formatted=true&lang=en&country=GB&username=flightltd&style=full';
-            $url2= $myArray[$i];
+            //$url2= $myArray[0];
+            $mysecondArray[$i]= $myArray[$i];
         };
     };
 
-    yesAll($myArray, $url2);
+    yesAll($myArray, $url2, $mysecondArray);
 
 
     $ch2 = curl_init();
