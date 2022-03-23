@@ -6,6 +6,7 @@
 
     let lat = 0;
     let lng = 0;
+    let countryCode;
     console.log(lat);
 
     navigator.geolocation.getCurrentPosition((position) => {
@@ -16,6 +17,38 @@
 
         let map = L.map('map').setView([lat, lng], 13);
         L.tileLayer.provider('OpenStreetMap.Mapnik').addTo(map);
+
+        $.ajax({
+			url: "getCountryCode.php",
+			type: 'POST',
+			dataType: 'json',
+			data: {
+                lat: lat,
+                lng: lng
+			},
+			success: function(result) {
+				console.log(JSON.stringify(result));
+
+				if (result.status.name == "ok") {
+
+					$('#heading').html(result.data);
+					//$('#heading').html(result['data'][0]['languages']);
+                    /*$('#heading').html("<p>" + 
+					"Clouds: " + result['data']['clouds'] + "<br>" + 
+					"Wind Speed: " + result['data']['windSpeed'] + "<br>" + 
+					"Humidity: " + result['data']['humidity'] + "<br>" + 
+					"Temperature: " + result['data']['temperature'] + "<br>" + 
+					"Date & Time: " + result['data']['datetime'] + 
+					"</p>");*/
+					
+
+				}
+			
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				// your error code
+			}
+		}); 
     });
 
     console.log(lat);
