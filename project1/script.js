@@ -74,15 +74,27 @@
 				if (result.status.name == "ok") {
 
 					$('#paragraph').html(result.data);
+					//$('#countries').append($("<option>").val("HI").text("NONO"));
 					//$('#paragraph').html(result['data'][0]['languages']);
+					result.data.forEach(
+						function(countryObject) {
+							$('#countries').append($("<option>").val(countryObject.iso).text(countryObject.country));
+							//let newOption = document.createElement("option");
+							//newOption.innerHTML = countryObject.country;
+							//document.getElementById("countries").appendChild(newOption);
+
+							//$('#countries').append($("<option>").val("GB").text("Britain"));
+							
+							//console.log(countryObject.country);
+							//console.log(countryObject);
+					});
 				}
 			
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
 				// your error code
 			}
-		}); 
-	
+		}); 	
 	});
 
 
@@ -123,6 +135,11 @@
 	
 	});
 
+
+	/*let newOption = document.createElement("option");
+	newOption.value = "GB";
+	newOption.innerHTML = "Britain";
+	document.getElementById("countries").appendChild(newOption);*/
 	
         
 
