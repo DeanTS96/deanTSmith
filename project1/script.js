@@ -57,7 +57,7 @@
         console.log(lat)
     }, 1000);
 
-
+	//populate dropdownbox
 	$('#butTwo').click(function() {
         console.log("preessed button two");
 
