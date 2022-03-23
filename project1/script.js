@@ -58,6 +58,39 @@
     }, 1000);
 
 
+	$.ajax({
+		url: "getStuff.php",
+		type: 'POST',
+		dataType: 'json',
+		data: {
+			icao: "LSZH"
+		},
+		success: function(result) {
+			console.log(JSON.stringify(result));
+
+			if (result.status.name == "ok") {
+
+				//$('#heading').html(result.data);
+				//$('#heading').html(result['data'][0]['languages']);
+				$('#heading').html("<p>" + 
+				"Clouds: " + result['data']['clouds'] + "<br>" + 
+				"Wind Speed: " + result['data']['windSpeed'] + "<br>" + 
+				"Humidity: " + result['data']['humidity'] + "<br>" + 
+				"Temperature: " + result['data']['temperature'] + "<br>" + 
+				"Date & Time: " + result['data']['datetime'] + 
+				"</p>");
+				
+
+			}
+		
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			// your error code
+		}
+	}); 
+
+
+	//GET STUFF
     $('#butOne').click(function() {
         console.log("preessed");
 
@@ -93,6 +126,8 @@
 		}); 
 	
 	});
+
+	
         
 
   
