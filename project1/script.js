@@ -135,6 +135,40 @@
 	
 	});
 
+	$('#butThree').click(function() {
+		console.log('pressed 3');
+
+		$.ajax({
+			url: "getCountryInfo.php",
+			type: 'POST',
+			dataType: 'json',
+			data: {
+				country: $('select').val(),
+				lang: 'en'
+			},
+			success: function(result) {
+				console.log(JSON.stringify(result));
+				console.log(result);
+
+				if (result.status.name == "ok") {
+
+					/*$('#txtContinent').html(result['data'][0]['continent']);
+					$('#txtCapital').html(result.data);
+					console.log(result);
+					$('#txtLanguages').html(result['data'][0]['languages']);
+					$('#txtPopulation').html(result['data'][0]['population']);
+					$('#txtArea').html(result['data'][0]['areaInSqKm']);*/
+
+				}
+			
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				// your error code
+			}
+		}); 
+	
+	});
+
 
 	/*let newOption = document.createElement("option");
 	newOption.value = "GB";
