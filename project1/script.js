@@ -6,8 +6,13 @@
 
     let lat = 0;
     let lng = 0;
+	let map;
     let countryCode;
+	let datapolygon;
+	//let swappedArray = [];
+
     console.log(lat);
+
 
     navigator.geolocation.getCurrentPosition((position) => {
         console.log(position)
@@ -15,8 +20,16 @@
         lng = position.coords.longitude;
         console.log(lat, lng);
 
-        let map = L.map('map').setView([lat, lng], 13);
+        map = L.map('map').setView([lat, lng], 13);
         L.tileLayer.provider('OpenStreetMap.Mapnik').addTo(map);
+		
+		var polygon = L.polygon([
+			[-3.404856459164713, -80.30256059438722],[-2.65751189535964, -79.77029334178093],[-2.220794366061014, -79.98655921092241]
+		]).addTo(map);
+
+		/*var mypolygon = L.polygon([
+			[-82.96578304719736,8.225027980985985],[-83.50843726269431,8.446926581247283],[-83.71147396516908,8.656836249216866]
+		]).addTo(map);*/
 
         $.ajax({
 			url: "getCountryCode.php",
@@ -249,6 +262,40 @@
 				console.log(JSON.stringify(result));
 
 				if (result.status.name == "ok") {
+					console.log(result.data.length);
+					console.log("hi");
+					console.log(result.data);
+
+					//map = L.map('map').setView([lat, lng], 13);
+        			//L.tileLayer.provider('OpenStreetMap.Mapnik').addTo(map);
+
+					let swappedArray = [];
+
+					function swapLatLng(array) { 
+						
+						array[0].forEach((coords) => {
+				
+							temp = coords[0];
+							coords[0] = coords[1];
+							coords[1] = temp;
+							//console.log(coords)
+				
+							swappedArray.push(coords);
+						});
+					};
+
+					swapLatLng(result.data);
+					console.log(swappedArray);
+
+					//let swappedCoords= swapLatLng(result.data);
+
+
+					var mypolygon = L.polygon([
+						swappedArray
+					]).addTo(map);
+			
+
+
 
 					//$('#paragraph').html(result.data);
 					//$('#countries').append($("<option>").val("HI").text("NONO"));
@@ -271,7 +318,8 @@
 			error: function(jqXHR, textStatus, errorThrown) {
 				// your error code
 			}
-		}); 	
+		}); 
+		
 	});
 
 
@@ -315,6 +363,46 @@
 		}); 	
 	});
 
+	let array = [[[-3.404856459164713, -80.30256059438722],[-2.65751189535964, -79.77029334178093],[-2.220794366061014, -79.98655921092241]]];
+	console.log(array + "first array");
+	let swappedArray = [];
+
+	function swapLatLng(array) {
+		array[0].forEach((coords) => {
+
+			temp = coords[0];
+			coords[0] = coords[1];
+			coords[1] = temp;
+
+			//[[[0, 0],[0, 0]]]
+
+			swappedArray.push(coords);
+		});
+	};
+
+	swapLatLng(array);
+	console.log(swappedArray);
+	console.log("here");
+
+	
+	
+        /*map = L.map('map').setView([lat, lng], 13);
+        L.tileLayer.provider('OpenStreetMap.Mapnik').addTo(map);
+		
+		var polygon = L.polygon([
+			[-3.404856459164713, -80.30256059438722],[-2.65751189535964, -79.77029334178093],[-2.220794366061014, -79.98655921092241]
+		]).addTo(map);*/
+
+	
+        console.log(lat)
+
+		/*var mypolygon = L.polygon([
+			[-82.96578304719736,8.225027980985985],[-83.50843726269431,8.446926581247283],[-83.71147396516908,8.656836249216866]
+		]).addTo(map);*/
+    
+
+	
+
 
 	/*let newOption = document.createElement("option");
 	newOption.value = "GB";
@@ -322,5 +410,3 @@
 	document.getElementById("countries").appendChild(newOption);*/
 	
         
-
-  
