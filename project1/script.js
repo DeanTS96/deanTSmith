@@ -139,7 +139,7 @@
 		console.log('pressed 3');
 
 		$.ajax({
-			url: "getCountryInfo.php",
+			url: "TEMPgetCountryInfo.php",
 			type: 'POST',
 			dataType: 'json',
 			data: {
