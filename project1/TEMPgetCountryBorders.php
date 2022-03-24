@@ -13,7 +13,7 @@
 	$countriesArray= $decode['features'];
 	//$returningArray= [];
 	//$whatever= $countriesArray[0]['properties']['name'];
-	$country= 'Bahamas';
+	$country= $_REQUEST['country'];
 	$returnCoords= [];
 
 /*function getCoords(&$returnCoords) {

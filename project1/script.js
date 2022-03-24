@@ -243,7 +243,7 @@
 			type: 'POST',
 			dataType: 'json',
 			data: {
-                icao: "LSZH"
+                country: $("select option:selected").html()
 			},
 			success: function(result) {
 				console.log(JSON.stringify(result));
