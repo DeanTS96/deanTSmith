@@ -262,14 +262,76 @@
 				console.log(JSON.stringify(result));
 
 				if (result.status.name == "ok") {
+					console.log(' ---> dataLength');
 					console.log(result.data.length);
-					console.log("hi");
+					console.log("hi, result dot data");
 					console.log(result.data);
+					//let array = result.data.length;
 
 					//map = L.map('map').setView([lat, lng], 13);
         			//L.tileLayer.provider('OpenStreetMap.Mapnik').addTo(map);
 
-					let swappedArray = [];
+					//let swappedArray = [];
+
+					if(result.data.length > 1) {
+						let fullArray = [];
+						let madeUpArray = [1, 2, 3];
+						
+						function swapLatLng(array) { 
+							console.log(array.length + " in function length");
+							for(let i = 0; i < array.length; i++) {
+								let swappedArray = [];
+								console.log(array[i]);
+
+								array[i].forEach((coords) => {
+					
+										temp = coords[0];
+										coords[0] = coords[1];
+										coords[1] = temp;
+										console.log(coords)
+							
+										swappedArray.push(coords);
+								});
+								/*for(let j = 0; j < array[0][0].length; j++) {
+									console.log("hi");
+								}*/
+
+								/*array[0][i].forEach( (arrayNum) => {
+									console.log(arrayNum, "YO");
+									console.log(array[0][i].length);
+								});*/
+
+								
+								/*() => {
+									let swappedArray = [];
+								array[0][i].forEach((coords) => {
+					
+									temp = coords[0];
+									coords[0] = coords[1];
+									coords[1] = temp;
+									//console.log(coords)
+						
+									swappedArray.push(coords);
+								});
+								console.log(swappedArray, "hi");
+							 }*/
+								fullArray.push(swappedArray);
+							}
+							
+						};
+
+						console.log("full array > ", fullArray);
+						
+
+						swapLatLng(result.data);
+
+						var mypolygon = L.polygon([
+							fullArray
+						]).addTo(map);
+
+					} else {
+
+						let swappedArray = [];
 
 					function swapLatLng(array) { 
 						
@@ -281,18 +343,24 @@
 							//console.log(coords)
 				
 							swappedArray.push(coords);
-						});
+							});
+						};
+						swapLatLng(result.data);
+
+						var mypolygon = L.polygon([
+							swappedArray
+						]).addTo(map);
 					};
 
-					swapLatLng(result.data);
-					console.log(swappedArray);
+					//swapLatLng(result.data);
+					//console.log(swappedArray);
 
 					//let swappedCoords= swapLatLng(result.data);
 
 
-					var mypolygon = L.polygon([
+					/*var mypolygon = L.polygon([
 						swappedArray
-					]).addTo(map);
+					]).addTo(map);*/
 			
 
 
@@ -363,25 +431,36 @@
 		}); 	
 	});
 
-	let array = [[[-3.404856459164713, -80.30256059438722],[-2.65751189535964, -79.77029334178093],[-2.220794366061014, -79.98655921092241]]];
-	console.log(array + "first array");
+	let array = [[[[-3.404856459164713, -80.30256059438722],[-2.65751189535964, -79.77029334178093],[-2.220794366061014, -79.98655921092241]],[[-80.36878394236925,-2.685158786635788],[-80.96776546906436,-2.246942640800704],[-80.76480628123804,-1.965047702648533]]]];
+	//let array = [1,2,3];
+	console.log(array[0] + "first array");
+	console.log(array[0].length + " array length");
 	let swappedArray = [];
+	let realArray = [];
+
+	let anotherArray = [1, 2, 3];
+	//console.log(anotherArray);
+	//console.log(anotherArray.length);
 
 	function swapLatLng(array) {
-		array[0].forEach((coords) => {
+		for(let i = 0; i < 2; i++){
+			let swappedArray = [];
+		array[0][i].forEach((coords) => {
 
 			temp = coords[0];
 			coords[0] = coords[1];
 			coords[1] = temp;
 
-			//[[[0, 0],[0, 0]]]
+			//[[[[0, 0],[0, 0]]]]
 
 			swappedArray.push(coords);
 		});
+		realArray.push(swappedArray);
+	  };
 	};
 
 	swapLatLng(array);
-	console.log(swappedArray);
+	console.log(realArray);
 	console.log("here");
 
 	
