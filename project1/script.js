@@ -284,11 +284,20 @@
 								console.log(array[i]);
 
 								array[i].forEach((coords) => {
-					
+									/*console.log(coords, " before swap");
 										temp = coords[0];
 										coords[0] = coords[1];
 										coords[1] = temp;
-										console.log(coords)
+										console.log(coords, " after swap");*/
+
+										coords.forEach((setOfTwo) => {
+
+											console.log(setOfTwo, " before swap");
+											temp = setOfTwo[0];
+											setOfTwo[0] = setOfTwo[1];
+											setOfTwo[1] = temp;
+											console.log(setOfTwo, " after swap");
+										});
 							
 										swappedArray.push(coords);
 								});
@@ -435,14 +444,14 @@
 	//let array = [1,2,3];
 	console.log(array[0] + "first array");
 	console.log(array[0].length + " array length");
-	let swappedArray = [];
-	let realArray = [];
+	//let swappedArray = [];
+	//let realArray = [];
 
-	let anotherArray = [1, 2, 3];
+	//let anotherArray = [1, 2, 3];
 	//console.log(anotherArray);
 	//console.log(anotherArray.length);
 
-	function swapLatLng(array) {
+	/*function swapLatLng(array) {
 		for(let i = 0; i < 2; i++){
 			let swappedArray = [];
 		array[0][i].forEach((coords) => {
@@ -461,7 +470,7 @@
 
 	swapLatLng(array);
 	console.log(realArray);
-	console.log("here");
+	console.log("here");*/
 
 	
 	
