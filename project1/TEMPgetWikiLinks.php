@@ -26,10 +26,11 @@
 	$output['status']['description'] = "success";
 	$output['status']['returnedIn'] = intval((microtime(true) - $executionStartTime) * 1000) . " ms";
 	//$output['data'] = $decode['geonames']
-	$output['data'] = $decode['geonames'];
+	$output['data'] = $decode['geonames'][0]['summary'];
 	
 	header('Content-Type: application/json; charset=UTF-8');
 
 	echo json_encode($output); 
+	// RETURNING JUST THE FIRST SUMMARY
 
 ?>

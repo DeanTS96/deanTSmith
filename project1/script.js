@@ -4,6 +4,7 @@
         });
     });*/
 
+	let countryInfoResult = "country info";
 	let countryCodeResult = "country code";
 	let wikiLinksResult = "wiki Results";
 
@@ -169,6 +170,8 @@
 				console.log(result);
 
 				if (result.status.name == "ok") {
+					//countryInfoResult =  result.data[0].continent;
+					countryInfoResult = result.data[0];
 
 					/*$('#txtContinent').html(result['data'][0]['continent']);
 					$('#txtCapital').html(result.data);
@@ -450,13 +453,24 @@
 		//let myDiv = $()
 		$('#fakeDiv').append('<div id="contentBox">YOYYOOO</div>');
 		$('#contentBox').css({
+
 			"font-size": "40px",
 			"position": "relative",
 			"z-index": "2",
 			"margin": "auto",
 			"width": "30%",
 			"border": "solid black 5px"
-		}).html("<h>" + countryCodeResult + "</h>" + "<br>" + "<p>" + wikiLinksResult + "</P>");
+
+		}).html(
+			"<h>" + countryCodeResult + "</h>" + "<br>" + 
+			"<p>" + wikiLinksResult + "</p>" + "<br>" + 
+			"<p>" + 
+				"Capital: " + countryInfoResult.capital + "<br>" +
+				"Spoken Languages: " + countryInfoResult.languages + "<br>" +
+				"Continent: " + countryInfoResult.continentName + "<br>" +
+				"Popluation: " + countryInfoResult.population + "<br>" +
+				"Area in" + "<sup>SqKm</sup>" + ": " + countryInfoResult.areaInSqKm +
+			"</p>");
 	});
 
 

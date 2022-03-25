@@ -60,5 +60,5 @@ foreach($countriesArray as $countryObject) {
 	header('Content-Type: application/json; charset=UTF-8');
 
 	echo json_encode($output); 
-
+	// GETTING ONLY BORDERS
 ?>
