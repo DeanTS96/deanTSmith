@@ -512,6 +512,39 @@
 		}); 
 	
 	});
+
+	$('#butNine').click(function() {
+		console.log("Nine pressed");
+
+		$.ajax({
+			url:  "TEMPgetForcastInfo.php",
+			type: 'POST',
+			dataType: 'json',
+			data: {
+				north: "notrh"
+			},
+			success: function(result) {
+
+				console.log(JSON.stringify(result));
+
+				if (result.status.name == "ok") {
+
+					/*$('#results').html("<p>" + 
+					"Date & Time: " + result['data'][0]['datetime'] + "<br>" + 
+					"Latitude: " + result['data'][0]['lat'] + "<br>" + 
+					"Longitude: " + result['data'][0]['lng'] + "<br>" + 
+					"Magnitude: " + result['data'][0]['magnitude'] + "<br>" + 
+					"</p>");*/
+				}
+			
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				console.log("error");
+				//$("#results").html("Invalid location");
+			}
+		}); 
+	
+	});
 	
 
 
