@@ -3,11 +3,11 @@
             console.log(position);
         });
     });*/
+	let currency = "AED";
 
 	let countryInfoResult = "country info";
-	let countryCodeResult = "country code";
 	let wikiLinksResult = "wiki Results";
-
+	let exchangeRateResult = "22";
 
     let lat = 0;
     let lng = 0;
@@ -198,13 +198,15 @@
 			type: 'POST',
 			dataType: 'json',
 			data: {
-				currency: 'MXN'
+				currency: currency
 			},
 			success: function(result) {
 				console.log(JSON.stringify(result));
 				console.log(result);
 
 				if (result.status.name == "ok") {
+
+					exchangeRateResult = result.data;
 
 					/*$('#txtContinent').html(result['data'][0]['continent']);
 					$('#txtCapital').html(result.data);
@@ -238,6 +240,7 @@
 				console.log(result);
 
 				if (result.status.name == "ok") {
+					wikiLinksResult = result.data;
 
 					/*$('#txtContinent').html(result['data'][0]['continent']);
 					$('#txtCapital').html(result.data);
@@ -458,20 +461,58 @@
 			"position": "relative",
 			"z-index": "2",
 			"margin": "auto",
-			"width": "30%",
+			"width": "70%",
 			"border": "solid black 5px"
 
-		}).html(
-			"<h>" + countryCodeResult + "</h>" + "<br>" + 
-			"<p>" + wikiLinksResult + "</p>" + "<br>" + 
+		}).html( 
+			"<p>" + "Wiki segment: " + wikiLinksResult + "</p>" + "<br>" + 
 			"<p>" + 
 				"Capital: " + countryInfoResult.capital + "<br>" +
 				"Spoken Languages: " + countryInfoResult.languages + "<br>" +
 				"Continent: " + countryInfoResult.continentName + "<br>" +
 				"Popluation: " + countryInfoResult.population + "<br>" +
-				"Area in" + "<sup>SqKm</sup>" + ": " + countryInfoResult.areaInSqKm +
+				"Area in" + "<sup>SqKm</sup>" + ": " + countryInfoResult.areaInSqKm + "<br>" +
+				"Current exchange rate to USD: " + exchangeRateResult + 
 			"</p>");
 	});
+
+
+	$('#butEight').click(function() {
+		console.log("eight pressed");
+
+		$.ajax({
+			url:  "TEMPlatLng.php",
+			type: 'POST',
+			dataType: 'json',
+			data: {
+				north: countryInfoResult.north,
+				south: countryInfoResult.south,
+				east: countryInfoResult.east,
+				west: countryInfoResult.west
+			},
+			success: function(result) {
+
+				console.log(JSON.stringify(result));
+
+				if (result.status.name == "ok") {
+
+					/*$('#results').html("<p>" + 
+					"Date & Time: " + result['data'][0]['datetime'] + "<br>" + 
+					"Latitude: " + result['data'][0]['lat'] + "<br>" + 
+					"Longitude: " + result['data'][0]['lng'] + "<br>" + 
+					"Magnitude: " + result['data'][0]['magnitude'] + "<br>" + 
+					"</p>");*/
+				}
+			
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				console.log("error");
+				//$("#results").html("Invalid location");
+			}
+		}); 
+	
+	});
+	
 
 
 
