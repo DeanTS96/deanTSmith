@@ -21,7 +21,7 @@
 
     urls($url2, $myUrl,);*/
 
-
+// array of urls can me manipulated and added to new array
     function yesAll($myArray, &$url2, &$mysecondArray) {
         for ($i = 0; $i < count($myArray); $i++) {
             //$url2= $myArray[0];
@@ -65,7 +65,8 @@
 	$output['status']['name'] = "ok";
 	$output['status']['description'] = "success";
 	$output['status']['returnedIn'] = intval((microtime(true) - $executionStartTime) * 1000) . " ms";
-    $output['data'] = array("clouds" => $decode2['geonames'][0]['capital'], "clouds2" => $decode['weatherObservation']['clouds']);
+    // working output to use $output['data'] = array("clouds" => $decode2['geonames'][0]['capital'], "clouds2" => $decode['weatherObservation']['clouds']);
+    $output['data'] = $decode;
     //$output['data'] = $array;
     //$output['data'] = $mydecode + $mydecode2;
     //$output['data'] = "{"."clouds:". $decode['weatherObservation']['clouds'].'"'.$decode['weatherObservation']['ICAO']."}";

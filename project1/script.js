@@ -4,6 +4,10 @@
         });
     });*/
 
+	let countryCodeResult = "country code";
+	let wikiLinksResult = "wiki Results";
+
+
     let lat = 0;
     let lng = 0;
 	let map;
@@ -112,6 +116,7 @@
 
 
 	//GET STUFF
+	// getting countryInfo and Weather rn
     $('#butOne').click(function() {
         console.log("preessed");
 
@@ -190,7 +195,7 @@
 			type: 'POST',
 			dataType: 'json',
 			data: {
-				currency: 'MEX'
+				currency: 'MXN'
 			},
 			success: function(result) {
 				console.log(JSON.stringify(result));
@@ -451,7 +456,7 @@
 			"margin": "auto",
 			"width": "30%",
 			"border": "solid black 5px"
-		});
+		}).html("<h>" + countryCodeResult + "</h>" + "<br>" + "<p>" + wikiLinksResult + "</P>");
 	});
 
 
