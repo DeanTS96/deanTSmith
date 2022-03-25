@@ -440,6 +440,29 @@
 		}); 	
 	});
 
+	$('#contentBoxButton').click(function () {
+		console.log("content box pressed");
+		//let myDiv = $()
+		$('#fakeDiv').append('<div id="contentBox">YOYYOOO</div>');
+		$('#contentBox').css({
+			"font-size": "40px",
+			"position": "relative",
+			"z-index": "2",
+			"margin": "auto",
+			"width": "30%",
+			"border": "solid black 5px"
+		});
+	});
+
+
+
+
+
+
+
+
+
+
 	let array = [[[[-3.404856459164713, -80.30256059438722],[-2.65751189535964, -79.77029334178093],[-2.220794366061014, -79.98655921092241]],[[-80.36878394236925,-2.685158786635788],[-80.96776546906436,-2.246942640800704],[-80.76480628123804,-1.965047702648533]]]];
 	//let array = [1,2,3];
 	console.log(array[0] + "first array");
