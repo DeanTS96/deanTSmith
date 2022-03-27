@@ -46,6 +46,8 @@ foreach($countriesArray as $countryObject) {
 	/*$array= array('red', 'green');
 	array_push($array, 'blue', 'yellow');*/
 
+	
+
 
 	$output['status']['code'] = "200";
 	$output['status']['name'] = "ok";

@@ -7,8 +7,8 @@
 
 	$executionStartTime = microtime(true);
 
-	//$url='https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}';
-	$url='http://api.geonames.org/weatherJSON?north=44.1&south=-9.9&east=-22.4&west=55.2&username=deantsmith';
+	$url='https://api.openweathermap.org/data/2.5/onecall?lat='.$_REQUEST['lat'].'&lon='.$_REQUEST['lng'].'&exclude=minutely,hourly&appid=75a12022fcc90e77844859f53cab2aef';
+	//$url='https://api.openweathermap.org/data/2.5/onecall?lat=51.5072&lon=0.1276&exclude=minutely,hourly&appid=75a12022fcc90e77844859f53cab2aef';
 
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);

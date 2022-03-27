@@ -4,15 +4,19 @@
         });
     });*/
 	let currency = "AED";
+	let currentCountry;
+	let country = "Canada";
 
 	let countryInfoResult = "country info";
 	let wikiLinksResult = "wiki Results";
+	let polygonCoords;
+
 	let exchangeRateResult = "22";
 
     let lat = 0;
     let lng = 0;
 	let map;
-    let countryCode;
+    let countryCode = "CA";
 	let datapolygon;
 	//let swappedArray = [];
 
@@ -50,14 +54,48 @@
 				if (result.status.name == "ok") {
 
 					$('#heading').html(result.data);
-					//$('#heading').html(result['data'][0]['languages']);
-                    /*$('#heading').html("<p>" + 
-					"Clouds: " + result['data']['clouds'] + "<br>" + 
-					"Wind Speed: " + result['data']['windSpeed'] + "<br>" + 
-					"Humidity: " + result['data']['humidity'] + "<br>" + 
-					"Temperature: " + result['data']['temperature'] + "<br>" + 
-					"Date & Time: " + result['data']['datetime'] + 
-					"</p>");*/
+					//countryCode = result.data;
+					countryCode = "CA";
+					//countryCode = result.data;
+					
+
+					$.ajax({
+						url: "getcountryBorders.geo.json.php",
+						type: 'POST',
+						dataType: 'json',
+						data: {
+							isoCode: countryCode
+						},
+						success: function(result) {
+							console.log(JSON.stringify(result));
+			
+							if (result.status.name == "ok") {
+								console.log("oooooooooooooooooooooooooooooooooooooooooooooooooo");
+								$('#paragraph').html(result.data);
+								//$('#countries').append($("<option>").val("HI").text("NONO"));
+								//$('#paragraph').html(result['data'][0]['languages']);
+
+								result.data[0].returningArray.forEach(
+									function(countryObject) {
+										$('#countries').append($("<option>").val(countryObject.iso).text(countryObject.country));
+										//let newOption = document.createElement("option");
+										//newOption.innerHTML = countryObject.country;
+										//document.getElementById("countries").appendChild(newOption);
+			
+										//$('#countries').append($("<option>").val("GB").text("Britain"));
+										
+										//console.log(countryObject.country);
+										//console.log(countryObject);
+								});
+								currentCountry = result.data[0].currentCountry;
+								console.log(currentCountry);
+							}
+						
+						},
+						error: function(jqXHR, textStatus, errorThrown) {
+							// your error code
+						}
+					}); 	
 					
 
 				}
@@ -69,51 +107,196 @@
 		}); 
     });
 
+	$.ajax({
+		url: "TEMPgetCountryBorders.php",
+		type: 'POST',
+		dataType: 'json',
+		data: {
+			country: $("select option:selected").html(),
+			countryCode: countryCode
+		},
+		success: function(result) {
+			console.log(JSON.stringify(result));
+
+			if (result.status.name == "ok") {
+				console.log(' ---> dataLength');
+				console.log(result.data.length);
+				console.log("hi, result dot data");
+				console.log(result.data);
+				//let array = result.data.length;
+
+				//map = L.map('map').setView([lat, lng], 13);
+				//L.tileLayer.provider('OpenStreetMap.Mapnik').addTo(map);
+
+				//let swappedArray = [];
+
+				if(result.data.length > 1) {
+					let fullArray = [];
+					let madeUpArray = [1, 2, 3];
+					
+					function swapLatLng(array) { 
+						console.log(array.length + " in function length");
+						for(let i = 0; i < array.length; i++) {
+							let swappedArray = [];
+							console.log(array[i]);
+
+							array[i].forEach((coords) => {
+								/*console.log(coords, " before swap");
+									temp = coords[0];
+									coords[0] = coords[1];
+									coords[1] = temp;
+									console.log(coords, " after swap");*/
+
+									coords.forEach((setOfTwo) => {
+
+										console.log(setOfTwo, " before swap");
+										temp = setOfTwo[0];
+										setOfTwo[0] = setOfTwo[1];
+										setOfTwo[1] = temp;
+										console.log(setOfTwo, " after swap");
+									});
+						
+									swappedArray.push(coords);
+							});
+							/*for(let j = 0; j < array[0][0].length; j++) {
+								console.log("hi");
+							}*/
+
+							/*array[0][i].forEach( (arrayNum) => {
+								console.log(arrayNum, "YO");
+								console.log(array[0][i].length);
+							});*/
+
+							
+							/*() => {
+								let swappedArray = [];
+							array[0][i].forEach((coords) => {
+				
+								temp = coords[0];
+								coords[0] = coords[1];
+								coords[1] = temp;
+								//console.log(coords)
+					
+								swappedArray.push(coords);
+							});
+							console.log(swappedArray, "hi");
+						 }*/
+							fullArray.push(swappedArray);
+						}
+						
+					};
+
+					console.log("full array > ", fullArray);
+					
+
+					swapLatLng(result.data);
+
+					var mypolygon = L.polygon([
+						fullArray
+					]).addTo(map);
+
+				} else {
+
+					let swappedArray = [];
+
+				function swapLatLng(array) { 
+					
+					array[0].forEach((coords) => {
+			
+						temp = coords[0];
+						coords[0] = coords[1];
+						coords[1] = temp;
+						//console.log(coords)
+			
+						swappedArray.push(coords);
+						});
+					};
+					swapLatLng(result.data);
+
+					var mypolygon = L.polygon([
+						swappedArray
+					]).addTo(map);
+				};
+
+				//swapLatLng(result.data);
+				//console.log(swappedArray);
+
+				//let swappedCoords= swapLatLng(result.data);
+
+
+				/*var mypolygon = L.polygon([
+					swappedArray
+				]).addTo(map);*/
+		
+
+
+
+				//$('#paragraph').html(result.data);
+				//$('#countries').append($("<option>").val("HI").text("NONO"));
+				//$('#paragraph').html(result['data'][0]['languages']);
+				/*result.data.forEach(
+					function(countryObject) {
+						$('#countries').append($("<option>").val(countryObject.iso).text(countryObject.country));
+						//let newOption = document.createElement("option");
+						//newOption.innerHTML = countryObject.country;
+						//document.getElementById("countries").appendChild(newOption);
+
+						//$('#countries').append($("<option>").val("GB").text("Britain"));
+						
+						//console.log(countryObject.country);
+						//console.log(countryObject);
+				});*/
+			}
+		
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			// your error code
+		}
+	});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     console.log(lat);
 
     setTimeout(function(){
         console.log(lat)
     }, 1000);
 
-	//populate dropdownbox
-	$('#butTwo').click(function() {
-        console.log("preessed button two");
-
-		$.ajax({
-			url: "getcountryBorders.geo.json.php",
-			type: 'POST',
-			dataType: 'json',
-			data: {
-                icao: "LSZH"
-			},
-			success: function(result) {
-				console.log(JSON.stringify(result));
-
-				if (result.status.name == "ok") {
-
-					$('#paragraph').html(result.data);
-					//$('#countries').append($("<option>").val("HI").text("NONO"));
-					//$('#paragraph').html(result['data'][0]['languages']);
-					result.data.forEach(
-						function(countryObject) {
-							$('#countries').append($("<option>").val(countryObject.iso).text(countryObject.country));
-							//let newOption = document.createElement("option");
-							//newOption.innerHTML = countryObject.country;
-							//document.getElementById("countries").appendChild(newOption);
-
-							//$('#countries').append($("<option>").val("GB").text("Britain"));
-							
-							//console.log(countryObject.country);
-							//console.log(countryObject);
-					});
-				}
-			
-			},
-			error: function(jqXHR, textStatus, errorThrown) {
-				// your error code
-			}
-		}); 	
-	});
 
 
 	//GET STUFF
@@ -126,7 +309,8 @@
 			type: 'POST',
 			dataType: 'json',
 			data: {
-                icao: "LSZH"
+                country: country,
+				countryCode: countryCode
 			},
 			success: function(result) {
 				console.log(JSON.stringify(result));
@@ -267,7 +451,8 @@
 			type: 'POST',
 			dataType: 'json',
 			data: {
-                country: $("select option:selected").html()
+                country: $("select option:selected").html(),
+				countryCode: countryCode
 			},
 			success: function(result) {
 				console.log(JSON.stringify(result));
@@ -495,6 +680,8 @@
 				console.log(JSON.stringify(result));
 
 				if (result.status.name == "ok") {
+					lat = result.data.lat;
+					lng = result.data.lng;
 
 					/*$('#results').html("<p>" + 
 					"Date & Time: " + result['data'][0]['datetime'] + "<br>" + 
@@ -515,13 +702,15 @@
 
 	$('#butNine').click(function() {
 		console.log("Nine pressed");
+		console.log(lat, lng);
 
 		$.ajax({
 			url:  "TEMPgetForcastInfo.php",
 			type: 'POST',
 			dataType: 'json',
 			data: {
-				north: "notrh"
+				lat: "lat",
+				lng: "lng"
 			},
 			success: function(result) {
 

@@ -14,9 +14,22 @@
 	//$returningArray= [];
 	//$whatever= $countriesArray[0]['properties']['name'];
 
+	//$countryName= 'nothing';
+
 	foreach($countriesArray as $countryObject) {
 		$returningArray[]= array("country" => $countryObject['properties']['name'], "iso" => $countryObject['properties']['iso_a2']);
+		if($countryObject['properties']['iso_a2'] === $_REQUEST['isoCode']) {
+			$countryName= $countryObject['properties']['name'];
+			//$returningArray[]= array("currentCountryName" => $countryName);
 		};
+		};
+
+		$newReturningArray[]= array("currentCountry" => $countryName , "returningArray" => $returningArray);
+	
+
+		//populate($countryName);
+
+		//$returningArray[]= array("currentCountryName" => $countryName);
 
 	/*$newArray= [];
 	$newArray[]= array("tree" => "me");
@@ -36,7 +49,9 @@
 	//$output['data'] = $countriesArray;
 	//$output['data'] = $newArray;
 	//$output['data']= $whatever;
-	$output['data'] = $returningArray;
+	//$output['data']= $decode;
+	
+	$output['data'] = $newReturningArray;
 	
 	header('Content-Type: application/json; charset=UTF-8');
 
