@@ -8,7 +8,7 @@
 	$executionStartTime = microtime(true);
 
 	$url='http://api.geonames.org/wikipediaSearchJSON?q='.$_REQUEST['country'].'&maxRows=10&username=deantsmith';
-	//$url='http://api.geonames.org/wikipediaSearchJSON?q=Canada&maxRows=10&username=deantsmith';
+	//$url='http://api.geonames.org/wikipediaSearchJSON?q=United%20Kingdom&maxRows=10&username=deantsmith';
 
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);

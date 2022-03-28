@@ -1,6 +1,7 @@
 	let currency = "AED";
 	let currentCountry;
 	let country = "Canada";
+	let countryWithoutSpaces;
 
 	let countryInfoResult = "country info";
 	let wikiLinksResult = "wiki Results";
@@ -44,11 +45,8 @@
 
 				if (result.status.name == "ok") {
 
-					$('#heading').html(result.data);
-
-					countryCode = "CA";
-
-					
+					let characters = result.data.split("");
+					countryCode = characters[0]+characters[1];
 
 					$.ajax({
 						url: "getcountryBorders.geo.json.php",
@@ -69,15 +67,30 @@
 										$('#countries').append($("<option>").val(countryObject.iso).text(countryObject.country));
 									
 								});
+
 								currentCountry = result.data[0].currentCountry;
-								console.log(currentCountry);
+
+								let splitCountry = currentCountry.split(' ');
+
+								if(splitCountry.length > 1) {
+									countryWithoutSpaces = splitCountry[0];
+									for(let i = 1; i < splitCountry.length; i++) {
+										countryWithoutSpaces += "%20" + splitCountry[i];
+									};
+									console.log(countryWithoutSpaces);
+								};
+								
+								console.log(splitCountry);
+
+
+								console.log("current country: ", currentCountry);
 
 								$.ajax({
 									url: "TEMPgetCountryBorders.php",
 									type: 'POST',
 									dataType: 'json',
 									data: {
-										country: "Canada",
+										country: currentCountry,
 										//country: $("select option:selected").html(),
 										countryCode: countryCode
 									},
@@ -98,13 +111,11 @@
 							
 														array[i].forEach((coords) => {
 							
-																coords.forEach((setOfTwo) => {
-							
-																	console.log(setOfTwo, " before swap");
+																coords.forEach((setOfTwo) => {							
+																	
 																	temp = setOfTwo[0];
 																	setOfTwo[0] = setOfTwo[1];
-																	setOfTwo[1] = temp;
-																	console.log(setOfTwo, " after swap");
+																	setOfTwo[1] = temp;							
 																});
 													
 																swappedArray.push(coords);
@@ -160,13 +171,14 @@
 										
 													if (result.status.name == "ok") {
 														countryInfoResult = result.data[0];
+														currency = result.data[0].currencyCode;
 
 														$.ajax({
 															url: "TEMPgetWikiLinks.php",
 															type: 'POST',
 															dataType: 'json',
 															data: {
-																country: country
+																country: countryWithoutSpaces
 																//country: $("select option:selected").html()
 															},
 															success: function(result) {
@@ -193,11 +205,9 @@
 																					url:  "TEMPgetForcastInfo.php",
 																					type: 'POST',
 																					dataType: 'json',
-																					data: {
-																						//lat: "lat",
-																						lat: "56.1304",
-																						//lng: "lng"
-																						lng: "106.3468"
+																					data: {																						
+																						lat: lat,																																											
+																						lng: lng																					
 																					},
 																					success: function(result) {
 																			
@@ -211,11 +221,19 @@
 		$('#contentBox').css({
 
 			"font-size": "1.4em",
-			"position": "relative",
+			"position": "absolute",
 			"z-index": "2",
 			"margin": "auto",
 			"width": "50%",
+			"height": "50%",
 			"border": "solid black 5px",
+			"top": "0",
+			"bottom":"0",
+			"left": "0",
+			"right": "0",
+			"overflow":"scroll",
+
+			
 
 		}).html( 
 			"<p>" + "Wiki segment: " + wikiLinksResult + "</p>" + "<br>" + 
@@ -228,8 +246,9 @@
 				"Continent: " + countryInfoResult.continentName + "<br>" +
 				"Popluation: " + countryInfoResult.population + "<br>" +
 				"Area in" + "<sup>SqKm</sup>" + ": " + countryInfoResult.areaInSqKm + "<br>" +
-				"Current exchange rate to USD: " + exchangeRateResult + 
+				"Current exchange rate to USD: " + exchangeRateResult +
 			"</p>");
+			 
 																			
 																						}
 																					
@@ -293,7 +312,7 @@
 	
 	
 	
-	
+	// ^ ON PAGE LOAD
 	
 	
 	
@@ -347,6 +366,270 @@
 			"</p>");*/
 
 	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$('#countries').change(function(){
+	console.log("SELECTED");
+
+	countryCode = $('#countries').val();
+	currentCountry = $("select option:selected").html();
+
+	$.ajax({
+		url: "TEMPgetCountryInfo.php",
+		type: 'POST',
+		dataType: 'json',
+		data: {
+			country: $('#countries').val(),
+			lang: 'en'
+		},
+		success: function(result) {
+			console.log(JSON.stringify(result));
+
+			if (result.status.name == "ok") {
+				countryInfoResult = result.data[0];
+				currency = result.data[0].currencyCode;
+
+				console.log("NORTHHHHHHHHHHH");
+				console.log(countryInfoResult.north,countryInfoResult.south,countryInfoResult.east,countryInfoResult.west);
+
+				$.ajax({
+					url: "TEMPgetExchangeRates.php",
+					type: 'POST',
+					dataType: 'json',
+					data: {
+						currency: currency
+					},
+					success: function(result) {
+						console.log(JSON.stringify(result));
+						console.log(result);
+		
+						if (result.status.name == "ok") {		
+							exchangeRateResult = result.data;
+							console.log(result.data);		
+						}
+					
+					},
+					error: function(jqXHR, textStatus, errorThrown) {
+						// your error code
+					}
+				}); 
+
+			}
+
+			$.ajax({
+				url:  "TEMPlatLng.php",
+				type: 'POST',
+				dataType: 'json',
+				data: {
+					north: countryInfoResult.north,
+					south: countryInfoResult.south,
+					east: countryInfoResult.east,
+					west: countryInfoResult.west
+				},
+				success: function(result) {	
+					console.log(JSON.stringify(result));
+
+					if (result.status.name == "ok") {		
+
+						lat = result.data.lat;
+						lng = result.data.lng;
+
+						$.ajax({
+							url:  "TEMPgetForcastInfo.php",
+							type: 'POST',
+							dataType: 'json',
+							data: {
+								lat: lat,
+								lng: lng
+							},
+							success: function(result) {
+				
+								console.log(JSON.stringify(result));
+				
+								if (result.status.name == "ok") {
+
+									currentTemp = result.data.current.temp;
+									tomorrowTemp = result.data.current.temp;
+
+									$('#fakeDiv').append('<div id="contentBox"></div>');
+		$('#contentBox').css({
+
+			"font-size": "1.4em",
+			"position": "absolute",
+			"z-index": "2",
+			"margin": "auto",
+			"width": "50%",
+			"border": "solid black 5px",
+			"top": "0",
+			"bottom":"0",
+			"left": "0",
+			"right": "0",
+			"overflow":"scroll",
+
+		}).html( 
+			"<p>" + "Wiki segment: " + wikiLinksResult + "</p>" + "<br>" + 
+			"<br>" +
+			"<p>" + "Temperature: " + result.data.current.temp + "<br>" +
+			"Temperature for Tomorrow: " + result.data.daily[0].temp.day + "<br>" +
+			"<p>" + 
+				"Capital: " + countryInfoResult.capital + "<br>" +
+				"Spoken Languages: " + countryInfoResult.languages + "<br>" +
+				"Continent: " + countryInfoResult.continentName + "<br>" +
+				"Popluation: " + countryInfoResult.population + "<br>" +
+				"Area in" + "<sup>SqKm</sup>" + ": " + countryInfoResult.areaInSqKm + "<br>" +
+				"Current exchange rate to USD: " + exchangeRateResult +
+			"</p>");
+				
+								}
+							
+							},
+							error: function(jqXHR, textStatus, errorThrown) {
+								console.log("error");
+								//$("#results").html("Invalid location");
+							}
+						});
+					}
+				
+				},
+				error: function(jqXHR, textStatus, errorThrown) {
+					console.log("error");
+				}
+			});
+
+		
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			// your error code
+		}
+	}); 
+
+	$.ajax({
+		url: "TEMPgetWikiLinks.php",
+		type: 'POST',
+		dataType: 'json',
+		data: {
+			country: $("select option:selected").html()
+		},
+		success: function(result) {
+			console.log(JSON.stringify(result));
+			console.log(result);
+
+			if (result.status.name == "ok") {
+				wikiLinksResult = result.data;
+			}
+		
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			// your error code
+		}
+	});
+
+	$.ajax({
+		url: "TEMPgetCountryBorders.php",
+		type: 'POST',
+		dataType: 'json',
+		data: {
+			country: $("select option:selected").html(),
+			countryCode: countryCode
+		},
+		success: function(result) {
+			console.log(JSON.stringify(result));
+
+			if (result.status.name == "ok") {
+	
+
+				if(result.data.length > 1) {
+					let fullArray = [];
+					let madeUpArray = [1, 2, 3];
+					
+					function swapLatLng(array) { 
+						console.log(array.length + " in function length");
+						for(let i = 0; i < array.length; i++) {
+							let swappedArray = [];
+							console.log(array[i]);
+
+							array[i].forEach((coords) => {
+	
+
+									coords.forEach((setOfTwo) => {
+
+										temp = setOfTwo[0];
+										setOfTwo[0] = setOfTwo[1];
+										setOfTwo[1] = temp;
+
+									});
+						
+									swappedArray.push(coords);
+							});
+					
+							fullArray.push(swappedArray);
+						}
+						
+					};
+
+					console.log("full array > ", fullArray);
+					
+
+					swapLatLng(result.data);
+
+					var mypolygon = L.polygon([
+						fullArray
+					]).addTo(map);
+
+				} else {
+
+					let swappedArray = [];
+
+				function swapLatLng(array) { 
+					
+					array[0].forEach((coords) => {
+			
+						temp = coords[0];
+						coords[0] = coords[1];
+						coords[1] = temp;
+			
+						swappedArray.push(coords);
+						});
+					};
+					swapLatLng(result.data);
+
+					var mypolygon = L.polygon([
+						swappedArray
+					]).addTo(map);
+				};
+			}
+		
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			// your error code
+		}
+	});
+
+});
 
 
 
