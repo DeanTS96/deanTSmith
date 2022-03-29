@@ -3,15 +3,14 @@ html, body{
 }
 
 nav {
-    width: 100%;
-    opacity: 0.9;
+    width: 20%;
     z-index: 2;
     position: fixed;
 }
 
 select{
     position: fixed;
-    width: 100%;
+    width: 20%;
     font-size: 1.2em;
     z-index: 2;
 }
