@@ -6,17 +6,21 @@ nav {
     width: 20%;
     z-index: 2;
     position: fixed;
+    font-size: 1.5em;
 }
 
 select{
     position: fixed;
     width: 20%;
-    font-size: 1.2em;
     z-index: 2;
+    background-color: lightgray;
+    border-radius: 20px;
 }
 
 option{
     text-align: center;
+    background-color: white;
+    border-radius: 20px;
 }
 
 #map{
@@ -27,3 +31,50 @@ option{
     left: 0;
     z-index: 1;
 }
+
+#contentBox {
+    font-size: 1.4em;
+	position: absolute;
+	z-index: 2;
+	/*margin: auto;*/
+	/*width: 50%;*/
+	border: solid black 2px;
+    top: 20%;
+    left: 25%;
+    right: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+table{
+    border: solid 5px black;
+}
+
+
+#countryInfo, #weatherToday{
+    width: 50%;
+    text-align: left;
+}
+
+td{
+    border: solid 5px black;
+}
+
+.iconText, .icon, .icon > p{
+    display: inline-block;
+    padding: 1px;
+}
+
+.iconContainer{
+    text-align: left;
+}
+
+.icon{
+    padding-left: 2%;
+}
+
+.iconContainer, .iconText, .icon, .icon > p{
+    flex-wrap: nowrap;
+}
+
