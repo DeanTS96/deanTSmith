@@ -1,8 +1,4 @@
 <?php
-	//second, maybe on load and save data
-
-	// remove for production
-
 	ini_set('display_errors', 'On');
 	error_reporting(E_ALL);
 
@@ -25,11 +21,9 @@
 	$output['status']['name'] = "ok";
 	$output['status']['description'] = "success";
 	$output['status']['returnedIn'] = intval((microtime(true) - $executionStartTime) * 1000) . " ms";
-	//$output['data'] = $decode['geonames']
 	$output['data'] = $decode['rates'][$_REQUEST['currency']];
 	
 	header('Content-Type: application/json; charset=UTF-8');
 
 	echo json_encode($output); 
-	// GETTING ONLY SELECTED CURRENCY EXCHANGE RATES
 ?>

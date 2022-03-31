@@ -1,7 +1,5 @@
 <?php
 
-	// remove for production
-
 	ini_set('display_errors', 'On');
 	error_reporting(E_ALL);
 
@@ -11,46 +9,22 @@
 
 	$decode = json_decode($result,true);
 	$countriesArray= $decode['features'];
-	//$returningArray= [];
-	//$whatever= $countriesArray[0]['properties']['name'];
-
-	//$countryName= 'nothing';
 
 	foreach($countriesArray as $countryObject) {
 		$returningArray[]= array("country" => $countryObject['properties']['name'], "iso" => $countryObject['properties']['iso_a2']);
 		if($countryObject['properties']['iso_a2'] === $_REQUEST['isoCode']) {
 			$countryName= $countryObject['properties']['name'];
-			//$returningArray[]= array("currentCountryName" => $countryName);
-		};
+
+			};
 		};
 
 		$newReturningArray[]= array("currentCountry" => $countryName , "returningArray" => $returningArray);
-	
-
-		//populate($countryName);
-
-		//$returningArray[]= array("currentCountryName" => $countryName);
-
-	/*$newArray= [];
-	$newArray[]= array("tree" => "me");
-	$newArray[]= "tree";
-	$newArray[]= "tree";
-	$newArray[]= "tree";*/
-
-
-	/*$array= array('red', 'green');
-	array_push($array, 'blue', 'yellow');*/
-
 
 	$output['status']['code'] = "200";
 	$output['status']['name'] = "ok";
 	$output['status']['description'] = "success";
 	$output['status']['returnedIn'] = intval((microtime(true) - $executionStartTime) * 1000) . " ms";
-	//$output['data'] = $countriesArray;
-	//$output['data'] = $newArray;
-	//$output['data']= $whatever;
-	//$output['data']= $decode;
-	
+
 	$output['data'] = $newReturningArray;
 	
 	header('Content-Type: application/json; charset=UTF-8');

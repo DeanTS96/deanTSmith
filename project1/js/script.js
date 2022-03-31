@@ -36,10 +36,25 @@
 			console.log(JSON.stringify(result));
 
 			if (result.status.name == "ok") {
+				let pushingNewArray = []; 
+				
+				result.data.forEach(function(newCountryObject) {
+					pushingNewArray.push(newCountryObject.country);
+				});
 
-				console.log("hi");
+				pushingNewArray.sort();
+				let theFinalSortedArray = [];
 
-				result.data.forEach(
+				let arrayToObject = pushingNewArray.forEach(function(arrayCountry) {
+					result.data.forEach(function(countryObject) {
+						if(arrayCountry === countryObject.country){
+							theFinalSortedArray.push(countryObject);
+							return;
+						}
+					})
+				});
+
+				theFinalSortedArray.forEach(
 					function(countryObject) {
 						$('#countries').append($("<option>").val(countryObject.iso).text(countryObject.country));
 					
@@ -67,11 +82,9 @@
 				console.log(JSON.stringify(result));
 
 				if (result.status.name == "ok") {
-					console.log(result.data);
 
 					let characters = result.data.split("");
 					countryCode = characters[0]+characters[1];
-					console.log(countryCode);
 
 					$('#countries').val(countryCode);
 					$('#countries').trigger('change');
@@ -98,7 +111,6 @@
 		countryCode = $('#countries').val();
 		currentCountry = $("select option:selected").html();
 		countryWithoutSpaces = currentCountry;
-		console.log(countryWithoutSpaces);
 	
 	
 		let splitCountry = currentCountry.split(' ');
@@ -109,8 +121,6 @@
 				countryWithoutSpaces += "%20" + splitCountry[i];
 			};
 		};
-
-		console.log(countryWithoutSpaces);
 
 
 		$.ajax({
@@ -132,20 +142,14 @@
 						let madeUpArray = [1, 2, 3];
 						
 						function swapLatLng(array) { 
-							console.log(array.length + " in function length");
 							for(let i = 0; i < array.length; i++) {
-								let swappedArray = [];
-								console.log(array[i]);
-	
-								array[i].forEach((coords) => {
-		
+								let swappedArray = [];	
+								array[i].forEach((coords) => {	
 	
 										coords.forEach((setOfTwo) => {
-	
 											temp = setOfTwo[0];
 											setOfTwo[0] = setOfTwo[1];
 											setOfTwo[1] = temp;
-	
 										});
 							
 										swappedArray.push(coords);
@@ -154,10 +158,7 @@
 								fullArray.push(swappedArray);
 							}
 							
-						};
-	
-						console.log("full array > ", fullArray);
-						
+						};						
 	
 						swapLatLng(result.data);
 	
@@ -202,19 +203,12 @@
 			data: {
 				country: countryWithoutSpaces
 			},
-			success: function(result) {console.log("herrrrrrrr");
+			success: function(result) {
 				console.log(JSON.stringify(result));
-				console.log("herrrrrrrr");
-	
+
 				if (result.status.name == "ok") {
-					console.log(countryWithoutSpaces);
 					wikiLinksResult = result.data;
-					console.log(wikiLinksResult);
-					console.log("herrrrrrr");
-
-					$('#wikiLinks').html("<p>" + wikiLinksResult + "</p>");
-
-					
+					$('#wikiLinks').html("<p>" + wikiLinksResult + "</p>");					
 				}
 			
 			},
@@ -239,6 +233,13 @@
 				if (result.status.name == "ok") {
 					countryInfoResult = result.data[0];
 					currency = result.data[0].currencyCode;
+
+					$('#capital').html(result.data[0].capital);
+					$('#continent').html(result.data[0].continentName);
+					$('#languages').html(result.data[0].languages);
+					$('#population').html(result.data[0].population);
+					$('#area').html(result.data[0].areaInSqKm);
+					$('#currency').html(result.data[0].currencyCode);
 	
 					$.ajax({
 						url: "php/getExchangeRates.php",
@@ -252,8 +253,9 @@
 			
 							if (result.status.name == "ok") {		
 								exchangeRateResult = result.data;	
+								$('#exchangeRate').html(result.data);
 
-								//$('#countryInfo').html("<p id=yoyo>" + "yoyo" + "</p>");	
+
 											
 
 							}
@@ -296,61 +298,79 @@
 						
 										if (result.status.name == "ok") {
 		
-											currentTemp = result.data.current.temp;
-											tomorrowTemp = result.data.current.temp;
+											$('#tempNum').html("<p>" + result.data.current.temp + "<sup>" + "o" + "</sup>" + "</p>");
+											$('#wind').html(result.data.current.wind_speed + "<sup>" + "mps" + "</sup>" + " " +  + result.data.current.wind_deg + "<sup>" + "o" + "</sup>");
+											$('#clouds').html(result.data.current.weather[0].description);
+											$('#morning').html("<p>" + result.data.daily[0].temp.morn + "<sup>" + "o" + "</sup>" +  "</p>" + "<p>" + "Morning" + "</p>");
+											$('#noon').html("<p>" + result.data.daily[0].temp.day + "<sup>" + "o" + "</sup>" +  "</p>" + "<p>" + "Noon" + "</p>");
+											$('#evening').html("<p>" + result.data.daily[0].temp.eve + "<sup>" + "o" + "</sup>" +  "</p>" + "<p>" + "Evening" + "</p>");
+											$('#night').html("<p>" + result.data.daily[0].temp.night + "<sup>" + "o" + "</sup>" +  "</p>" + "<p>" + "Night" + "</p>");
+
+											$('#day1Date').html(new Date((result.data.daily[1].dt)*1000).toDateString());
+											$('#day1Temp').html(result.data.daily[1].temp.day);
+											$('#day1Weather').html(result.data.daily[1].weather[0].description)
+
+											$('#day2Date').html(new Date((result.data.daily[2].dt)*1000).toDateString());
+											$('#day2Temp').html(result.data.daily[2].temp.day);
+											$('#day2Weather').html(result.data.daily[2].weather[0].description)
+
+											$('#day3Date').html(new Date((result.data.daily[3].dt)*1000).toDateString());
+											$('#day3Temp').html(result.data.daily[3].temp.day);
+											$('#day3Weather').html(result.data.daily[3].weather[0].description)
+
+											$('#day4Date').html(new Date((result.data.daily[4].dt)*1000).toDateString());
+											$('#day4Temp').html(result.data.daily[4].temp.day);
+											$('#day4Weather').html(result.data.daily[4].weather[0].description)
+
+											$('#day5Date').html(new Date((result.data.daily[5].dt)*1000).toDateString());
+											$('#day5Temp').html(result.data.daily[5].temp.day);
+											$('#day5Weather').html(result.data.daily[5].weather[0].description);
+
+											$('#day6Date').html(new Date((result.data.daily[6].dt)*1000).toDateString());
+											$('#day6Temp').html(result.data.daily[6].temp.day);
+											$('#day6Weather').html(result.data.daily[6].weather[0].description);
+											
+
+
+
 
 											let date = JSON.parse(result.data.current.dt);
 
-											console.log(new Date((JSON.parse(result.data.current.dt) + result.data.timezone_offset)*1000));
+
 											
 											let myDate = new Date((JSON.parse(result.data.current.dt) + result.data.timezone_offset)*1000);
 											//let myDate = new Date(date*1000);
 											//let dateArray = myDate.split(" ");
-											console.log(myDate);
+
 											let stringDate = myDate.toString();
 											let arrayDate = stringDate.split(" ");
 											let finalDate = arrayDate[0] + " " + arrayDate[1] + " " + arrayDate[2] + " " + arrayDate[3] + " " + arrayDate[4] + " " + arrayDate[5];
-											console.log(arrayDate);
-											console.log(finalDate);
-											console.log("HERE" ,new Date((1648666512+7200)*1000));
 											
 											let total = 0;
 
 											let addOrSub;
 
 											let gmtSplit= arrayDate[5].split('');
-											console.log(gmtSplit);
-											console.log("HERE",gmtSplit);
-											console.log(Number(gmtSplit[4]));
+
 											let gmt1 = Number(gmtSplit[4]);
 											let gmt2 = Number(gmtSplit[5]);
 											let gmt3 = Number(gmtSplit[6]);
 											let gmt4 = Number(gmtSplit[7]);
 
 												total = gmt1 * 10
-												console.log("YOYO", total);
 
 											if(gmt2 > 0) {
 												total += gmt2;
-												console.log("YOYO", total);
-
 											}
 
 											if(gmt3 > 0) {
-												console.log("YOYO", total);
-
-												total += gmt3 * 0.1;
-												console.log("YOYO", total);
-
+												total += gmt3 * 0.1;	
 											}
 
 											if(gmt4 > 0) {
 												total += gmt4 * 0.01;
-												console.log("YOYO", total);
-
 											}
 
-											console.log(arrayDate[4].split(':'));
 											let arrayOfNum = arrayDate[4].split(':');
 											let arrayNum = (Number(arrayOfNum[0])) + (Number(arrayOfNum[1])*0.01);
 
@@ -360,70 +380,29 @@
 											
 											
 											if(gmtSplit[3] === "+") {
-												finalNum = arrayNum - total;
-												console.log("POSATIVE");
+												if(arrayNum < 1) {
+													finalNum = arrayNum;
+												} else {
+													finalNum = arrayNum - total;
+												};
 											} else {
-												finalNum = letFinalNum = arrayNum + total;;
+												finalNum = arrayNum + total;;
 											}
 
-											console.log(finalNum, "here");
-
-											let splitFinal = finalNum.toString().split('.');
-											
-											console.log(splitFinal);
-										
+											let splitFinal = finalNum.toString().split('.');																		
 
 											if(splitFinal[1].length < 2) {
-												console.log(splitFinal[1].length);
 												splitFinal[1] = splitFinal[1] + "0";
-												console.log(splitFinal[1]);
 											}
-											console.log(splitFinal[1]);
+
+											if(splitFinal[0].length < 2) {
+												splitFinal[0] = splitFinal[0] + "0";
+											}
 
 											let resultTime = splitFinal[0] + ":" + splitFinal[1] + ":" + arrayOfNum[2];
-											console.log(resultTime);
-
 											let finalDateTime = arrayDate[0] + " " + arrayDate[1] + " " + arrayDate[2] + " " + arrayDate[3] + " " + resultTime;
-
-
-
-
 											
-
-											
-
-											$('#weatherToday').html('<p>' + finalDateTime + '</p>');
-		
-											/*$('#fakeDiv').append('<div id="contentBox"></div>');
-				$('#contentBox').css({
-		
-					"font-size": "1.4em",
-					"position": "absolute",
-					"z-index": "2",
-					"margin": "auto",
-					"width": "50%",
-					"border": "solid black 2px",
-					"top": "0",
-					"bottom":"0",
-					"left": "0",
-					"right": "0",
-					"overflow":"scroll",
-					"height": "500px"
-		
-				}).html( 
-					"<p>" + "Wiki segment: " + wikiLinksResult + "</p>" + "<br>" + 
-					"<br>" +
-					"<p>" + "Temperature: " + result.data.current.temp + "<br>" +
-					"Temperature for Tomorrow: " + result.data.daily[0].temp.day + "<br>" +
-					"<p>" + 
-						"Capital: " + countryInfoResult.capital + "<br>" +
-						"Spoken Languages: " + countryInfoResult.languages + "<br>" +
-						"Continent: " + countryInfoResult.continentName + "<br>" +
-						"Popluation: " + countryInfoResult.population + "<br>" +
-						"Area in" + "<sup>SqKm</sup>" + ": " + countryInfoResult.areaInSqKm + "<br>" +
-						"Current exchange rate to USD: " + exchangeRateResult +
-					"</p>");*/
-						
+											$('#dateTime').html('<p>' + finalDateTime + '</p>');
 										}
 									
 									},
@@ -445,8 +424,13 @@
 			
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
+				console.log("error");
 				// your error code
 			}
 		}); 
 	
+	});
+
+	$("#button").click(function() { 
+		$("#contentBox").toggle();
 	});

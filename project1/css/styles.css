@@ -3,15 +3,15 @@ html, body{
 }
 
 nav {
+    margin-left: 50px;
     width: 20%;
     z-index: 2;
     position: fixed;
     font-size: 1.5em;
 }
 
-select{
-    position: fixed;
-    width: 20%;
+select, button{
+
     z-index: 2;
     background-color: lightgray;
     border-radius: 20px;
@@ -36,45 +36,208 @@ option{
     font-size: 1.4em;
 	position: absolute;
 	z-index: 2;
-	/*margin: auto;*/
-	/*width: 50%;*/
-	border: solid black 2px;
-    top: 20%;
+    top: 10%;
     left: 25%;
     right: 25%;
     display: flex;
     align-items: center;
     justify-content: center;
+    
 }
 
 table{
-    border: solid 5px black;
+    background-color: white;
+    
 }
 
+#countryInfo{
+    background-color: lightgray;
+}
 
 #countryInfo, #weatherToday{
     width: 50%;
     text-align: left;
-}
-
-td{
-    border: solid 5px black;
+    font-size: 1.5em;
 }
 
 .iconText, .icon, .icon > p{
     display: inline-block;
-    padding: 1px;
+    
 }
 
 .iconContainer{
     text-align: left;
+    padding-left: 1%;
 }
 
-.icon{
-    padding-left: 2%;
-}
 
 .iconContainer, .iconText, .icon, .icon > p{
     flex-wrap: nowrap;
 }
+
+
+.weather{
+    padding: 5px;
+    float: left;
+}
+
+.botWeather{
+    display: inline-block; 
+    font-size: 1.2em;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+#weather{
+    background-color: lightcyan;
+    display: flex;
+    height: 100%;
+    align-items: bottom;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#temp{
+    height: 40%;
+    width: 40%;
+}
+
+#temp2{
+    margin-left: 30px;
+    height: 30%;
+    width: 30%;
+}
+
+.temp3{
+    display: inline-block;
+    font-size: 1.5em;
+}
+
+.iconP{
+    margin: 0;
+    display: inline-block;
+}
+.dayTemp, .forcastBox{
+    display: inline-block;   
+}
+
+#todayTemp{
+    display: inline-block;
+    margin: 0;
+}
+
+.weatherIcon{
+    width: 25%;
+    height: 25%;
+    color: rgb(255, 95, 95);
+}
+
+.forcastBoxP{
+    font-size: 1.5em;
+}
+
+.dayTemp{
+    font-size: 1em;
+    padding-left: 3%;
+    padding-right: 3%;
+
+}
+
+.botIcon{
+    height: 50%;
+    width: 50%;
+    display: block;
+}
+
+.allDayTemp{
+    height:50%;
+    width: 50%;
+}
+
+#contentBox{
+    background-color: white;
+}
+
+tbody{
+    background-color: white;
+}
+
+tr{
+    background-color: white;
+}
+
+#wikiLinks{
+    background-color: gray;
+}
+
+#forcast{
+    background-color: rgb(139, 139, 231);
+}
+
+.bi-thermometer-half{
+    background-color: red;
+}
+
+.therm{
+    color: red;
+}
+
+.bi-moon{
+    color: silver;
+}
+.bi-brightness-high{
+    color: yellow;
+}
+
+.bi-brightness-alt-high, .bi-brightness-alt-low{
+    color: rgb(184, 184, 104)
+}
+
+.bi-clouds{
+    color: rgb(230, 224, 224);
+}
+
+.bi-wind{
+    color: lightgray;
+}
+
+.bi-building{
+    color: darkgray;
+}
+
+.bi-globe2{
+    color: blue;
+}
+
+.bi-chat{
+    color: hotpink;
+}
+
+.bi-people{
+    color: black;
+}
+
+.bi-bullseye{
+    color: brown;
+}
+
+.bi-cash-coin{
+    color: green;
+}
+
+.bi-currency-exchange{
+    color: gold;
+}
+
+#button{
+    font-size: 0.7em;
+}
+
+
+
+
+
+
+
+
 
