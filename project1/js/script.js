@@ -1,3 +1,6 @@
+	let polyToRemove;
+	let newPoly;
+	
 	let currency;
 	let currentCountry;
 	let country;
@@ -66,7 +69,9 @@
 
     navigator.geolocation.getCurrentPosition((position) => {
         lat = position.coords.latitude; 
-        lng = position.coords.longitude;
+		homeLat = position.coords.latitude;
+		lng = position.coords.longitude; 
+        homeLng = position.coords.longitude;
 
 		map.setZoomAround([lat, lng],11);
 
@@ -161,10 +166,18 @@
 						};						
 	
 						swapLatLng(result.data);
-	
-						var mypolygon = L.polygon([
+
+						if(newPoly) {
+							newPoly.remove();
+						};
+
+						newPoly = L.polygon([
 							fullArray
-						]).addTo(map);
+						]);
+	
+						var mypolygon = newPoly.addTo(map);
+
+						//polyToremove = mypolygon;
 	
 					} else {
 	
@@ -182,10 +195,16 @@
 							});
 						};
 						swapLatLng(result.data);
-	
-						var mypolygon = L.polygon([
+
+						if(newPoly) {
+							newPoly.remove();
+						};
+
+
+						newPoly = L.polygon([
 							swappedArray
-						]).addTo(map);
+						]);
+						var mypolygon = newPoly.addTo(map);
 					};
 				}
 			
@@ -231,6 +250,7 @@
 				console.log(JSON.stringify(result));
 	
 				if (result.status.name == "ok") {
+
 					countryInfoResult = result.data[0];
 					currency = result.data[0].currencyCode;
 
@@ -253,11 +273,7 @@
 			
 							if (result.status.name == "ok") {		
 								exchangeRateResult = result.data;	
-								$('#exchangeRate').html(result.data);
-
-
-											
-
+								$('#exchangeRate').html(result.data);											
 							}
 						
 						},
@@ -265,6 +281,28 @@
 							// your error code
 						}
 					}); 
+
+					$.ajax({
+						url:  "php/getEarthquakes.php",
+						type: 'POST',
+						dataType: 'json',
+						data: {
+							north: countryInfoResult.north,
+							south: countryInfoResult.south,
+							east: countryInfoResult.east,
+							west: countryInfoResult.west
+						},
+						success: function(result) {	
+							console.log(JSON.stringify(result));
+							console.log("HERE")
+							console.log(result.data.length);
+
+							result.data.forEach(function() {
+
+							});
+
+						}
+					});
 
 					$.ajax({
 						url:  "php/latLng.php",
@@ -279,7 +317,14 @@
 						success: function(result) {	
 							console.log(JSON.stringify(result));
 		
-							if (result.status.name == "ok") {		
+							if (result.status.name == "ok") {	
+								
+								if(homeLat === lat && homeLng === lng){
+									console.log("Does")
+								} else {
+									console.log("Doesn't")
+									map.flyTo([result.data.lat, result.data.lng], 6);
+								};
 		
 								lat = result.data.lat;
 								lng = result.data.lng;
@@ -391,13 +436,19 @@
 
 											let splitFinal = finalNum.toString().split('.');																		
 
-											if(splitFinal[1].length < 2) {
+											if(splitFinal[1].length < 2 || splitFinal[1] == 0) {
 												splitFinal[1] = splitFinal[1] + "0";
 											}
 
 											if(splitFinal[0].length < 2) {
 												splitFinal[0] = splitFinal[0] + "0";
 											}
+
+											if(splitFinal[1].length > 2) {
+												let lastSplit = splitFinal[1].split('');
+												splitFinal[1] = lastSplit[0] + lastSplit[1];
+											}
+
 
 											let resultTime = splitFinal[0] + ":" + splitFinal[1] + ":" + arrayOfNum[2];
 											let finalDateTime = arrayDate[0] + " " + arrayDate[1] + " " + arrayDate[2] + " " + arrayDate[3] + " " + resultTime;
@@ -428,9 +479,16 @@
 				// your error code
 			}
 		}); 
+
+		$("#contentBox").show();
 	
 	});
 
+	$("#h5Button").click(function() { 
+		$("#contentBox").hide();
+		$("#button").show();
+	});
+
 	$("#button").click(function() { 
-		$("#contentBox").toggle();
+		$("#contentBox").show();
 	});
