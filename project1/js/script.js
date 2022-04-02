@@ -297,8 +297,14 @@
 							console.log("HERE")
 							console.log(result.data.length);
 
-							result.data.forEach(function() {
-
+							result.data.forEach(function(earthquake) {
+								let marker = L.AwesomeMarkers.icon({
+									prefix: 'glyphicon',
+									icon: '123.svg',
+									markerColor: 'blue'
+								  });
+									  
+								  L.marker([earthquake.lat,earthquake.lng], {icon: marker}).addTo(map).bindPopup("<h5>Earthquake</h1>" + "<br>" + "Date & time: " + earthquake.datetime + ". Magnitude: " + earthquake.magnitude + ".");
 							});
 
 						}
