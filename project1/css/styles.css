@@ -261,6 +261,13 @@ tr{
     background-color: rgb(0, 153, 255);
     opacity: 0.8;
 }
+.awesome-marker i {
+    font-size: 100px;
+    margin-top: 10px;
+    z-index: 10;
+    color: blue;
+    background-color: yellow;
+}
 
 #day2, #day4, #day6{
     background-color: yellow;

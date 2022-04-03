@@ -297,14 +297,44 @@
 							console.log("HERE")
 							console.log(result.data.length);
 
+							const mySvg = `
+							<svg
+							  width="24"
+							  height="40"
+							  viewBox="0 0 100 100"
+							  version="1.1"
+							  preserveAspectRatio="none"
+							  xmlns="http://www.w3.org/2000/svg"
+							>
+							  <path d="M0 0 L50 100 L100 0 Z" fill="#7A8BE7"></path>
+							</svg>`
+							
+
+							const svgIcon = L.divIcon({
+								html: `
+							  <svg
+								width="24"
+								height="40"
+								viewBox="0 0 100 100"
+								version="1.1"
+								preserveAspectRatio="none"
+								xmlns="http://www.w3.org/2000/svg"
+							  >
+								<path d="M0 0 L50 100 L100 0 Z" fill="#7A8BE7"></path>
+							  </svg>`,
+								className: "",
+								iconSize: [24, 40],
+								iconAnchor: [12, 40],
+							  })
+
 							result.data.forEach(function(earthquake) {
-								let marker = L.AwesomeMarkers.icon({
-									prefix: 'glyphicon',
-									icon: '123.svg',
-									markerColor: 'blue'
-								  });
+								var redMarker = L.AwesomeMarkers.icon({
+									//icon: 'home',
+									icon: mySvg,
+									markerColor: 'red'
+								  }); 
 									  
-								  L.marker([earthquake.lat,earthquake.lng], {icon: marker}).addTo(map).bindPopup("<h5>Earthquake</h1>" + "<br>" + "Date & time: " + earthquake.datetime + ". Magnitude: " + earthquake.magnitude + ".");
+								  L.marker([earthquake.lat,earthquake.lng], {icon: redMarker}).addTo(map).bindPopup("<h5>Earthquake</h1>" + "<br>" + "Date & time: " + earthquake.datetime + ". Magnitude: " + earthquake.magnitude + ".");
 							});
 
 						}
