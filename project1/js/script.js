@@ -1,5 +1,7 @@
 	let polyToRemove;
 	let newPoly;
+	let num = 1;
+	let layerGroup;
 	
 	let currency;
 	let currentCountry;
@@ -294,49 +296,23 @@
 						},
 						success: function(result) {	
 							console.log(JSON.stringify(result));
-							console.log("HERE")
-							console.log(result.data.length);
+								
+							  if(layerGroup) {
+								  map.removeLayer(layerGroup);
+							  };
 
-							const mySvg = `
-							<svg
-							  width="24"
-							  height="40"
-							  viewBox="0 0 100 100"
-							  version="1.1"
-							  preserveAspectRatio="none"
-							  xmlns="http://www.w3.org/2000/svg"
-							>
-							  <path d="M0 0 L50 100 L100 0 Z" fill="#7A8BE7"></path>
-							</svg>`
-							
+							  layerGroup = L.layerGroup().addTo(map);
 
-							const svgIcon = L.divIcon({
-								html: `
-							  <svg
-								width="24"
-								height="40"
-								viewBox="0 0 100 100"
-								version="1.1"
-								preserveAspectRatio="none"
-								xmlns="http://www.w3.org/2000/svg"
-							  >
-								<path d="M0 0 L50 100 L100 0 Z" fill="#7A8BE7"></path>
-							  </svg>`,
-								className: "",
-								iconSize: [24, 40],
-								iconAnchor: [12, 40],
-							  })
+							  let redMarker = L.AwesomeMarkers.icon({
+								icon: 'activity',
+								prefix: 'bi',
+								markerColor: 'green',
+								iconColor: 'white'
+							  }); 
 
-							result.data.forEach(function(earthquake) {
-								var redMarker = L.AwesomeMarkers.icon({
-									//icon: 'home',
-									icon: mySvg,
-									markerColor: 'red'
-								  }); 
-									  
-								  L.marker([earthquake.lat,earthquake.lng], {icon: redMarker}).addTo(map).bindPopup("<h5>Earthquake</h1>" + "<br>" + "Date & time: " + earthquake.datetime + ". Magnitude: " + earthquake.magnitude + ".");
-							});
-
+							result.data.forEach(function(earthquake) {							  
+								  layerGroup.addLayer(L.marker([earthquake.lat,earthquake.lng], {icon: redMarker}).bindPopup("<h5>Earthquake</h1>" + "<br>" + "Date & time: " + earthquake.datetime + ". Magnitude: " + earthquake.magnitude + "."));								  								  							 
+							});							
 						}
 					});
 
@@ -378,6 +354,9 @@
 										console.log(JSON.stringify(result));
 						
 										if (result.status.name == "ok") {
+
+											let weatherDescription;
+											let cloudy = 'cloudy';											
 		
 											$('#tempNum').html("<p>" + result.data.current.temp + "<sup>" + "o" + "</sup>" + "</p>");
 											$('#wind').html(result.data.current.wind_speed + "<sup>" + "mps" + "</sup>" + " " +  + result.data.current.wind_deg + "<sup>" + "o" + "</sup>");
@@ -389,27 +368,62 @@
 
 											$('#day1Date').html(new Date((result.data.daily[1].dt)*1000).toDateString());
 											$('#day1Temp').html(result.data.daily[1].temp.day);
-											$('#day1Weather').html(result.data.daily[1].weather[0].description)
+											if(result.data.daily[1].weather[0].description === "overcast clouds") {
+												weatherDescription = cloudy;
+											} else {
+												weatherDescription = result.data.daily[1].weather[0].description;
+											}
+											$('#day1Weather').html(weatherDescription);
+
 
 											$('#day2Date').html(new Date((result.data.daily[2].dt)*1000).toDateString());
 											$('#day2Temp').html(result.data.daily[2].temp.day);
-											$('#day2Weather').html(result.data.daily[2].weather[0].description)
+											if(result.data.daily[2].weather[0].description === "overcast clouds") {
+												weatherDescription = cloudy;
+											} else {
+												weatherDescription = result.data.daily[2].weather[0].description;
+											}
+											$('#day2Weather').html(weatherDescription);
+
 
 											$('#day3Date').html(new Date((result.data.daily[3].dt)*1000).toDateString());
 											$('#day3Temp').html(result.data.daily[3].temp.day);
-											$('#day3Weather').html(result.data.daily[3].weather[0].description)
+											if(result.data.daily[3].weather[0].description === "overcast clouds") {
+												weatherDescription = cloudy;
+											} else {
+												weatherDescription = result.data.daily[3].weather[0].description;
+											}
+											$('#day3Weather').html(weatherDescription);
+
 
 											$('#day4Date').html(new Date((result.data.daily[4].dt)*1000).toDateString());
 											$('#day4Temp').html(result.data.daily[4].temp.day);
-											$('#day4Weather').html(result.data.daily[4].weather[0].description)
+											if(result.data.daily[4].weather[0].description === "overcast clouds") {
+												weatherDescription = cloudy;
+											} else {
+												weatherDescription = result.data.daily[4].weather[0].description;
+											}
+											$('#day4Weather').html(weatherDescription);
+
 
 											$('#day5Date').html(new Date((result.data.daily[5].dt)*1000).toDateString());
 											$('#day5Temp').html(result.data.daily[5].temp.day);
-											$('#day5Weather').html(result.data.daily[5].weather[0].description);
+											if(result.data.daily[5].weather[0].description === "overcast clouds") {
+												weatherDescription = cloudy;
+											} else {
+												weatherDescription = result.data.daily[5].weather[0].description;
+											}
+											$('#day5Weather').html(weatherDescription);
+
 
 											$('#day6Date').html(new Date((result.data.daily[6].dt)*1000).toDateString());
 											$('#day6Temp').html(result.data.daily[6].temp.day);
-											$('#day6Weather').html(result.data.daily[6].weather[0].description);
+											if(result.data.daily[6].weather[0].description === "overcast clouds") {
+												weatherDescription = cloudy;
+											} else {
+												weatherDescription = result.data.daily[6].weather[0].description;
+											}
+											$('#day6Weather').html(weatherDescription);
 											
 
 
@@ -472,7 +486,7 @@
 
 											let splitFinal = finalNum.toString().split('.');																		
 
-											if(splitFinal[1].length < 2 || splitFinal[1] == 0) {
+											if(splitFinal[1] == 0 || splitFinal[1].length < 2) {
 												splitFinal[1] = splitFinal[1] + "0";
 											}
 
