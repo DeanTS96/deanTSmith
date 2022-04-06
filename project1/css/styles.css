@@ -96,8 +96,11 @@ table{
     padding-right: 10%;
 }
 
+tr{
+    background-image: url(../images/clearSky.jpg);
+}
+
 #weather{
-    background-image: url(../images/Weather-Background.jpg);
     display: flex;
     height: 100%;
     align-items: bottom;
@@ -235,6 +238,10 @@ tr{
 
 .bi-currency-exchange{
     color: gold;
+}
+
+.bi-fullscreen-exit{
+    color: red;
 }
 
 #button{

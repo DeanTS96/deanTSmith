@@ -2,6 +2,9 @@
 	let newPoly;
 	let num = 1;
 	let layerGroup;
+
+	let homeLat = 0;
+	let homeLng = 0;
 	
 	let currency;
 	let currentCountry;
