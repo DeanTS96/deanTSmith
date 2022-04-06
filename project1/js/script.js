@@ -265,6 +265,8 @@
 					$('#population').html(result.data[0].population);
 					$('#area').html(result.data[0].areaInSqKm);
 					$('#currency').html(result.data[0].currencyCode);
+					$('#fipsCode').html(result.data[0].fipsCode);
+					$('#countryCode').html(result.data[0].countryCode);
 	
 					$.ajax({
 						url: "php/getExchangeRates.php",
