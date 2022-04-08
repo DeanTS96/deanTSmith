@@ -361,7 +361,8 @@
 										if (result.status.name == "ok") {
 
 											let weatherDescription;
-											let cloudy = 'cloudy';											
+											let cloudy = 'cloudy';
+											let scatteredClouds = 'some clouds';								
 		
 											$('#tempNum').html("<p>" + result.data.current.temp + "<sup>" + "o" + "</sup>" + "</p>");
 											$('#wind').html(result.data.current.wind_speed + "<sup>" + "mps" + "</sup>" + " " +  + result.data.current.wind_deg + "<sup>" + "o" + "</sup>");
@@ -375,6 +376,8 @@
 											$('#day1Temp').html(result.data.daily[1].temp.day);
 											if(result.data.daily[1].weather[0].description === "overcast clouds") {
 												weatherDescription = cloudy;
+											} else if(result.data.daily[1].weather[0].description === "scattered clouds") {
+												weatherDescription = scatteredClouds;
 											} else {
 												weatherDescription = result.data.daily[1].weather[0].description;
 											}
@@ -385,9 +388,12 @@
 											$('#day2Temp').html(result.data.daily[2].temp.day);
 											if(result.data.daily[2].weather[0].description === "overcast clouds") {
 												weatherDescription = cloudy;
+											} else if(result.data.daily[2].weather[0].description === "scattered clouds") {
+												weatherDescription = scatteredClouds;
 											} else {
 												weatherDescription = result.data.daily[2].weather[0].description;
 											}
+
 											$('#day2Weather').html(weatherDescription);
 
 
@@ -395,6 +401,8 @@
 											$('#day3Temp').html(result.data.daily[3].temp.day);
 											if(result.data.daily[3].weather[0].description === "overcast clouds") {
 												weatherDescription = cloudy;
+											} else if(result.data.daily[3].weather[0].description === "scattered clouds") {
+												weatherDescription = scatteredClouds;
 											} else {
 												weatherDescription = result.data.daily[3].weather[0].description;
 											}
@@ -405,6 +413,8 @@
 											$('#day4Temp').html(result.data.daily[4].temp.day);
 											if(result.data.daily[4].weather[0].description === "overcast clouds") {
 												weatherDescription = cloudy;
+											} else if(result.data.daily[4].weather[0].description === "scattered clouds") {
+												weatherDescription = scatteredClouds;
 											} else {
 												weatherDescription = result.data.daily[4].weather[0].description;
 											}
@@ -415,6 +425,8 @@
 											$('#day5Temp').html(result.data.daily[5].temp.day);
 											if(result.data.daily[5].weather[0].description === "overcast clouds") {
 												weatherDescription = cloudy;
+											} else if(result.data.daily[5].weather[0].description === "scattered clouds") {
+												weatherDescription = scatteredClouds;
 											} else {
 												weatherDescription = result.data.daily[5].weather[0].description;
 											}
@@ -425,6 +437,8 @@
 											$('#day6Temp').html(result.data.daily[6].temp.day);
 											if(result.data.daily[6].weather[0].description === "overcast clouds") {
 												weatherDescription = cloudy;
+											} else if(result.data.daily[6].weather[0].description === "scattered clouds") {
+												weatherDescription = scatteredClouds;
 											} else {
 												weatherDescription = result.data.daily[6].weather[0].description;
 											}
