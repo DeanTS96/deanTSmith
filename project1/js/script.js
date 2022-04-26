@@ -2,6 +2,7 @@
 	let newPoly;
 	let num = 1;
 	let layerGroup;
+	let borderLayer;
 
 	let homeLat = 0;
 	let homeLng = 0;
@@ -145,11 +146,18 @@
 				console.log(JSON.stringify(result));
 	
 				if (result.status.name == "ok") {
-		
+					console.log(result.data, "HERE");
+
+					if(borderLayer) {
+						map.removeLayer(borderLayer);
+					};
+
+					borderLayer = L.geoJSON(result.data).addTo(map);
+					map.fitBounds(borderLayer.getBounds());
+
 	
-					if(result.data.length > 1) {
+					/*if(result.data.length > 1) {
 						let fullArray = [];
-						let madeUpArray = [1, 2, 3];
 						
 						function swapLatLng(array) { 
 							for(let i = 0; i < array.length; i++) {
@@ -199,7 +207,8 @@
 							swappedArray.push(coords);
 							});
 						};
-						swapLatLng(result.data);
+						
+						swapLatLng(result.data); 
 
 						if(newPoly) {
 							newPoly.remove();
@@ -210,7 +219,7 @@
 							swappedArray
 						]);
 						var mypolygon = newPoly.addTo(map);
-					};
+					};*/
 				}
 			
 			},
@@ -340,7 +349,7 @@
 									console.log("Does")
 								} else {
 									console.log("Doesn't")
-									map.flyTo([result.data.lat, result.data.lng], 6);
+									//map.flyTo([result.data.lat, result.data.lng], 6);
 								};
 		
 								lat = result.data.lat;
