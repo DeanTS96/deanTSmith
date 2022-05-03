@@ -2,6 +2,7 @@
 	let newPoly;
 	let num = 1;
 	let layerGroup;
+	let camLayerGroup;
 	let borderLayer;
 
 	let homeLat = 0;
@@ -310,22 +311,52 @@
 						},
 						success: function(result) {	
 							console.log(JSON.stringify(result));
+
+							var myExtraMarker = L.ExtraMarkers.icon({
+								icon: 'fa-house-crack',
+								markerColor: 'green-dark',
+								shape: 'circle',
+								prefix: 'fa'
+							  });
 								
 							  if(layerGroup) {
 								  map.removeLayer(layerGroup);
 							  };
-
+		
 							  layerGroup = L.layerGroup().addTo(map);
 
-							  let redMarker = L.AwesomeMarkers.icon({
-								icon: 'activity',
-								prefix: 'bi',
-								markerColor: 'green',
-								iconColor: 'white'
-							  }); 
-
 							result.data.forEach(function(earthquake) {							  
-								  layerGroup.addLayer(L.marker([earthquake.lat,earthquake.lng], {icon: redMarker}).bindPopup("<h5>Earthquake</h1>" + "<br>" + "Date & time: " + earthquake.datetime + ". Magnitude: " + earthquake.magnitude + "."));								  								  							 
+								  layerGroup.addLayer(L.marker([earthquake.lat,earthquake.lng], {icon: myExtraMarker}).bindPopup("<h5>Earthquake</h1>" + "<br>" + "Date & time: " + earthquake.datetime + ". Magnitude: " + earthquake.magnitude + "."));								  								  							 
+							});							
+						}
+					});
+
+					$.ajax({
+						url:  "php/getWebcams.php",
+						type: 'POST',
+						dataType: 'json',
+						data: {
+							countryCode: countryCode
+						},
+						success: function(result) {	
+							console.log(JSON.stringify(result));
+							console.log("here", result.data.webcams);
+
+							var myCamExtraMarker = L.ExtraMarkers.icon({
+								icon: 'fa-video',
+								markerColor: 'red',
+								shape: 'square',
+								prefix: 'fa'
+							  });
+								
+							  if(camLayerGroup) {
+								  map.removeLayer(camLayerGroup);
+							  };
+		
+							  camLayerGroup = L.layerGroup().addTo(map);
+
+							result.data.webcams.forEach(function(cam) {							  
+								  camLayerGroup.addLayer(L.marker([cam.location.latitude,cam.location.longitude], {icon: myCamExtraMarker}).bindPopup('<iframe src="' + cam.player.day.embed + '"></iframe>'));								  								  							 
 							});							
 						}
 					});
