@@ -73,6 +73,37 @@
 		}
 	});
 
+	let helloPopup = L.popup().setContent('Hello World!');
+
+	L.easyButton('fa-video', function(btn, map){
+		btn.button.style.backgroundColor = 'yellow';
+		helloPopup.setLatLng(map.getCenter()).openOn(map);
+	}).addTo(map);
+
+	let stateChangingButton = L.easyButton({
+		states: [{
+				stateName: 'zoom-to-forest',        // name the state
+				icon:      'fa-video',          // and define its properties
+				title:     'zoom to a forest',      // like its title
+				onClick: function(btn, map) {       // and its callback
+					map.setView([46.25,-121.8],10);
+					btn.state('zoom-to-school');   
+					btn.button.style.color = 'red'; // change state on click!
+				}
+			}, {
+				stateName: 'zoom-to-school',
+				icon:      'fa-tree',
+				title:     'zoom to a school',
+				onClick: function(btn, map) {
+					map.setView([42.3748204,-71.1161913],16);
+					btn.state('zoom-to-forest');
+					btn.button.style.color = 'blue';
+				}
+		}]
+	});
+	
+	stateChangingButton.addTo(map);
+
 
     navigator.geolocation.getCurrentPosition((position) => {
         lat = position.coords.latitude; 
