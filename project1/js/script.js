@@ -75,35 +75,30 @@
 
 	let helloPopup = L.popup().setContent('Hello World!');
 
-	L.easyButton('fa-video', function(btn, map){
-		btn.button.style.backgroundColor = 'yellow';
+	let countryInfoButton = L.easyButton('fa-circle-info', function(btn, map){
 		helloPopup.setLatLng(map.getCenter()).openOn(map);
 	}).addTo(map);
+	countryInfoButton.button.style = 'color:blue; font-size:2em; height:45px; width:45px; line-height:45px;';
 
-	let stateChangingButton = L.easyButton({
-		states: [{
-				stateName: 'zoom-to-forest',        // name the state
-				icon:      'fa-video',          // and define its properties
-				title:     'zoom to a forest',      // like its title
-				onClick: function(btn, map) {       // and its callback
-					map.setView([46.25,-121.8],10);
-					btn.state('zoom-to-school');   
-					btn.button.style.color = 'red'; // change state on click!
-				}
-			}, {
-				stateName: 'zoom-to-school',
-				icon:      'fa-tree',
-				title:     'zoom to a school',
-				onClick: function(btn, map) {
-					map.setView([42.3748204,-71.1161913],16);
-					btn.state('zoom-to-forest');
-					btn.button.style.color = 'blue';
-				}
-		}]
-	});
-	
-	stateChangingButton.addTo(map);
+	let weatherButton = L.easyButton('fa-cloud-sun', function(btn, map){
+		helloPopup.setLatLng(map.getCenter()).openOn(map);
+	}).addTo(map);
+	weatherButton.button.style = 'color:gray; font-size:2em; height:45px; width:45px; line-height:45px;';
 
+	let covidButton = L.easyButton('fa-virus-covid', function(btn, map){
+		helloPopup.setLatLng(map.getCenter()).openOn(map);
+	}).addTo(map);
+	covidButton.button.style = 'color:green; font-size:2em; height:45px; width:45px; line-height:45px;';
+
+	let holidayButton = L.easyButton('fa-plane-departure', function(btn, map){
+		helloPopup.setLatLng(map.getCenter()).openOn(map);
+	}).addTo(map);
+	holidayButton.button.style = 'color:orange; font-size:2em; height:45px; width:45px; line-height:45px;';
+
+	let newsButton = L.easyButton('fa-newspaper', function(btn, map){
+		helloPopup.setLatLng(map.getCenter()).openOn(map);
+	}).addTo(map);
+	newsButton.button.style = 'color:red; font-size:2em; height:45px; width:45px; line-height:45px;';
 
     navigator.geolocation.getCurrentPosition((position) => {
         lat = position.coords.latitude; 
@@ -274,6 +269,46 @@
 				if (result.status.name == "ok") {
 					wikiLinksResult = result.data;
 					$('#wikiLinks').html("<p>" + wikiLinksResult + "</p>");					
+				}
+			
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				// your error code
+			}
+		});
+
+		$.ajax({
+			url: "php/getCovidStatistics.php",
+			type: 'POST',
+			dataType: 'json',
+			data: {
+				countryCode: countryCode
+			},
+			success: function(result) {
+				console.log(JSON.stringify(result));
+
+				if (result.status.name == "ok") {
+					console.log(result.data, "Covid")				
+				}
+			
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				// your error code
+			}
+		});
+
+		$.ajax({
+			url: "php/getPublicHolidays.php",
+			type: 'POST',
+			dataType: 'json',
+			data: {
+				countryCode: countryCode
+			},
+			success: function(result) {
+				console.log(JSON.stringify(result));
+
+				if (result.status.name == "ok") {
+					console.log(result.data, "PublicHolidays")				
 				}
 			
 			},

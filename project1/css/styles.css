@@ -3,18 +3,23 @@ html, body{
 }
 
 nav {
-    margin-left: 50px;
+    margin-left: 100px;
     width: 20%;
     z-index: 2;
     position: fixed;
     font-size: 1.5em;
+    margin-top: 10px;
 }
 
 select, button{
-
     z-index: 2;
-    background-color: lightgray;
-    border-radius: 20px;
+    border-radius: 5px;
+    position: relative;
+}
+
+select{
+    border-width:2px;
+    border-color: gray;
 }
 
 option{
