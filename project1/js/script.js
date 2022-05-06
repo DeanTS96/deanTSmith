@@ -4,6 +4,7 @@
 	let layerGroup;
 	let camLayerGroup;
 	let borderLayer;
+	let capitalMarker;
 
 	let homeLat = 0;
 	let homeLng = 0;
@@ -277,6 +278,7 @@
 			}
 		});
 
+
 		$.ajax({
 			url: "php/getCovidStatistics.php",
 			type: 'POST',
@@ -297,6 +299,7 @@
 			}
 		});
 
+
 		$.ajax({
 			url: "php/getPublicHolidays.php",
 			type: 'POST',
@@ -316,7 +319,27 @@
 				// your error code
 			}
 		});
-	
+
+
+		$.ajax({
+			url: "php/getNews.php",
+			type: 'POST',
+			dataType: 'json',
+			data: {
+				countryCode: countryCode
+			},
+			success: function(result) {
+				console.log(JSON.stringify(result));
+
+				if (result.status.name == "ok") {
+					console.log(result.data, "NEWS")				
+				}
+			
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				// your error code
+			}
+		});
 		
 	
 		$.ajax({
@@ -331,6 +354,40 @@
 				console.log(JSON.stringify(result));
 	
 				if (result.status.name == "ok") {
+
+					$.ajax({
+						url: "php/getCapital.php",
+						type: 'POST',
+						dataType: 'json',
+						data: {
+							capital: result.data[0].capital
+						},
+						success: function(result) {
+							console.log(JSON.stringify(result));
+			
+							if (result.status.name == "ok") {
+								console.log(result.data, "capital")	
+								
+								var capitalExtraMarker = L.ExtraMarkers.icon({
+									icon: 'fa-landmark-dome',
+									markerColor: 'orange',
+									shape: 'star',
+									prefix: 'fa'
+								  });
+									
+								  if(capitalMarker) {
+									  map.removeLayer(capitalMarker);
+								  };
+
+								  capitalMarker = L.marker([result.data.latitude, result.data.longitude], {icon: capitalExtraMarker}).bindPopup("Capital").addTo(map);				 							
+
+							}
+						
+						},
+						error: function(jqXHR, textStatus, errorThrown) {
+							// your error code
+						}
+					});
 
 					countryInfoResult = result.data[0];
 					currency = result.data[0].currencyCode;
