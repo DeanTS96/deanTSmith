@@ -74,33 +74,6 @@
 		}
 	});
 
-	let helloPopup = L.popup().setContent('Hello World!');
-
-	let countryInfoButton = L.easyButton('fa-circle-info', function(btn, map){
-		helloPopup.setLatLng(map.getCenter()).openOn(map);
-	}).addTo(map);
-	countryInfoButton.button.style = 'color:blue; font-size:2em; height:45px; width:45px; line-height:45px;';
-
-	let weatherButton = L.easyButton('fa-cloud-sun', function(btn, map){
-		helloPopup.setLatLng(map.getCenter()).openOn(map);
-	}).addTo(map);
-	weatherButton.button.style = 'color:gray; font-size:2em; height:45px; width:45px; line-height:45px;';
-
-	let covidButton = L.easyButton('fa-virus-covid', function(btn, map){
-		helloPopup.setLatLng(map.getCenter()).openOn(map);
-	}).addTo(map);
-	covidButton.button.style = 'color:green; font-size:2em; height:45px; width:45px; line-height:45px;';
-
-	let holidayButton = L.easyButton('fa-plane-departure', function(btn, map){
-		helloPopup.setLatLng(map.getCenter()).openOn(map);
-	}).addTo(map);
-	holidayButton.button.style = 'color:orange; font-size:2em; height:45px; width:45px; line-height:45px;';
-
-	let newsButton = L.easyButton('fa-newspaper', function(btn, map){
-		helloPopup.setLatLng(map.getCenter()).openOn(map);
-	}).addTo(map);
-	newsButton.button.style = 'color:red; font-size:2em; height:45px; width:45px; line-height:45px;';
-
     navigator.geolocation.getCurrentPosition((position) => {
         lat = position.coords.latitude; 
 		homeLat = position.coords.latitude;
@@ -292,6 +265,17 @@
 				if (result.status.name == "ok") {
 					console.log(result.data, "Covid")				
 				}
+
+				$('#active').html(result.data.active.toLocaleString());
+				$('#activePerM').html(result.data.activePerOneMillion.toLocaleString());
+				$('#cases').html(result.data.cases.toLocaleString());
+				$('#casesPerM').html(result.data.casesPerOneMillion.toLocaleString());
+				$('#deaths').html(result.data.deaths.toLocaleString());
+				$('#deathsPerM').html(result.data.deathsPerOneMillion.toLocaleString());
+				$('#covidPopulation').html(result.data.population.toLocaleString());
+				$('#recovered').html(result.data.recovered.toLocaleString());
+				$('#tests').html(result.data.tests.toLocaleString());
+
 			
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
@@ -311,7 +295,8 @@
 				console.log(JSON.stringify(result));
 
 				if (result.status.name == "ok") {
-					console.log(result.data, "PublicHolidays")				
+					console.log(result.data, "PublicHolidays")	
+					
 				}
 			
 			},
@@ -332,8 +317,50 @@
 				console.log(JSON.stringify(result));
 
 				if (result.status.name == "ok") {
-					console.log(result.data, "NEWS")				
+					console.log(result.data, "NEWS")	
+
+				/*	if(result.data.totalResults < 1) {
+						console.log("wrong");
+
+					} 
+					
+					else {
+						$('#title1').html(result.data.articles[0].title);
+						if(result.data.articles[0].description){
+							$('#newsContent1').html(result.data.articles[0].description);
+						} else{
+							$('#newsContent1').html(result.data.articles[0].content);
+						}
+						$('#author1').html(result.data.articles[0].author);
+						$('#source1').html(result.data.articles[0].source.name);
+						$('#news1pic').attr("src",result.data.articles[0].urlToImage);
+						$('#newsLink1').attr("href",result.data.articles[0].url);
+		
+						$('#title2').html(result.data.articles[1].title);
+						if(result.data.articles[1].description){
+							$('#newsContent2').html(result.data.articles[1].description);
+						} else{
+							$('#newsContent2').html(result.data.articles[1].content);
+						}
+						$('#author2').html(result.data.articles[1].author);
+						$('#source2').html(result.data.articles[1].source.name);
+						$('#news2pic').attr("src",result.data.articles[1].urlToImage);
+						$('#newsLink2').attr("href",result.data.articles[1].url);
+	
+						$('#title3').html(result.data.articles[2].title);
+						if(result.data.articles[2].description){
+							$('#newsContent3').html(result.data.articles[2].description);
+						} else{
+							$('#newsContent3').html(result.data.articles[2].content);
+						}
+						$('#author3').html(result.data.articles[2].author);
+						$('#source3').html(result.data.articles[2].source.name);
+						$('#news3pic').attr("src",result.data.articles[2].urlToImage);
+						$('#newsLink3').attr("href",result.data.articles[2].url);
+					}
+					*/			
 				}
+
 			
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
@@ -523,7 +550,34 @@
 						
 										if (result.status.name == "ok") {
 
-											let weatherDescription;
+											//console.log("thingyTime", Date.parse(result.data.daily[1].dt));
+											console.log("beforeParse", new Date((JSON.parse(result.data.current.dt) - 3600 + result.data.timezone_offset)*1000));
+
+											$('#todayTemp').html(Math.round(result.data.current.temp) + "<sup>o</sup>");
+											$('#windSpeed').html(Math.round(result.data.current.wind_speed) + "<sup> mph</sup>");
+											$('#weatherDescription').html(result.data.current.weather[0].description);
+
+
+											$('#day1').html(new Date((result.data.daily[1].dt)*1000).toDateString().split(" ")[0]);
+											$('#temp1').html(Math.round(result.data.daily[1].temp.day) + "<sup>o</sup>");
+
+											$('#day2').html(new Date((result.data.daily[2].dt)*1000).toDateString().split(" ")[0]);
+											$('#temp2').html(Math.round(result.data.daily[2].temp.day) + "<sup>o</sup>");
+
+											$('#day3').html(new Date((result.data.daily[3].dt)*1000).toDateString().split(" ")[0]);
+											$('#temp3').html(Math.round(result.data.daily[3].temp.day) + "<sup>o</sup>");
+
+											$('#day4').html(new Date((result.data.daily[4].dt)*1000).toDateString().split(" ")[0]);
+											$('#temp4').html(Math.round(result.data.daily[4].temp.day) + "<sup>o</sup>");
+
+											$('#day5').html(new Date((result.data.daily[5].dt)*1000).toDateString().split(" ")[0]);
+											$('#temp5').html(Math.round(result.data.daily[5].temp.day) + "<sup>o</sup>");
+
+											$('#day6').html(new Date((result.data.daily[6].dt)*1000).toDateString().split(" ")[0]);
+											$('#temp6').html(Math.round(result.data.daily[6].temp.day) + "<sup>o</sup>");
+											
+
+											/*let weatherDescription;
 											let cloudy = 'cloudy';
 											let scatteredClouds = 'some clouds';								
 		
@@ -606,10 +660,8 @@
 												weatherDescription = result.data.daily[6].weather[0].description;
 											}
 											$('#day6Weather').html(weatherDescription);
+
 											
-
-
-
 
 											let date = JSON.parse(result.data.current.dt);
 
@@ -686,6 +738,9 @@
 											let finalDateTime = arrayDate[0] + " " + arrayDate[1] + " " + arrayDate[2] + " " + arrayDate[3] + " " + resultTime;
 											
 											$('#dateTime').html('<p>' + finalDateTime + '</p>');
+
+											console.log("mytester", finalDateTime);
+											*/
 										}
 									
 									},
@@ -711,16 +766,88 @@
 				// your error code
 			}
 		}); 
+	});
 
-		$("#contentBox").show();
 	
-	});
 
-	$("#h5Button").click(function() { 
-		$("#contentBox").hide();
-		$("#button").show();
-	});
+	
 
-	$("#button").click(function() { 
-		$("#contentBox").show();
-	});
+	let helloPopup = L.popup().setContent('Hello World!');
+
+	let countryInfoButton = L.easyButton('fa-circle-info', function(btn, map){
+		let tableId = document.getElementById("infoTable");
+		if (tableId.style.display === "block") {
+			tableId.style.display = "none";
+		  } else {
+			document.getElementById("weatherCard").style.display = "none";
+			document.getElementById("covidTable").style.display = "none";
+			document.getElementById("newsBox").style.display = "none";
+			document.getElementById("publicHolidayCarousel").style.display = "none";
+			tableId.style.display = "block";
+		  }
+	}).addTo(map);
+	countryInfoButton.button.style = 'color:blue; font-size:2em; height:45px; width:45px; line-height:45px;';
+
+
+	let weatherButton = L.easyButton('fa-cloud-sun', function(btn, map){
+		let weatherId = document.getElementById("weatherCard");
+		if (weatherId.style.display === "block") {
+			weatherId.style.display = "none";
+		  } else {
+			document.getElementById("infoTable").style.display = "none";
+			document.getElementById("newsBox").style.display = "none";
+			document.getElementById("publicHolidayCarousel").style.display = "none";
+			document.getElementById("covidTable").style.display = "none";
+			weatherId.style.display = "block";
+		  }
+	}).addTo(map);
+	weatherButton.button.style = 'color:gray; font-size:2em; height:45px; width:45px; line-height:45px;';
+
+
+	let covidButton = L.easyButton('fa-virus-covid', function(btn, map){
+		let tableId = document.getElementById("covidTable");
+		if (tableId.style.display === "block") {
+			tableId.style.display = "none";
+		  } else {
+			document.getElementById("weatherCard").style.display = "none";
+			document.getElementById("infoTable").style.display = "none";
+			document.getElementById("newsBox").style.display = "none";
+			document.getElementById("publicHolidayCarousel").style.display = "none";
+			tableId.style.display = "block";
+		  }
+	}).addTo(map);
+	covidButton.button.style = 'color:green; font-size:2em; height:45px; width:45px; line-height:45px;';
+
+
+	let holidayButton = L.easyButton('fa-plane-departure', function(btn, map){
+		let carouselId = document.getElementById("publicHolidayCarousel");
+		if (carouselId.style.display === "block") {
+			carouselId.style.display = "none";
+		  } else {
+			document.getElementById("weatherCard").style.display = "none";
+			document.getElementById("infoTable").style.display = "none";
+			document.getElementById("covidTable").style.display = "none";
+			document.getElementById("newsBox").style.display = "none";
+			carouselId.style.display = "block";
+		  }
+	}).addTo(map);
+	holidayButton.button.style = 'color:orange; font-size:2em; height:45px; width:45px; line-height:45px;';
+
+
+	let newsButton = L.easyButton('fa-newspaper', function(btn, map){
+		let newsId = document.getElementById("newsBox");
+		if (newsId.style.display === "block") {
+			newsId.style.display = "none";
+		  } else {
+			document.getElementById("weatherCard").style.display = "none";
+			document.getElementById("infoTable").style.display = "none";
+			document.getElementById("covidTable").style.display = "none";
+			document.getElementById("publicHolidayCarousel").style.display = "none";
+			newsId.style.display = "block";
+		  }
+	}).addTo(map);
+	newsButton.button.style = 'color:red; font-size:2em; height:45px; width:45px; line-height:45px;';
+
+
+
+	console.log("time", Date.today());

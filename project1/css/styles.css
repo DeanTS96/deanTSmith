@@ -38,21 +38,275 @@ option{
 }
 
 
-#contentBox {
-    max-width: 849px;
-    font-size: 1em;
-	position: absolute;
-	z-index: 2;
-    top: 10%;
+.buttonPopup{
+    display: none;
+    position: absolute; 
+    top: 25%;
     right: 25%;
-    left: 30%;
+    left: 40%;
+	z-index: 2;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: white;
+    max-width: 400px;
+    min-width: 189px;
+    max-height: 550px;
+
+
+    /*max-width: 849px;
+    font-size: 1em;
     display: flex;
     align-items: center;
-    justify-content: center;
-    background-color: gray !important;
+    justify-content: center;*/
 }
 
-table{
+
+#newsContainer{
+    overflow-y: scroll;
+    max-height: 480px;
+    padding-bottom: 5px;
+}
+
+h1{
+    padding-top: 10px;
+}
+
+#covidTableHead{
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: rgb(4, 165, 4);
+}
+
+#infoTableHead{
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: rgb(0, 81, 255);
+}
+
+.infoIcon{
+    padding-right: 5px;
+    color: rgb(0, 81, 255);
+}
+
+.covidIcon{
+    padding-right: 5px;
+    color: rgb(4, 165, 4);
+}
+
+.covidStat{
+    text-align: right;
+}
+
+#weatherCard{
+    background-color: silver;
+}
+
+.weatherContent{
+    margin-top: 12px;
+    margin-bottom: 12px;
+    background-image: url(../images/clearSky.jpg);
+    padding-top: 12px;
+    padding-bottom: 12px;
+
+}
+
+#mainWeather{
+
+    padding-left: 20px;
+    height: 200px;
+    display: flex;
+    flex-direction: row;
+}
+
+#windContainer{
+    display: flex;
+    flex-direction: row;
+}
+
+.followingWeather{
+    height: 200px;
+
+}
+
+.weather3S{
+    height: 50%;
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+#top3{
+    padding-top: 8px;
+}
+
+#bot3{
+    padding-bottom: 8px;
+}
+
+
+.predictedWeather{
+    flex-grow: 1;
+    border: solid silver 1px;
+    margin: 8px;
+}
+
+.predictedTemp{
+    display: inline;
+}
+
+
+#sunIcon{
+    font-size: 3em;
+    color: yellow;
+    padding-top: 10px;
+}
+
+#windIcon{
+    font-size: 2em;
+    color: lightgray
+}
+
+#windContainer{
+    padding-top: 20px;
+    height: 50%;
+
+}
+
+#weatherDescription{
+    height: 50%;
+}
+
+#todayTemp{
+    padding-top: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 2em;    
+}
+
+#windSpeed{
+    padding-left: 5px;
+    display: inline;
+    font-size: 1.5em;
+}
+
+
+
+#newsHead{
+
+    width: 100%;
+    background-color: red;
+    font-size: 2em;
+    text-align: center;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+img{
+    width: 90%;
+    max-width: 300px;
+    height: auto;
+}
+
+h1{
+    font-size: 1.5em;
+}
+
+#singleLine{
+    width: 80%;
+    border-top: 1px solid black; 
+    margin: auto;
+    padding-bottom: 10px;
+}
+
+.carousel-item{
+    height: 400px;
+    background: #777;
+    color: white;
+    position: relative;
+}
+
+.testContainer{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding-top: 50px;
+}
+
+#test{
+    height: 500px;
+    width: 500px;
+    z-index: 2;
+    left:0;
+    top:25%;
+    bottom: 0;
+    right: 0;
+    background-color: gray;
+    position: absolute;
+}
+
+@media only screen and (max-width: 1100px) {
+    .buttonPopup{
+        left: 25%;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*table{
     background-color: white;
     
 }
@@ -99,10 +353,6 @@ table{
     font-size: 1em;
     padding-left: 10%;
     padding-right: 10%;
-}
-
-tr{
-    background-image: url(../images/clearSky.jpg);
 }
 
 #weather{
@@ -168,10 +418,6 @@ tr{
 .allDayTemp{
     height:50%;
     width: 50%;
-}
-
-#contentBox{
-    background-color: white;
 }
 
 tbody{
@@ -282,38 +528,8 @@ tr{
     background-color: yellow;
 }
 
-
-
-@media only screen and (max-width: 1225px) {
-    #contentBox{
-        right: 0%;
-        left: 30%;
-        max-width: 402px;
-    }
-
-    .forcastBox{
-        width: 119px;
-        height: 183px;   
-        margin-top: 4px; 
-    }
-
-
-  }
+*/
   
-
-@media only screen and (max-width: 600px) {
-    #contentBox{
-        left: 10%;
-        
-    }
-  }
-
-  @media only screen and (max-width: 481px) {
-    #contentBox{
-        left: 10%;
-        max-width: 283px;
-    }
-  }
   
 
 

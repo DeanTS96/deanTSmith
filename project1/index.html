@@ -11,8 +11,8 @@
             <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
             <link rel="manifest" href="favicon_io/site.webmanifest">
 
-            <link rel="stylesheet" href="leaflet/leaflet.css"/>
             <link rel="stylesheet" href="bootstrap-5.1.3-dist/css/bootstrap.min.css"/>
+            <link rel="stylesheet" href="leaflet/leaflet.css"/>
             <link rel="stylesheet" href="icons-1.8.1/font/bootstrap-icons.css">
             <link rel="stylesheet" href="fontawesome-free-6.1.1-web/fontawesome-free-6.1.1-web/css/all.css">
             <link rel="stylesheet" href="Leaflet.awesome-markers-2.0.2/dist/leaflet.awesome-markers.css"/>
@@ -27,18 +27,307 @@
                 <select id="countries" class="navItem">
                     <option>Select country</option>
                 </select>
-                <button id="button" class="navItem">Show Info</button>
+                
             </nav>
             <div class="container"></div>
             <div id="fakeDiv">
                 <div id="map"></div>
-                <div id="contentBox" class="modal-content">
+
+                  <div id="covidTable" class="buttonPopup" display="none">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                              <th scope="col" colspan="2" id="covidTableHead">Covid statistics</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                               <td><i class="covidIcon fa-solid fa-hospital-user"></i>Active cases</td>
+                               <td id="active" class="covidStat"></td>
+                            </tr>
+                            <tr>
+                               <td><i class="covidIcon fa-solid fa-hospital-user"></i>Active cases per million</td>
+                               <td id="activePerM" class="covidStat"></td>
+                            </tr>
+                            <tr>
+                               <td><i class="covidIcon fa-solid fa-file-lines"></i>Total cases</td>
+                               <td id="cases" class="covidStat"></td>
+                            </tr>
+                            <tr>
+                                <td><i class="covidIcon fa-solid fa-file-lines"></i>Total cases per million</td>
+                                <td id="casesPerM"class="covidStat"></td>
+                              </tr>
+                              <tr>
+                                <td><i class="covidIcon fa-solid fa-skull-crossbones"></i>Total deaths</td>
+                                <td id="deaths" class="covidStat"></td>
+                              </tr>
+                              <tr>
+                                <td><i class="covidIcon fa-solid fa-skull-crossbones"></i>Deaths per one million</td>
+                                <td id="deathsPerM" class="covidStat"></td>
+                              </tr>
+                              <tr>
+                                <td><i class="covidIcon fa-solid fa-people-group"></i>Poulation</td>
+                                <td id="covidPopulation" class="covidStat"></td>
+                              </tr>
+                              <tr>
+                                <td><i class="covidIcon fa-solid fa-house-medical-circle-check"></i>Total recovered</td>
+                                <td id="recovered" class="covidStat"></td>
+                              </tr>
+                              <tr>
+                                <td><i class="covidIcon fa-solid fa-flask-vial"></i>Total tests taken</td>
+                                <td id="tests" class="covidStat"></td>
+                              </tr>
+                          </tbody>
+                      </table>
+                  </div>
+
+                  <div id="infoTable" class="buttonPopup" display="none">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                              <th scope="col" colspan="2" id="infoTableHead">Country info</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                               <td><i class="infoIcon fa-solid fa-hospital-user"></i>Capital city</td>
+                               <td id="capital" class="covidStat"></td>
+                            </tr>
+                            <tr>
+                               <td><i class="infoIcon fa-solid fa-hospital-user"></i>Continent</td>
+                               <td id="continent" class="covidStat"></td>
+                            </tr>
+                            <tr>
+                               <td><i class="infoIcon fa-solid fa-file-lines"></i>Spoken languages</td>
+                               <td id="languages" class="covidStat"></td>
+                            </tr>
+                            <tr>
+                                <td><i class="infoIcon fa-solid fa-file-lines"></i>Total population</td>
+                                <td id="population"class="covidStat"></td>
+                              </tr>
+                              <tr>
+                                <td><i class="infoIcon fa-solid fa-skull-crossbones"></i>Land area<sup>SqKm</sup></td>
+                                <td id="area" class="covidStat"></td>
+                              </tr>
+                              <tr>
+                                <td><i class="infoIcon fa-solid fa-skull-crossbones"></i>Currency</td>
+                                <td id="currency" class="covidStat"></td>
+                              </tr>
+                              <tr>
+                                <td><i class="infoIcon fa-solid fa-people-group"></i>Fips code</td>
+                                <td id="fipsCode" class="covidStat"></td>
+                              </tr>
+                              <tr>
+                                <td><i class="infoIcon fa-solid fa-house-medical-circle-check"></i>Country code</td>
+                                <td id="countryCode" class="covidStat"></td>
+                              </tr>
+                          </tbody>
+                      </table>
+                  </div>
+
+                  <div>
+                      <div id="newsBox" class="buttonPopup newsPopup" display="none">
+
+                            <div id="headDiv"><p id="newsHead">News</p></div>
+
+                            <div id="newsContainer">
+
+                                <div id="news1" class="container">
+                                    <h1 id="title1"></h1>
+                                    <p id="newsContent1"></p>
+                                    <a id="newsLink1" href="" target="_blank"><img id="news1pic" src=""></a>
+                                    <div id="foot1">
+                                        <p id="author1"></p>
+                                        <p id="source1"></p>
+                                    </div>
+                                </div>
+
+                                <div id="singleLine"></div>
+
+                                <div id="news2" class="container">
+                                    <h1 id="title2"></h1>
+                                    <p id="newsContent2"></p>
+                                    <a id="newsLink2" href="" target="_blank"><img id="news2pic" src=""></a>
+                                    <div id="foot2">
+                                        <p id="sourc2"></p>
+                                        <p id="author2"></p>
+                                    </div>
+                                </div>
+
+                                <div id="singleLine"></div>
+
+                                <div id="news3" class="container">
+                                    <h1 id="title3"></h1>
+                                    <p id="newsContent3"></p>
+                                    <a id="newsLink3" href="" target="_blank"><img id="news3pic" src=""></a>
+                                    <div id="foot3">
+                                        <p id="source3"></p>
+                                        <p id="author3"></p>
+                                    </div>
+                                </div>
+
+                            </div>
+                      </div>
+                  </div>
+
+                  <div id="publicHolidayCarousel" class="buttonPopup" display="none">
+                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                          <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                        </ol>
+                        <div class="carousel-inner">
+                          <div class="carousel-item active">
+                            <h1>hi</h1>
+                          </div>
+                          <div class="carousel-item">
+                            <h1>hello</h1>
+                          </div>
+                          <div class="carousel-item">
+                            <h1>bye</h1>
+                          </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                          <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                          <span class="sr-only">Next</span>
+                        </a>
+                      </div>            
+                  </div>
+
+                  <!--<div id="test" class="container">
+                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                          <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                        </ol>
+                        <div class="carousel-inner">
+                          <div class="carousel-item active">
+                              <div class="container textContainer">
+                                  <h1>test headline</h1>
+                                  <p>test text</p>
+                                  <a href="#" class="btn btn-lg btn-primary">
+                                      test button one
+                                  </a>
+                              </div>
+                            
+                          </div>
+                          <div class="carousel-item">
+                            <div class="container textContainer">
+                                <h1>ooooooo</h1>
+                                <p>oooo</p>
+                                <a href="#" class="btn btn-lg btn-primary">
+                                   oo
+                                </a>
+                            </div>
+                          </div>
+                          <div class="carousel-item">
+                            <div class="container textContainer">
+                                <h1>wwwwwwwww</h1>
+                                <p>wwwww</p>
+                                <a href="#" class="btn btn-lg btn-primary">
+                                   ww
+                                </a>
+                            </div>
+                          </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                          <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                          <span class="sr-only">Next</span>
+                        </a>
+                      </div>
+                  </div>-->
+
+                 <div id="weatherCard" class="buttonPopup" display="none">
+                    <div class="container">
+                        <div class="weatherContent">
+                            <div id="mainWeather">
+                                <div id="sunIcon"><i id="sunIcon" class="fa-regular fa-sun"></i></div>
+                                <div id="todayTemp"></div>
+                                <div id="windAndDescription">
+                                    <div id="windContainer">
+                                    </div>
+                                    <div><i id="windIcon" class="fa-solid fa-wind"></i> <div id="windSpeed"></div> </div>
+                                    <div id="weatherDescription"></div>
+                                </div>
+                            </div>
+                            <div class="followingWeather">
+                                <div id="top3" class="weather3S">
+                                    <div id="weather1" class="predictedWeather">
+                                        <p id="day1"></p>
+                                        <div>
+                                            <i class="fa-solid fa-temperature-half"></i>
+                                            <p id="temp1" class="predictedTemp"></p>
+                                        </div>
+                                    </div>
+                                    <div id="weather2" class="predictedWeather">
+                                        <p id="day2"></p>
+                                        <div>
+                                            <i class="fa-solid fa-temperature-half"></i>
+                                            <p id="temp2" class="predictedTemp"></p>
+                                        </div>
+                                    </div>
+                                    <div id="weather3" class="predictedWeather">
+                                        <p id="day3"></p>
+                                        <div>
+                                            <i class="fa-solid fa-temperature-half"></i>
+                                            <p id="temp3" class="predictedTemp"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="bot3" class="weather3S">
+                                    <div id="weather4" class="predictedWeather">
+                                        <p id="day4"></p>
+                                        <div>
+                                            <i class="fa-solid fa-temperature-half"></i>
+                                            <p id="temp4" class="predictedTemp"></p>
+                                        </div>
+                                    </div>
+                                    <div id="weather5" class="predictedWeather">
+                                        <p id="day5"></p>
+                                        <div>
+                                            <i class="fa-solid fa-temperature-half"></i>
+                                            <p id="temp5" class="predictedTemp"></p>
+                                        </div>
+                                    </div>
+                                    <div id="weather6" class="predictedWeather">
+                                        <p id="day6"></p>
+                                        <div>
+                                            <i class="fa-solid fa-temperature-half"></i>
+                                            <p id="temp6" class="predictedTemp"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+
+
+                    <!--
                     <div class="modal-header">
                         <h5 class="modal-title">Country Info</h5>
                         <button id="h5Button" type="button" class="btn-close"></button>
                     </div>
                     <div class="modal-body">
-                    <table >  
+                   
+                   
+                        <table >  
                         <tr id="topCell">
                             <td id="wikiLinks" colspan="2"></td>
                         </tr>
@@ -47,6 +336,7 @@
 
                                 <div id="capICon" class="iconContainer td1">
                                     <div class="icon">
+                                        <i class="fa fa-video"></i>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-building" viewBox="0 0 16 16">
                                             <path fill-rule="evenodd" d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 
                                             1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022zM6 8.694 1 10.36V15h5V8.694zM7 15h2v-1.5a.5.5 0 0 
@@ -342,19 +632,19 @@
                         
                         </tr>
                     </table>
-                </div>
-                </div>
+                -->
             </div> 
             <script type="text/javascript" src="js/jquery-2.2.3.min.js"></script>    
-            
+  
+            <script src="bootstrap-5.1.3-dist/js/bootstrap.min.js"></script>
             <script src="leaflet/leaflet.js"></script>
             <script src="js/leaflet-providers.js"></script>
             <script src="Leaflet.awesome-markers-2.0.2/dist/leaflet.awesome-markers.js"></script>
             <!--<script src="Leaflet.ExtraMarkers-1.0.5 (1)/Leaflet.ExtraMarkers-1.0.5/dist/js/leaflet.extra-markers.min.js"></script>-->
             <script src="extraMarkers/leaflet.extra-markers.min.js"></script>
-            <script src="bootstrap-5.1.3-dist/js/bootstrap.min.js"></script>
             <script src="src/easy-button.js"></script>
-
+            <script type="text/javascript" src="Datejs-master/build/date-cy-GB.js"></script>
+            
             <script type="text/javascript" src="js/script.js"></script>
         </body>
         <footer>

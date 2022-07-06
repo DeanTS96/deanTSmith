@@ -5,8 +5,10 @@
 
 	$executionStartTime = microtime(true);
 
-	//$url='https://holidayapi.com/v1/holidays?pretty&key=7cff76c3-4aea-449b-b8dd-414f2fb3521e&country='.$_REQUEST['countryCode'].'&year=2021';
-	$url='https://newsapi.org/v2/top-headlines?country=GB&apiKey=4f8ccd8433534765a5976445526d92e0';
+	$url='https://newsapi.org/v2/top-headlines?country='.$_REQUEST['countryCode'].'&apiKey=4f8ccd8433534765a5976445526d92e0';
+	//$url='https://newsapi.org/v2/top-headlines?country=GB&apiKey=4f8ccd8433534765a5976445526d92e0';
+	//$url='https://newsapi.org/v2/top-headlines?country=US&apiKey=4f8ccd8433534765a5976445526d92e0';
+	//$URL='https://newsapi.org/v2/top-headlines?country=us&apiKey=4f8ccd8433534765a5976445526d92e0';
 
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
