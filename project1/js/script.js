@@ -295,8 +295,49 @@
 				console.log(JSON.stringify(result));
 
 				if (result.status.name == "ok") {
-					console.log(result.data, "PublicHolidays")	
-					
+					console.log(result.data.holidays[0].name, "PublicHolidays")	
+
+					console.log(Date.parse("2021-02-14").toString("dS"));
+					let gregorianDate = Date.parse("2021-02-14");
+					console.log(new Date());
+					console.log(gregorianDate.getMonth());
+					//console.log(Date.parse("2021-02-14").toLongDateString());
+
+					let carouselCount = 0;
+					const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+					result.data.holidays.forEach(holiday => {
+
+						$("#carouselIndicators").append("<button></button>");
+						$("#carouselIndicators").children().last().attr({
+							"data-bs-target" : "#carouselExampleIndicators",
+							"data-bs-slide-to" : carouselCount,
+							"aria-label" : carouselCount + 1
+						});
+
+						carouselCount += 1;
+
+						let carouselDate = Date.parse(holiday.date).toString("MM dS").split(" ");
+						let monthNumber = Number(carouselDate[0]);
+
+
+						$("#carouselInner").append("<div><h1>" + holiday.name + "</h1><br><p>" + holiday.weekday.date.name + "<sup>" 
+							+ carouselDate[1] + "</sup>" + " in " + months[monthNumber-1] + "</p></div>")
+						$("#carouselInner").children().last().attr({
+							"class" : "carousel-item"
+						});
+						
+					});
+
+					$("#carouselIndicators").children().first().attr({
+						"class" : "active",
+						"aria-current" : "true"
+					});
+					$("#carouselInner").children().first().attr({
+						"class" : "carousel-item active",
+						"id" : "carouselItem"
+					});
+
 				}
 			
 			},

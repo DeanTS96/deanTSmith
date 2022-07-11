@@ -60,6 +60,36 @@ option{
     justify-content: center;*/
 }
 
+#publicHolidayCarousel{
+    background-image: url(../images/clearSky.jpg);
+}
+
+#carouselExampleIndicators{
+    border-radius: 25px;
+}
+
+
+.carousel-inner .carousel-item{
+    border-radius: 10px;
+    background-color: red;
+    height: 200px;
+    width: 250px;
+    padding: 20px;
+    margin: 40px;
+}
+
+#carouselInner{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.carousel-item{
+    height: auto;
+    margin: 0 auto;
+}
+
+
 
 #newsContainer{
     overflow-y: scroll;
