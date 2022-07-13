@@ -13,6 +13,7 @@
 	let currentCountry;
 	let country;
 	let countryWithoutSpaces;
+	let capitalCity;
 
 	let countryInfoResult;
 	let wikiLinksResult;
@@ -297,11 +298,16 @@
 				if (result.status.name == "ok") {
 					console.log(result.data.holidays[0].name, "PublicHolidays")	
 
+					$("#carouselIndicators").empty();
+					$("#carouselInner").empty();
+
 					console.log(Date.parse("2021-02-14").toString("dS"));
 					let gregorianDate = Date.parse("2021-02-14");
 					console.log(new Date());
 					console.log(gregorianDate.getMonth());
 					//console.log(Date.parse("2021-02-14").toLongDateString());
+
+					console.log("earthquake", Date.parse("2011-01-03").toString());
 
 					let carouselCount = 0;
 					const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
@@ -318,11 +324,12 @@
 						carouselCount += 1;
 
 						let carouselDate = Date.parse(holiday.date).toString("MM dS").split(" ");
+						console.log("checkDate", carouselDate);
 						let monthNumber = Number(carouselDate[0]);
 
 
-						$("#carouselInner").append("<div><h1>" + holiday.name + "</h1><br><p>" + holiday.weekday.date.name + "<sup>" 
-							+ carouselDate[1] + "</sup>" + " in " + months[monthNumber-1] + "</p></div>")
+						$("#carouselInner").append("<div><h1>" + holiday.name + "</h1><br><p>" + months[monthNumber-1] + ", " + holiday.weekday.date.name + "<sup>" 
+							+ carouselDate[1] + "</sup>" + "</p></div>")
 						$("#carouselInner").children().last().attr({
 							"class" : "carousel-item"
 						});
@@ -358,48 +365,46 @@
 				console.log(JSON.stringify(result));
 
 				if (result.status.name == "ok") {
-					console.log(result.data, "NEWS")	
+					console.log(result.data.data[0], "NEWS")	
 
-				/*	if(result.data.totalResults < 1) {
+					$("#news1").attr("style", "display: block;");
+					$("#news2").attr("style", "display: block;");
+					$("#news3").attr("style", "display: block;");
+
+					if(result.data.pagination.count < 3) {
 						console.log("wrong");
+						$("#news3").attr("style", "display: none;");
 
-					} 
-					
-					else {
-						$('#title1').html(result.data.articles[0].title);
-						if(result.data.articles[0].description){
-							$('#newsContent1').html(result.data.articles[0].description);
-						} else{
-							$('#newsContent1').html(result.data.articles[0].content);
+						if(result.data.pagination.count < 2) {
+							$("#news2").attr("style", "display: none;");
 						}
-						$('#author1').html(result.data.articles[0].author);
-						$('#source1').html(result.data.articles[0].source.name);
-						$('#news1pic').attr("src",result.data.articles[0].urlToImage);
-						$('#newsLink1').attr("href",result.data.articles[0].url);
+						if(result.data.pagination.count < 1) {
+							$("#news2").attr("style", "display: none;");
+						}
+
+					};
+
+						$('#title1').html(result.data.data[0].title);
+						$('#newsContent1').html(result.data.data[0].description);
+						$('#author1').html(result.data.data[0].author);
+						$('#source1').html(result.data.data[0].source);
+						$('#news1pic').attr("src",result.data.data[0].image);
+						$('#newsLink1').attr("href",result.data.data[0].url);
 		
-						$('#title2').html(result.data.articles[1].title);
-						if(result.data.articles[1].description){
-							$('#newsContent2').html(result.data.articles[1].description);
-						} else{
-							$('#newsContent2').html(result.data.articles[1].content);
-						}
-						$('#author2').html(result.data.articles[1].author);
-						$('#source2').html(result.data.articles[1].source.name);
-						$('#news2pic').attr("src",result.data.articles[1].urlToImage);
-						$('#newsLink2').attr("href",result.data.articles[1].url);
+						$('#title2').html(result.data.data[1].title);
+						$('#newsContent2').html(result.data.data[1].description);
+						$('#author2').html(result.data.data[1].author);
+						$('#source2').html(result.data.data[1].source);
+						$('#news2pic').attr("src",result.data.data[1].image);
+						$('#newsLink2').attr("href",result.data.data[1].url);
 	
-						$('#title3').html(result.data.articles[2].title);
-						if(result.data.articles[2].description){
-							$('#newsContent3').html(result.data.articles[2].description);
-						} else{
-							$('#newsContent3').html(result.data.articles[2].content);
-						}
-						$('#author3').html(result.data.articles[2].author);
-						$('#source3').html(result.data.articles[2].source.name);
-						$('#news3pic').attr("src",result.data.articles[2].urlToImage);
-						$('#newsLink3').attr("href",result.data.articles[2].url);
-					}
-					*/			
+						$('#title3').html(result.data.data[2].title);
+						$('#newsContent3').html(result.data.data[2].description);
+						$('#author3').html(result.data.data[2].author);
+						$('#source3').html(result.data.data[2].source);
+						$('#news3pic').attr("src",result.data.data[2].image);
+						$('#newsLink3').attr("href",result.data.data[2].url);
+
 				}
 
 			
@@ -423,6 +428,8 @@
 	
 				if (result.status.name == "ok") {
 
+					capitalCity = result.data[0].capital;
+
 					$.ajax({
 						url: "php/getCapital.php",
 						type: 'POST',
@@ -434,7 +441,7 @@
 							console.log(JSON.stringify(result));
 			
 							if (result.status.name == "ok") {
-								console.log(result.data, "capital")	
+								console.log(result.data, "capitallll")	
 								
 								var capitalExtraMarker = L.ExtraMarkers.icon({
 									icon: 'fa-landmark-dome',
@@ -447,7 +454,7 @@
 									  map.removeLayer(capitalMarker);
 								  };
 
-								  capitalMarker = L.marker([result.data.latitude, result.data.longitude], {icon: capitalExtraMarker}).bindPopup("Capital").addTo(map);				 							
+								  capitalMarker = L.marker([result.data.latitude, result.data.longitude], {icon: capitalExtraMarker}).bindPopup('<p style="color:orange; font-size: 2em; font-weight: bold;">' + capitalCity + '</p>'  ).addTo(map);				 							
 
 							}
 						
@@ -502,6 +509,7 @@
 						},
 						success: function(result) {	
 							console.log(JSON.stringify(result));
+							console.log("example", Date.parse("2011-01-03").toString());
 
 							var myExtraMarker = L.ExtraMarkers.icon({
 								icon: 'fa-house-crack',
@@ -516,8 +524,19 @@
 		
 							  layerGroup = L.layerGroup().addTo(map);
 
-							result.data.forEach(function(earthquake) {							  
-								  layerGroup.addLayer(L.marker([earthquake.lat,earthquake.lng], {icon: myExtraMarker}).bindPopup("<h5>Earthquake</h1>" + "<br>" + "Date & time: " + earthquake.datetime + ". Magnitude: " + earthquake.magnitude + "."));								  								  							 
+							result.data.forEach(function(earthquake) {	
+
+								const earthMonths = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+								let dateTime = earthquake.datetime.split(" ");
+								console.log("array", dateTime);	
+
+
+								let earthquakeDate = Date.parse(dateTime[0]).toString("MM dS yyyy").split(" ");
+								earthquakeDate[0] = earthMonths[Number(earthquakeDate[0])];
+								earthquakeDate.join(" ");		
+								
+								  layerGroup.addLayer(L.marker([earthquake.lat,earthquake.lng], {icon: myExtraMarker}).bindPopup('<h5 <p style="color: green">Earthquake</h1>' + '<p style="color: green">' + earthquakeDate.join(" ") + " " + earthquake.datetime.split(" ")[1] + ". Magnitude " + '<span style="font-size: 2em;">' + earthquake.magnitude + "</span></p>" ));								  								  							 
 							});							
 						}
 					});

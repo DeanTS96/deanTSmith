@@ -4,11 +4,7 @@
 	error_reporting(E_ALL);
 
 	$executionStartTime = microtime(true);
-
-	$url='https://newsapi.org/v2/top-headlines?country='.$_REQUEST['countryCode'].'&apiKey=4f8ccd8433534765a5976445526d92e0';
-	//$url='https://newsapi.org/v2/top-headlines?country=GB&apiKey=4f8ccd8433534765a5976445526d92e0';
-	//$url='https://newsapi.org/v2/top-headlines?country=US&apiKey=4f8ccd8433534765a5976445526d92e0';
-	//$URL='https://newsapi.org/v2/top-headlines?country=us&apiKey=4f8ccd8433534765a5976445526d92e0';
+	$url='api.mediastack.com/v1/news?countries='.$_REQUEST['countryCode'].'&limit=3&access_key=6334a184b82b0fd250ee6f7adcffad14';
 
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
