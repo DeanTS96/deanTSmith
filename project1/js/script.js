@@ -29,8 +29,6 @@
 
 	let currentTemp;
 	let tomorrowTemp;	
-
-	// ON PAGE LOAD
   
 
 	map = L.map('map').setView([lat, lng], 3);
@@ -102,19 +100,12 @@
 					$('#countries').val(countryCode);
 					$('#countries').trigger('change');
 
-					//TRIGGER ON CHANGE
+					
 				}
 			}
 		});
 
 	});
-
-
-
-	//TRIGGERED BY ON CHANGE
-
-	
-	
 	
 	
 
@@ -148,7 +139,6 @@
 				console.log(JSON.stringify(result));
 	
 				if (result.status.name == "ok") {
-					console.log(result.data, "HERE");
 
 					if(borderLayer) {
 						map.removeLayer(borderLayer);
@@ -158,70 +148,7 @@
 					map.fitBounds(borderLayer.getBounds());
 
 	
-					/*if(result.data.length > 1) {
-						let fullArray = [];
-						
-						function swapLatLng(array) { 
-							for(let i = 0; i < array.length; i++) {
-								let swappedArray = [];	
-								array[i].forEach((coords) => {	
-	
-										coords.forEach((setOfTwo) => {
-											temp = setOfTwo[0];
-											setOfTwo[0] = setOfTwo[1];
-											setOfTwo[1] = temp;
-										});
-							
-										swappedArray.push(coords);
-								});
-						
-								fullArray.push(swappedArray);
-							}
-							
-						};						
-	
-						swapLatLng(result.data);
-
-						if(newPoly) {
-							newPoly.remove();
-						};
-
-						newPoly = L.polygon([
-							fullArray
-						]);
-	
-						var mypolygon = newPoly.addTo(map);
-
-						//polyToremove = mypolygon;
-	
-					} else {
-	
-						let swappedArray = [];
-	
-					function swapLatLng(array) { 
-						
-						array[0].forEach((coords) => {
-				
-							temp = coords[0];
-							coords[0] = coords[1];
-							coords[1] = temp;
-				
-							swappedArray.push(coords);
-							});
-						};
-						
-						swapLatLng(result.data); 
-
-						if(newPoly) {
-							newPoly.remove();
-						};
-
-
-						newPoly = L.polygon([
-							swappedArray
-						]);
-						var mypolygon = newPoly.addTo(map);
-					};*/
+					
 				}
 			
 			},
@@ -248,7 +175,7 @@
 			
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
-				// your error code
+	
 			}
 		});
 
@@ -263,10 +190,6 @@
 			success: function(result) {
 				console.log(JSON.stringify(result));
 
-				if (result.status.name == "ok") {
-					console.log(result.data, "Covid")				
-				}
-
 				$('#active').html(result.data.active.toLocaleString());
 				$('#activePerM').html(result.data.activePerOneMillion.toLocaleString());
 				$('#cases').html(result.data.cases.toLocaleString());
@@ -280,7 +203,7 @@
 			
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
-				// your error code
+
 			}
 		});
 
@@ -295,19 +218,13 @@
 			success: function(result) {
 				console.log(JSON.stringify(result));
 
-				if (result.status.name == "ok") {
-					console.log(result.data.holidays[0].name, "PublicHolidays")	
+				if (result.status.name == "ok") {	
 
 					$("#carouselIndicators").empty();
 					$("#carouselInner").empty();
 
-					console.log(Date.parse("2021-02-14").toString("dS"));
+					
 					let gregorianDate = Date.parse("2021-02-14");
-					console.log(new Date());
-					console.log(gregorianDate.getMonth());
-					//console.log(Date.parse("2021-02-14").toLongDateString());
-
-					console.log("earthquake", Date.parse("2011-01-03").toString());
 
 					let carouselCount = 0;
 					const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
@@ -324,7 +241,6 @@
 						carouselCount += 1;
 
 						let carouselDate = Date.parse(holiday.date).toString("MM dS").split(" ");
-						console.log("checkDate", carouselDate);
 						let monthNumber = Number(carouselDate[0]);
 
 
@@ -349,7 +265,7 @@
 			
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
-				// your error code
+
 			}
 		});
 
@@ -364,15 +280,13 @@
 			success: function(result) {
 				console.log(JSON.stringify(result));
 
-				if (result.status.name == "ok") {
-					console.log(result.data.data[0], "NEWS")	
+				if (result.status.name == "ok") {	
 
 					$("#news1").attr("style", "display: block;");
 					$("#news2").attr("style", "display: block;");
 					$("#news3").attr("style", "display: block;");
 
 					if(result.data.pagination.count < 3) {
-						console.log("wrong");
 						$("#news3").attr("style", "display: none;");
 
 						if(result.data.pagination.count < 2) {
@@ -410,7 +324,7 @@
 			
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
-				// your error code
+
 			}
 		});
 		
@@ -441,7 +355,6 @@
 							console.log(JSON.stringify(result));
 			
 							if (result.status.name == "ok") {
-								console.log(result.data, "capitallll")	
 								
 								var capitalExtraMarker = L.ExtraMarkers.icon({
 									icon: 'fa-landmark-dome',
@@ -460,7 +373,7 @@
 						
 						},
 						error: function(jqXHR, textStatus, errorThrown) {
-							// your error code
+
 						}
 					});
 
@@ -493,7 +406,7 @@
 						
 						},
 						error: function(jqXHR, textStatus, errorThrown) {
-							// your error code
+
 						}
 					}); 
 
@@ -509,7 +422,6 @@
 						},
 						success: function(result) {	
 							console.log(JSON.stringify(result));
-							console.log("example", Date.parse("2011-01-03").toString());
 
 							var myExtraMarker = L.ExtraMarkers.icon({
 								icon: 'fa-house-crack',
@@ -529,7 +441,6 @@
 								const earthMonths = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
 								let dateTime = earthquake.datetime.split(" ");
-								console.log("array", dateTime);	
 
 
 								let earthquakeDate = Date.parse(dateTime[0]).toString("MM dS yyyy").split(" ");
@@ -550,7 +461,6 @@
 						},
 						success: function(result) {	
 							console.log(JSON.stringify(result));
-							console.log("here", result.data.webcams);
 
 							var myCamExtraMarker = L.ExtraMarkers.icon({
 								icon: 'fa-video',
@@ -585,13 +495,6 @@
 							console.log(JSON.stringify(result));
 		
 							if (result.status.name == "ok") {	
-								
-								if(homeLat === lat && homeLng === lng){
-									console.log("Does")
-								} else {
-									console.log("Doesn't")
-									//map.flyTo([result.data.lat, result.data.lng], 6);
-								};
 		
 								lat = result.data.lat;
 								lng = result.data.lng;
@@ -609,9 +512,6 @@
 										console.log(JSON.stringify(result));
 						
 										if (result.status.name == "ok") {
-
-											//console.log("thingyTime", Date.parse(result.data.daily[1].dt));
-											console.log("beforeParse", new Date((JSON.parse(result.data.current.dt) - 3600 + result.data.timezone_offset)*1000));
 
 											$('#todayTemp').html(Math.round(result.data.current.temp) + "<sup>o</sup>");
 											$('#windSpeed').html(Math.round(result.data.current.wind_speed) + "<sup> mph</sup>");
@@ -636,177 +536,12 @@
 											$('#day6').html(new Date((result.data.daily[6].dt)*1000).toDateString().split(" ")[0]);
 											$('#temp6').html(Math.round(result.data.daily[6].temp.day) + "<sup>o</sup>");
 											
-
-											/*let weatherDescription;
-											let cloudy = 'cloudy';
-											let scatteredClouds = 'some clouds';								
-		
-											$('#tempNum').html("<p>" + result.data.current.temp + "<sup>" + "o" + "</sup>" + "</p>");
-											$('#wind').html(result.data.current.wind_speed + "<sup>" + "mps" + "</sup>" + " " +  + result.data.current.wind_deg + "<sup>" + "o" + "</sup>");
-											$('#clouds').html(result.data.current.weather[0].description);
-											$('#morning').html("<p>" + result.data.daily[0].temp.morn + "<sup>" + "o" + "</sup>" +  "</p>" + "<p>" + "Morning" + "</p>");
-											$('#noon').html("<p>" + result.data.daily[0].temp.day + "<sup>" + "o" + "</sup>" +  "</p>" + "<p>" + "Noon" + "</p>");
-											$('#evening').html("<p>" + result.data.daily[0].temp.eve + "<sup>" + "o" + "</sup>" +  "</p>" + "<p>" + "Evening" + "</p>");
-											$('#night').html("<p>" + result.data.daily[0].temp.night + "<sup>" + "o" + "</sup>" +  "</p>" + "<p>" + "Night" + "</p>");
-
-											$('#day1Date').html(new Date((result.data.daily[1].dt)*1000).toDateString());
-											$('#day1Temp').html(result.data.daily[1].temp.day);
-											if(result.data.daily[1].weather[0].description === "overcast clouds") {
-												weatherDescription = cloudy;
-											} else if(result.data.daily[1].weather[0].description === "scattered clouds") {
-												weatherDescription = scatteredClouds;
-											} else {
-												weatherDescription = result.data.daily[1].weather[0].description;
-											}
-											$('#day1Weather').html(weatherDescription);
-
-
-											$('#day2Date').html(new Date((result.data.daily[2].dt)*1000).toDateString());
-											$('#day2Temp').html(result.data.daily[2].temp.day);
-											if(result.data.daily[2].weather[0].description === "overcast clouds") {
-												weatherDescription = cloudy;
-											} else if(result.data.daily[2].weather[0].description === "scattered clouds") {
-												weatherDescription = scatteredClouds;
-											} else {
-												weatherDescription = result.data.daily[2].weather[0].description;
-											}
-
-											$('#day2Weather').html(weatherDescription);
-
-
-											$('#day3Date').html(new Date((result.data.daily[3].dt)*1000).toDateString());
-											$('#day3Temp').html(result.data.daily[3].temp.day);
-											if(result.data.daily[3].weather[0].description === "overcast clouds") {
-												weatherDescription = cloudy;
-											} else if(result.data.daily[3].weather[0].description === "scattered clouds") {
-												weatherDescription = scatteredClouds;
-											} else {
-												weatherDescription = result.data.daily[3].weather[0].description;
-											}
-											$('#day3Weather').html(weatherDescription);
-
-
-											$('#day4Date').html(new Date((result.data.daily[4].dt)*1000).toDateString());
-											$('#day4Temp').html(result.data.daily[4].temp.day);
-											if(result.data.daily[4].weather[0].description === "overcast clouds") {
-												weatherDescription = cloudy;
-											} else if(result.data.daily[4].weather[0].description === "scattered clouds") {
-												weatherDescription = scatteredClouds;
-											} else {
-												weatherDescription = result.data.daily[4].weather[0].description;
-											}
-											$('#day4Weather').html(weatherDescription);
-
-
-											$('#day5Date').html(new Date((result.data.daily[5].dt)*1000).toDateString());
-											$('#day5Temp').html(result.data.daily[5].temp.day);
-											if(result.data.daily[5].weather[0].description === "overcast clouds") {
-												weatherDescription = cloudy;
-											} else if(result.data.daily[5].weather[0].description === "scattered clouds") {
-												weatherDescription = scatteredClouds;
-											} else {
-												weatherDescription = result.data.daily[5].weather[0].description;
-											}
-											$('#day5Weather').html(weatherDescription);
-
-
-											$('#day6Date').html(new Date((result.data.daily[6].dt)*1000).toDateString());
-											$('#day6Temp').html(result.data.daily[6].temp.day);
-											if(result.data.daily[6].weather[0].description === "overcast clouds") {
-												weatherDescription = cloudy;
-											} else if(result.data.daily[6].weather[0].description === "scattered clouds") {
-												weatherDescription = scatteredClouds;
-											} else {
-												weatherDescription = result.data.daily[6].weather[0].description;
-											}
-											$('#day6Weather').html(weatherDescription);
-
-											
-
-											let date = JSON.parse(result.data.current.dt);
-
-
-											
-											let myDate = new Date((JSON.parse(result.data.current.dt) + result.data.timezone_offset)*1000);
-											//let myDate = new Date(date*1000);
-											//let dateArray = myDate.split(" ");
-
-											let stringDate = myDate.toString();
-											let arrayDate = stringDate.split(" ");
-											let finalDate = arrayDate[0] + " " + arrayDate[1] + " " + arrayDate[2] + " " + arrayDate[3] + " " + arrayDate[4] + " " + arrayDate[5];
-											
-											let total = 0;
-
-											let addOrSub;
-
-											let gmtSplit= arrayDate[5].split('');
-
-											let gmt1 = Number(gmtSplit[4]);
-											let gmt2 = Number(gmtSplit[5]);
-											let gmt3 = Number(gmtSplit[6]);
-											let gmt4 = Number(gmtSplit[7]);
-
-												total = gmt1 * 10
-
-											if(gmt2 > 0) {
-												total += gmt2;
-											}
-
-											if(gmt3 > 0) {
-												total += gmt3 * 0.1;	
-											}
-
-											if(gmt4 > 0) {
-												total += gmt4 * 0.01;
-											}
-
-											let arrayOfNum = arrayDate[4].split(':');
-											let arrayNum = (Number(arrayOfNum[0])) + (Number(arrayOfNum[1])*0.01);
-
-											let finalNum = 0;
-
-											
-											
-											
-											if(gmtSplit[3] === "+") {
-												if(arrayNum < 1) {
-													finalNum = arrayNum;
-												} else {
-													finalNum = arrayNum - total;
-												};
-											} else {
-												finalNum = arrayNum + total;;
-											}
-
-											let splitFinal = finalNum.toString().split('.');																		
-
-											if(splitFinal[1] == 0 || splitFinal[1].length < 2) {
-												splitFinal[1] = splitFinal[1] + "0";
-											}
-
-											if(splitFinal[0].length < 2) {
-												splitFinal[0] = splitFinal[0] + "0";
-											}
-
-											if(splitFinal[1].length > 2) {
-												let lastSplit = splitFinal[1].split('');
-												splitFinal[1] = lastSplit[0] + lastSplit[1];
-											}
-
-
-											let resultTime = splitFinal[0] + ":" + splitFinal[1] + ":" + arrayOfNum[2];
-											let finalDateTime = arrayDate[0] + " " + arrayDate[1] + " " + arrayDate[2] + " " + arrayDate[3] + " " + resultTime;
-											
-											$('#dateTime').html('<p>' + finalDateTime + '</p>');
-
-											console.log("mytester", finalDateTime);
-											*/
 										}
 									
 									},
 									error: function(jqXHR, textStatus, errorThrown) {
 										console.log("error");
-										//$("#results").html("Invalid location");
+										
 									}
 								});
 							}
@@ -823,7 +558,7 @@
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
 				console.log("error");
-				// your error code
+
 			}
 		}); 
 	});
@@ -907,7 +642,3 @@
 		  }
 	}).addTo(map);
 	newsButton.button.style = 'color:red; font-size:2em; height:45px; width:45px; line-height:45px;';
-
-
-
-	console.log("time", Date.today());

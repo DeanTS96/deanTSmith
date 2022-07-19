@@ -51,13 +51,6 @@ option{
     max-width: 400px;
     min-width: 189px;
     max-height: 550px;
-
-
-    /*max-width: 849px;
-    font-size: 1em;
-    display: flex;
-    align-items: center;
-    justify-content: center;*/
 }
 
 #publicHolidayCarousel{
@@ -100,6 +93,7 @@ option{
 
 h1{
     padding-top: 10px;
+    font-size: 1.5em;
 }
 
 #covidTableHead{
@@ -160,7 +154,6 @@ h1{
 }
 
 .weather3S{
-    height: 50%;
     display: flex;
     flex-direction: row;
     text-align: center;
@@ -183,7 +176,7 @@ h1{
     margin: 8px;
 }
 
-.predictedTemp{
+.predictedTemp .windSpeed{
     display: inline;
 }
 
@@ -199,18 +192,15 @@ h1{
     color: lightgray
 }
 
-#windContainer{
+.windContainer .todayTemp{
     padding-top: 20px;
-    height: 50%;
-
 }
 
-#weatherDescription{
+.weatherDescription .windContainer .weather3S{
     height: 50%;
 }
 
 #todayTemp{
-    padding-top: 20px;
     padding-left: 10px;
     padding-right: 10px;
     font-size: 2em;    
@@ -218,7 +208,6 @@ h1{
 
 #windSpeed{
     padding-left: 5px;
-    display: inline;
     font-size: 1.5em;
 }
 
@@ -238,10 +227,6 @@ img{
     width: 90%;
     max-width: 300px;
     height: auto;
-}
-
-h1{
-    font-size: 1.5em;
 }
 
 #singleLine{
@@ -283,291 +268,3 @@ h1{
         left: 25%;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*table{
-    background-color: white;
-    
-}
-
-#countryInfo{
-    background-color: white;
-}
-
-#countryInfo, #weatherToday{
-    width: 50%;
-    text-align: left;
-    font-size: 1em;
-}
-
-.iconText, .icon, .icon > p{
-    display: inline-block;
-    
-}
-
-.iconContainer{
-    text-align: left;
-    padding-left: 1%;
-    padding-top: 3%;
-    border-top: solid 1px lightgray;
-}
-
-#capICon{
-    border-top: none;
-}
-
-
-.iconContainer, .iconText, .icon, .icon > p{
-    flex-wrap: nowrap;
-}
-
-
-.weather{
-    padding: 5px;
-    float: left;
-}
-
-.botWeather{
-    display: inline-block; 
-    font-size: 1em;
-    padding-left: 10%;
-    padding-right: 10%;
-}
-
-#weather{
-    display: flex;
-    height: 100%;
-    align-items: bottom;
-    justify-content: center;
-    flex-direction: column;
-}
-
-#temp{
-    height: 30%;
-    width: 30%;
-}
-
-#temp2{
-    margin-left: 20px;
-    height: 20%;
-    width: 20%;
-}
-
-.temp3{
-    display: inline-block;
-    font-size: 1.4em;
-}
-
-.iconP{
-    margin: 0;
-    display: inline-block;
-}
-.dayTemp, .forcastBox{
-    display: inline-block; 
-}
-
-#todayTemp{
-    display: inline-block;
-    margin: 0;
-}
-
-.weatherIcon{
-    width: 20%;
-    height: 20%;
-    color: rgb(255, 95, 95);
-}
-
-.forcastBoxP{
-    font-size: 1em;
-}
-
-.dayTemp{
-    font-size: 1em;
-    padding-left: 3%;
-    padding-right: 3%;
-
-}
-
-.botIcon{
-    height: 50%;
-    width: 50%;
-    display: block;
-}
-
-.allDayTemp{
-    height:50%;
-    width: 50%;
-}
-
-tbody{
-    background-color: white;
-}
-
-tr{
-    background-color: white;
-}
-
-#wikiLinks{
-    background-color: gray;
-}
-
-#forcast{
-    background-color: lightcyan;;
-}
-
-.bi-thermometer-half{
-    background-color: red;
-}
-
-.therm{
-    color: red;
-}
-
-.bi-moon{
-    color: silver;
-}
-.bi-brightness-high{
-    color: yellow;
-}
-
-.bi-brightness-alt-high, .bi-brightness-alt-low{
-    color: rgb(184, 184, 104)
-}
-
-.bi-clouds{
-    color: rgb(230, 224, 224);
-}
-
-.bi-wind{
-    color: lightgray;
-}
-
-.bi-building{
-    color: darkgray;
-}
-
-.bi-globe2{
-    color: blue;
-}
-
-.bi-chat{
-    color: hotpink;
-}
-
-.bi-people{
-    color: black;
-}
-
-.bi-bullseye{
-    color: brown;
-}
-
-.bi-cash-coin{
-    color: green;
-}
-
-.bi-currency-exchange{
-    color: gold;
-}
-
-.bi-fullscreen-exit{
-    color: red;
-}
-
-#button{
-    display: none;
-    font-size: 0.7em;
-    border-radius: 20px !important;
-}
-
-.forcastBox{
-    margin: 0;
-    padding: 7px;
-}
-
-#day6{
-    border-right: none;
-}
-
-.td2{
-    background-color: lightgray;
-    border-right: lightgray;
-}
-
-#day1, #day3, #day5{
-    background-color: rgb(0, 153, 255);
-}
-.awesome-marker i {
-    font-size: 100px;
-    margin-top: 10px;
-    z-index: 10;
-}
-
-#day2, #day4, #day6{
-    background-color: yellow;
-}
-
-*/
-  
-  
-
-
-
-
-
-
-
-
-

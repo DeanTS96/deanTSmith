@@ -5,9 +5,8 @@
 
 	$executionStartTime = microtime(true);
 
-	//$url='http://api.geonames.org/countryInfoJSON?formatted=true&lang=en&country='.$_REQUEST['country'].'&username=flightltd&style=full';
 	$url='https://api.windy.com/api/webcams/v2/list/country='.$_REQUEST['countryCode'].'?key=hS9g1WuGvRcgf4GmYaNeczwXtGQLdQh1&show=webcams:location,player';
-	//https://api.windy.com/api/webcams/v2/list/limit=20/country=GB?key=hS9g1WuGvRcgf4GmYaNeczwXtGQLdQh1&show=webcams:location
+
 
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
