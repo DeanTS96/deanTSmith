@@ -2,6 +2,19 @@ html, body{
     height: 100%;
 }
 
+.preloader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background-image: url('../images/9.gif');
+    background-repeat: no-repeat; 
+    background-color: #00DDFF;
+    background-position: center;
+ }
+
 nav {
     margin-left: 100px;
     width: 20%;
@@ -146,6 +159,7 @@ h1{
 #windContainer{
     display: flex;
     flex-direction: row;
+    padding-top: 20px;
 }
 
 .followingWeather{
@@ -159,6 +173,7 @@ h1{
     text-align: center;
     padding-left: 8px;
     padding-right: 8px;
+    height: 50%;
 }
 
 #top3{
@@ -192,11 +207,11 @@ h1{
     color: lightgray
 }
 
-.windContainer .todayTemp{
+.todayTemp{
     padding-top: 20px;
 }
 
-.weatherDescription .windContainer .weather3S{
+.weatherDescription .windContainer{
     height: 50%;
 }
 

@@ -1,4 +1,8 @@
-	let polyToRemove;
+	$(window).load(function() {
+		$('.preloader').fadeOut('slow');
+ 	});
+ 
+ 	let polyToRemove;
 	let newPoly;
 	let num = 1;
 	let layerGroup;
@@ -43,7 +47,7 @@
 			isoCode: countryCode
 		},
 		success: function(result) {
-			console.log(JSON.stringify(result));
+			//console.log(JSON.stringify(result));
 
 			if (result.status.name == "ok") {
 				let pushingNewArray = []; 
@@ -90,7 +94,6 @@
                 lng: lng
 			},
 			success: function(result) {
-				console.log(JSON.stringify(result));
 
 				if (result.status.name == "ok") {
 
@@ -136,7 +139,6 @@
 				countryCode: countryCode
 			},
 			success: function(result) {
-				console.log(JSON.stringify(result));
 	
 				if (result.status.name == "ok") {
 
@@ -144,7 +146,13 @@
 						map.removeLayer(borderLayer);
 					};
 
-					borderLayer = L.geoJSON(result.data).addTo(map);
+					let myStyle = {
+						"color": "#0077FF",
+						"weight": 5,
+						"opacity": 0.9
+					};
+
+					borderLayer = L.geoJSON(result.data, {style: myStyle}).addTo(map);		
 					map.fitBounds(borderLayer.getBounds());
 
 	
@@ -166,7 +174,6 @@
 				country: countryWithoutSpaces
 			},
 			success: function(result) {
-				console.log(JSON.stringify(result));
 
 				if (result.status.name == "ok") {
 					wikiLinksResult = result.data;
@@ -188,7 +195,6 @@
 				countryCode: countryCode
 			},
 			success: function(result) {
-				console.log(JSON.stringify(result));
 
 				$('#active').html(result.data.active.toLocaleString());
 				$('#activePerM').html(result.data.activePerOneMillion.toLocaleString());
@@ -216,7 +222,6 @@
 				countryCode: countryCode
 			},
 			success: function(result) {
-				console.log(JSON.stringify(result));
 
 				if (result.status.name == "ok") {	
 
@@ -278,7 +283,6 @@
 				countryCode: countryCode
 			},
 			success: function(result) {
-				console.log(JSON.stringify(result));
 
 				if (result.status.name == "ok") {	
 
@@ -338,7 +342,6 @@
 				lang: 'en'
 			},
 			success: function(result) {
-				console.log(JSON.stringify(result));
 	
 				if (result.status.name == "ok") {
 
@@ -352,7 +355,6 @@
 							capital: result.data[0].capital
 						},
 						success: function(result) {
-							console.log(JSON.stringify(result));
 			
 							if (result.status.name == "ok") {
 								
@@ -397,7 +399,6 @@
 							currency: currency
 						},
 						success: function(result) {
-							console.log(JSON.stringify(result));
 			
 							if (result.status.name == "ok") {		
 								exchangeRateResult = result.data;	
@@ -421,7 +422,6 @@
 							west: countryInfoResult.west
 						},
 						success: function(result) {	
-							console.log(JSON.stringify(result));
 
 							var myExtraMarker = L.ExtraMarkers.icon({
 								icon: 'fa-house-crack',
@@ -460,7 +460,6 @@
 							countryCode: countryCode
 						},
 						success: function(result) {	
-							console.log(JSON.stringify(result));
 
 							var myCamExtraMarker = L.ExtraMarkers.icon({
 								icon: 'fa-video',
@@ -492,7 +491,6 @@
 							west: countryInfoResult.west
 						},
 						success: function(result) {	
-							console.log(JSON.stringify(result));
 		
 							if (result.status.name == "ok") {	
 		
@@ -508,8 +506,6 @@
 										lng: lng
 									},
 									success: function(result) {
-						
-										console.log(JSON.stringify(result));
 						
 										if (result.status.name == "ok") {
 
