@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Carousel slider, bootstrap 5</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  </head>
+  <body>
+    <style>
+        .carousel-item{
+            height: 32rem;
+            background: #777;
+            color: white;
+            position: relative;
+        }
+
+        .container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding-bottom: 50px;
+        }
+    </style>
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="container">
+                    <h1>
+                        example headline
+                    </h1>
+                    <p>dfbabdwabfabfabf
+                        afjbafbabfbafbaf
+                        afuibafbfafajfj
+                    </p>
+                    <a href="#" class="btn btn-lg btn-primary">
+                        sign up today
+                    </a>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <div class="container">
+                    <h1>
+                        wwwww
+                    </h1>
+                    <p>wwwwwwwwwwwwwww
+                        wwwwwwwwwwwwwww
+                        wwwwwwwwww
+                    </p>
+                    <a href="#" class="btn btn-lg btn-primary">
+                        wwww
+                    </a>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <div class="container">
+                    <h1>
+                       ooooo
+                    </h1>
+                    <p>oooooooooooo
+                        oooooooooooo
+                        oooooooooo
+                    </p>
+                    <a href="#" class="btn btn-lg btn-primary">
+                        oooo
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+  </body>
+</html>

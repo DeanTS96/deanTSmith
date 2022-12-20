@@ -1,0 +1,310 @@
+body{
+    font-size: 1.5em;
+}
+
+nav{
+    min-height: 74px;
+}
+
+.splitter{
+    width: 50%;
+    border-top: solid 1px lightgray;
+    margin: auto;
+}
+
+#hamburgerButton{
+    margin-right: 5px;
+    background-color: lightgray;
+    border: solid 1px gray;
+}
+
+#myNavbar{
+    z-index: 1000;
+    background-color: rgb(56, 56, 56);
+    padding-right: 20px;
+}
+
+.navbar-toggler-icon{
+    color: red;
+    z-index: 1001;
+}
+
+#likeSearch{
+    padding-left: 10px;
+}
+
+.nav-item{
+    padding-left: 10px;
+}
+
+#employeeButtonBox{
+    background-color: lightgray;
+    border: solid 1px gray;
+    border-radius: 3px;
+    height: 48px;
+    width: 60px;
+    margin-left: 5px;
+    padding: 5px;
+}
+
+.fa-user-plus{
+    font-size: 1.2em
+}
+
+.nav-link{
+    color: white;
+}
+
+.navbar-brand{
+    padding-left: 10px;
+}
+
+#header{
+    height: 188px;
+    background-color: red;
+    width: 100%;
+    position: fixed;
+    border-bottom: 1px solid black;
+    z-index: 3;
+}
+
+.choiceBox{
+    margin-top: 75px;
+}
+
+#choiceBack{
+    margin-top: 100px;
+}
+
+.choice{
+    width: 250px;
+    padding: 5px;
+    font-size: 1.5em;
+    padding-bottom: 0px;
+    height: 121px;
+    margin-top: 29px;
+    margin-left: 15px;
+    border: 5px solid white;
+    border-radius: 5px;
+    background-color: red;
+    border-color: red;
+    color: white;
+}
+
+.choice:hover{
+    background-color: rgb(255, 97, 97);
+    border-color: rgb(255, 97, 97);
+}
+
+.crudButton{
+    padding: 5px;
+    font-size: 1.5em;
+    padding-bottom: 0px;
+    height: 121px;
+    margin-top: 29px;
+    margin-left: 15px;
+    border: 5px solid black;
+    border-radius: 5px;
+    background-color: white;
+    border-color: white;
+    color: black;
+}
+
+.crudButton:hover{
+    background-color: white;
+    border-color: black;
+    color: black;
+}
+
+.crudButton:focus{
+    box-shadow: none;
+    background-color: white;
+    color: black;
+    border-color: white;
+}
+
+.crudButton:active{
+    background-color: white;
+    color: black;
+    border-color: white;
+}
+
+#add{
+    float: right;
+    width: 30%;
+    margin-right: 15px;
+}
+
+
+
+#search{
+   padding: 5px;
+}
+
+.employeeBox{
+    padding-top: 15px;
+    height: 75px;
+    width: 100%;
+    overflow: hidden;
+    padding-left: 5px;
+    text-align: center;
+    position: relative;
+}
+
+.employeeBox:hover{
+    background-color: lightgray;
+}
+
+.employeeBox:focus-within{
+    height: 450px;
+    background-color: lightgray;
+}
+
+.departmentsLocationsBox {
+    padding-top: 15px;
+    height: 75px;
+    width: 100%;
+    overflow: hidden;
+    padding-left: 5px;
+    text-align: center;
+    position: relative;
+}
+
+.departmentsLocationsBox:hover{
+    background-color: lightgray;
+}
+
+.departmentsLocationsBox:focus-within{
+    height: 150px;
+    background-color: lightgray;
+}
+
+.employeeName{
+    padding-bottom: 5px;
+}
+
+.spacer{
+    height: 74px;
+}
+
+.myButton{
+    color: black;
+    width: 100px;
+    height: 40px;
+    margin: 5px;
+    background-color: red;
+    color: white;
+    border-color: red;
+}
+
+.myButton:hover{
+    background-color: rgb(255, 97, 97);
+    border-color: rgb(255, 97, 97);
+}
+
+.fa-envelope{
+    color: blue;
+}
+
+.fa-briefcase{
+    color: rgba(155, 57, 0, 0.747);
+}
+
+.fa-location-dot{
+    color: green;
+}
+
+.input{
+    width: 250px;
+}
+
+select{
+    width: 250px;
+}
+
+ul{
+    list-style-type: none;
+}
+
+.list{
+    height: 40%;
+    overflow-y: scroll;
+}
+
+.newPage{
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 100;
+    background-color: white;
+    text-align: center;
+}
+
+.formItem{
+    padding: 10px;
+}
+
+.inputBox{
+    padding: 15px;
+    border: 1px solid black;
+    margin: 20px;
+    margin-top: 20px;
+}
+
+.modal-header, .modal-footer{
+    background-color: rgb(56, 56, 56);
+    color: white;
+}
+
+.addHeader{
+
+    
+    margin-bottom: 25px;
+    width: 100%;
+    padding: 25px;
+    /*
+    font-size: 1.5em;*/
+}
+
+#addButtons{
+    margin-top: 15px;
+}
+
+.modal-body{
+    text-align: center;
+}
+
+.myModalFooter{
+    margin: 0 auto;
+}
+
+#addConfirm{
+    margin: 0 auto;
+}
+
+.boxButtons{
+    margin-top: 30px;
+}
+
+#blankUpdateEmployee{
+    z-index: 2;
+}
+
+.break{
+    border-bottom: 1px solid lightgray;
+    margin-top: 30px;
+    margin-bottom: 35px;
+}
+
+.centerHeader{
+    width: 100%;
+    text-align: center;
+}
+
+@media (max-width: 521px){
+    #logo{
+        display: none;
+    }
+}
+
+
