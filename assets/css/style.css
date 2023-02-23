@@ -420,7 +420,7 @@ section {
 # Akills
 --------------------------------------------------------------*/
 .skills .progress {
-  height: 60px;
+  /*height: 60px;*/
   display: block;
   background: none;
   border-radius: 0;
@@ -1107,6 +1107,11 @@ section {
 # My styles
 --------------------------------------------------------------*/
 
-#spacer {
-  height: 20px;
+.progress{
+  text-align: center;
+  height: 100px;
+}
+
+#hiddenEducation{
+  visibility: hidden;
 }
