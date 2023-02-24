@@ -5,6 +5,8 @@ $('#sendEmail').on('submit', function(event) {
     const subject = $('#subject').val();
     const body = $('#message').val();
     const message = body + ('<br><p>From ' + name + ' at ' + email +'</p>');
+    $("#loading").show();
+
     $.ajax({
         url: 'sendEmail.php',
         type: 'POST',
@@ -15,10 +17,13 @@ $('#sendEmail').on('submit', function(event) {
             message: message
         },
         success: function(result) {
-            alert('email recieved');
+            $("#loading").hide();
+            //alert('email recieved');
+            $("#confirmationMessage").slideDown("slow").delay(5000).slideUp("slow");
             $('#sendEmail')[0].reset();
         },
         error: function(error) {
+            $("#loading").hide();
             alert('Error sending email');
         }
     });

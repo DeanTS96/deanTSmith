@@ -1115,3 +1115,26 @@ section {
 #hiddenEducation{
   visibility: hidden;
 }
+
+#emailConfirmation{
+  margin-top: 20px;
+}
+
+#confirmationMessage{
+  text-align: center;
+  font-size: 2em;
+  padding-top: 8px;
+  background-color: rgb(12, 228, 12);
+  height: 70px;
+  width: 80%;
+  margin: auto;
+  border: solid 2px lightgray;
+  border-radius: 10px;
+}
+
+#loading{
+  padding-top: 20px;
+  width: 100px;
+  display: block;
+  margin: auto;
+}
