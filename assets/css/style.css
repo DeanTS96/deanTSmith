@@ -1138,3 +1138,12 @@ section {
   display: block;
   margin: auto;
 }
+
+.progress{
+  overflow: visible;
+  text-align: center;
+}
+
+.functionalityWarning{
+  font-style: italic;
+}
