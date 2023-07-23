@@ -16,249 +16,163 @@
         <link rel="stylesheet" type="text/css" href="css/styles.css">
     </head>
     <body>
-        <nav id="myNavbar" class="navbar fixed-top navbar-expand-md">
+        <div class="preloader"></div>
+        <nav id="myNavbar" class="navbar fixed-top">
             <span id="logo" class="navbar-brand" ><img src="favicon_io/android-chrome-192x192.png" height="48px" width="48px"></span>
-
-            <div id="navbarNav" class="collapse navbar-collapse">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                            <a id="mainPage" href="#" class="nav-link active" aria-current="page" >Employees</a>
-                    </li>
-                    <li class="nav-item">
-                            <a id="departmentChoice" href="#" class="nav-link">Departments</a>
-                    </li>
-                    <li class="nav-item">
-                            <a id="locationChoice" href="#" class="nav-link">Locations</a>
-                    </li>
-                </ul>
+            <div id="navbarNav" class="navbar row">
+                    <a id="mainPage" href="#" class="col-3 nav-link active" aria-current="page"><span class="navLinkText">Employees</span><i class="navLinkIcon fa-solid fa-user"></i></a>
+                    <a id="departmentChoice" href="#" class="col-3 nav-link"><span class="navLinkText">Departments</span><i id="departmentSelector" class="navLinkIcon fa-solid fa-briefcase"></i></a>
+                    <a id="locationChoice" href="#" class="col-3 nav-link"><span class="navLinkText">Locations</span><i class="navLinkIcon fa-solid fa-location-dot"></i></a>
+                    <div id="addContainer">
+                        <div id="employeeButtonBox">
+                            <a id="employeeChoice" href="#" class="col-3" data-bs-toggle="modal" data-bs-target="#addEmployeeModal"><i class="fa-solid fa-plus"></i></a>
+                        </div>
+                    </div>
             </div>
 
                 <form id="likeSearch" class="d-flex">
-                    <button id="hamburgerButton" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" class="navbar-toggler text-primary" aria-expanded="false">
-                        <i class="fa-solid fa-bars"></i>
-                    </button>
-                    <div class="input-group">
+                    <div id="inputGroup" class="input-group">
                         <span class="input-group-text"><a href="#"><i id="nameSearchButton" class="fa-solid fa-magnifying-glass"></i></a></span>
                         <input id="nameSearch" type="search" class="form-control" placeholder="Search Employee">
-                        <span class="input-group-text"><a id="search" href="#"><i class="fa-solid fa-ellipsis-vertical"></i></a></span>
+                        <span class="input-group-text"><a id="search" href="#" data-bs-toggle="modal" data-bs-target="#advancedSearchModal"><i class="fa-solid fa-ellipsis-vertical"></i></a></span>
                     </div>
-                    <div id="employeeButtonBox">
-                        <a id="employeeChoice" href="#"><i class="fa-solid fa-user-plus"></i></a>
-                    </div>
-                </form>     
+                </form> 
         </nav>
 
-        <!-- SEARCH EMPLOYEES -->
+        <!-- CONTENT -->
 
-        <div id="blankSearch" class="newPage" style="display: none">
-            <div class="spacer"></div>
-            <h1 class="addHeader">
-                Advanced Search
-            </h1>
-            <form id="searchForm">
-                <div class="formItem">
-                    <label for="searchFormFirstName">First name</label>
-                    <br>
-                    <input id="searchFormFirstName" name="searchFormFirstName" type="text" class="input">
-                </div>
+        <div class="spacer"></div>
 
-                <div class="formItem">
-                    <label for="searchFormLastName">Last name</label>
-                    <br>
-                    <input id="searchFormLastName" name="searchFormLastName" type="text" class="input">
-                </div>
-
-                <div class="formItem">
-                    <label for="searchFormEmail">Email</label>
-                    <br>
-                    <input id="searchFormEmail" name="searchFormEmail" type="email" class="input">
-                </div>
-
-                <div class="formItem">
-                    <label for="searchFormDepartment">Department</label>
-                    <br>
-                    <select name="searchFormDepartment" id="searchFormDepartment" class="inputSelect">
-                    </select>
-                </div>
-
-                <div class="formItem">
-                    <label for="searchFormLocation">Location</label>
-                    <br>
-                    <select name="searchFormLocation" id="searchFormLocation" class="inputSelect">
-                    </select>
-                </div>
-            </form>
-
-            <div id="searchFormButtons">
-                <button id="searchFormConfirm" class="myButton btn btn-primary" data-bs-toggle="modal" data-bs-target="#searchModal">Confirm</button>
-            </div> 
+        <div id="newContent" class="container">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Employees</th>
+                  </tr>
+                </thead>
+                <tbody id="employeeTableBody">
+                </tbody>
+              </table>
         </div>
 
-        <div class="modal" id="searchModal" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content">
+        <div id="blankDepartment" class="container">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Departments</th>
+                  </tr>
+                </thead>
+                <tbody id="departmentTableBody">
+                </tbody>
+              </table>
+        </div>
+
+        <div id="blankLocation" class="container">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Locations</th>
+                  </tr>
+                </thead>
+                <tbody id="locationTableBody">
+                </tbody>
+              </table>
+        </div>
+
+         <!--ADVANCED SEARCH-->
+
+         <div id="advancedSearchModal" class="modal fade" tabindex="-1">
+          <div class="modal-dialog modal-sm modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Advanced Search</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <form id="searchForm">
+                      <div class="form-floating">
+                          <input id="searchFormFirstName" name="searchFormFirstName" type="text" class="form-control">
+                          <label for="searchFormFirstName">First name</label>
+                      </div>
+      
+                      <div class="form-floating">
+                          <input id="searchFormLastName" name="searchFormLastName" type="text" class="form-control">
+                          <label for="searchFormLastName">Last name</label>
+                      </div>
+      
+                      <div class="form-floating">
+                          <input id="searchFormEmail" name="searchFormEmail" type="email" class="form-control">
+                          <label for="searchFormEmail">Email</label>
+                      </div>
+      
+                      <div class="form-floating">
+                          <select name="searchFormDepartment" id="searchFormDepartment" class="form-select">
+                          </select>
+                          <label for="searchFormDepartment">Department</label>
+                      </div>
+      
+                      <div class="form-floating">
+                          <select name="searchFormLocation" id="searchFormLocation" class="form-select">
+                          </select>
+                          <label for="searchFormLocation">Location</label>
+                      </div>
+                  </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button id="searchFormConfirm" type="submit" form="searchForm" class="btn btn-primary" data-bs-dismiss="modal" data-bs-target="#advancedSearchModal">Submit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+          <!--ADD EMPLOYEE-->
+
+          <div id="addEmployeeModal" class="modal fade" tabindex="-1">
+            <div class="modal-dialog modal-sm modal-dialog-centered">
+              <div class="modal-content shadow">
                 <div class="modal-header">
-                    <h1 class="centerHeader">
-                        Confirm details
-                    </h1>
+                  <h5 class="modal-title">Add Employee</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p id="searchName" >name ne</p>
-                    <p id="searchEmail">email Email Email</p>
-                    <p id="searchDepartment">depatment</p>
-                    <p id="searchLocation">location</p>
+                    <form id="addForm">
+                        <div class="form-floating">
+                            <input id="addFormFirstName" name="addFormFirstName" type="text" class="form-control">
+                            <label for="addFormFirstName">First name</label>
+                        </div>
+
+                        <div class="form-floating">
+                            <input id="addFormLastName" name="addFormLastName" type="text" class="form-control">
+                            <label for="addFormLastName">Last name</label>
+                        </div>
+        
+                        <div class="form-floating">
+                            <input id="addFormEmail" name="addFormEmail" type="email" class="form-control">
+                            <label for="addFormEmail">Email</label>
+                        </div>
+        
+                        <div class="form-floating">
+                            <select name="addFormDepartment" id="addFormDepartment" class="inputSelect form-select">
+                            </select>
+                            <label for="addFormDepartment">Department</label>
+                        </div>
+                    </form>
                 </div>
                 <div class="modal-footer">
-                    <div class="myModalFooter">
-                        <button type="button" class="myButton btn btn-primary" data-bs-dismiss="modal">Edit</button>
-                        <button id="searchSubmit" type="submit" form="searchForm" class="myButton btn btn-primary" data-bs-dismiss="modal">Submit</button>
-                    </div>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button id="addConfirm" type="button" class="btn btn-primary">Submit</button>
                 </div>
               </div>
             </div>
           </div>
 
-        <!-- DEPARTMENT -->
-
-        <div id="blankDepartment" class="newPage" style="display: none">
-            <div class="spacer"></div>
-            <h1 class="addHeader">
-                Your Department's
-            </h1>
-            <div class="list">
-                <ul id="departmentList" class="emptyList">
-                </ul>
-            </div>
-            <form id="addDepartmentForm">
-                <div class="inputBox">
-                    <label for="addNewDepartment">Add new department</label>
-                    <br>
-                    <input id="addNewDepartment" name="addNewDepartmentLocation" type="text" class="input">
-                    <div class="formItem">
-                        <label for="addNewDepartmentLocation">Department's location</label>
-                        <br>
-                        <select name="addNewDepartmentLocation" id="addNewDepartmentLocation" class="inputSelect">
-                        </select>
-                    </div>
-                </div>
-            </form>
-            <div id="departmentButtons">
-                <button id="addDepartmentConfirm" class="myButton btn btn-primary" data-bs-toggle="modal" data-bs-target="#departmentModal">Confirm</button>
-            </div>
-        </div>
-
-        <div class="modal" id="departmentModal" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content">
+          <div class="modal fade" id="myModal" tabindex="-1">
+            <div class="modal-dialog modal-sm modal-dialog-centered">
+            <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="centerHeader">
-                        Confirm details
-                    </h1>
-                </div>
-                <div class="modal-body">
-                    <p id="addDepartmentName">name name</p>
-                    <p id="addDepartmentLocation">Location</p>
-                </div>
-                <div class="modal-footer">
-                    <div class="myModalFooter">
-                        <button type="button" class="myButton btn btn-primary" data-bs-dismiss="modal">Edit</button>
-                        <button id="addDepartmentSubmit" type="submit" form="addDepartmentForm" class="myButton btn btn-primary" data-bs-dismiss="modal">Submit</button>
-                    </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- LOCATION -->
-
-        <div id="blankLocation" class="newPage" style="display: none">
-            <div class="spacer"></div>
-            <h1 class="addHeader">  
-                Department Location's
-            </h1>
-            <div class="list">
-                <ul id="locationList" class="emptyList">
-                </ul>
-            </div>
-            <form id="addLocationForm">
-                <div class="inputBox">
-                    <label for="addNewLocation">Add new location</label>
-                    <br>
-                    <input id="addNewLocation" name="addNewLocation" type="text" class="input">
-                </div>
-            </form>
-            <div id="locationButtons">
-                <button id="addLocationConfirm" class="myButton btn btn-primary" data-bs-toggle="modal" data-bs-target="#locationModal">Confirm</button>
-            </div>
-        </div>
-
-        <div class="modal" id="locationModal" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="centerHeader">
-                        Confirm details
-                    </h1>
-                </div>
-                <div class="modal-body">
-                    <p id="addLocationName">name name</p>
-                </div>
-                <div class="modal-footer">
-                    <div class="myModalFooter">
-                        <button type="button" class="myButton btn btn-primary" data-bs-dismiss="modal">Edit</button>
-                        <button id="addLocationSubmit" type="submit" form="addLocationForm" class="myButton btn btn-primary" data-bs-dismiss="modal">Submit</button>
-                    </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        <!-- EMPLOYEE -->
-
-        <div id="blank" class="newPage" style="display:none">  
-            <div class="spacer"></div>  
-            <h1 class="addHeader">
-                Add Employee
-            </h1>
-            <form id="addForm">
-                <div class="formItem">
-                    <label for="firstName">First name</label>
-                    <br>
-                    <input id="addFormFirstName" name="addFormFirstName" type="text" class="input">
-                </div>
-
-                <div class="formItem">
-                    <label for="lastName">Last name</label>
-                    <br>
-                    <input id="addFormLastName" name="addFormLastName" type="text" class="input">
-                </div>
-
-                <div class="formItem">
-                    <label for="email">Email</label>
-                    <br>
-                    <input id="addFormEmail" name="addFormEmail" type="email" class="input">
-                </div>
-
-                <div class="formItem">
-                    <label for="addFormDepartment">Department</label>
-                    <br>
-                    <select name="addFormDepartment" id="addFormDepartment" class="inputSelect">
-                    </select>
-                </div>
-            </form>
-
-            <div id="addButtons">
-                <button id="addConfirm" class="myButton btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">Confirm</button>
-            </div>
-        </div>
-
-        <div class="modal" id="myModal" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content">
-                <div class="modal-header">
-                    <h1 id="addConfirm">
-                        Confirm details
-                    </h1>
+                <h5 class="modal-title">Confirm details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <p id="addName" >name name</p>
@@ -266,153 +180,140 @@
                     <p id="addDepartment">depatment</p>
                 </div>
                 <div class="modal-footer">
-                    <div class="myModalFooter">
-                        <button type="button" class="myButton btn btn-primary" data-bs-dismiss="modal">Edit</button>
-                        <button id="addSubmit" type="submit" form="addForm" class="myButton btn btn-primary" data-bs-dismiss="modal">Submit</button>
-                    </div>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button id="addSubmit" type="submit" form="addForm" class="btn btn-primary" data-bs-dismiss="modal">Confirm</button>
+                </div>
+            </div>
+            </div>
+          </div>
+
+        <!-- ADD DEPARTMENT -->
+
+        <div id="addDepartmentModal" class="modal fade" tabindex="-1">
+            <div class="modal-dialog modal-sm modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Add Department</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addDepartmentForm">
+                            <div class="form-floating">
+                                <input id="addNewDepartment" name="addNewDepartmentLocation" type="text" class="form-control">
+                                <label for="addNewDepartment">Department name</label>
+                            </div>
+
+                            <div class="form-floating">
+                                <select name="addNewDepartmentLocation" id="addNewDepartmentLocation" class="form-select">
+                                </select>
+                                <label for="addNewDepartmentLocation">Department location</label>
+                            </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button id="addDepartmentConfirm" type="button" class="btn btn-primary">Submit</button>
                 </div>
               </div>
             </div>
           </div>
 
-          <!--DELETE EMPLOYEE-->
+          <div class="modal fade" id="departmentModal" tabindex="-1">
+            <div class="modal-dialog modal-sm modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title">Confirm details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                        <div class="modal-body">
+                            <p id="addDepartmentName">name name</p>
+                            <p id="addDepartmentLocation">depatment</p>
+                        </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button id="addDepartmentSubmit" type="submit" form="addDepartmentForm" class="btn btn-primary" data-bs-dismiss="modal">Confirm</button>
+                    </div>
+                </div>
+            </div>
+          </div>
 
-          <div class="modal" id="deleteEmployeeModal" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
+        <!-- ADD LOCATION -->
+
+        <div id="addLocationModal" class="modal fade" tabindex="-1">
+            <div class="modal-dialog modal-sm modal-dialog-centered">
               <div class="modal-content">
                 <div class="modal-header">
-                    <h1 id="deleteEmployeeConfirm" class="centerHeader">
-                        Delete Employee?
-                    </h1>
+                  <h5 class="modal-title">Add Location</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p id="deleteEmployeeName" >name name</p>
-                    <p id="deleteEmployeeEmail">email Email Email</p>
-                    <p id="deleteEmployeeDepartment">depatment</p>
-                    <p id="deleteEmployeeLocation">location</p>
-                    <p id="deleteEmployeeID">ID</p>
+                    <form class="form-floating" id="addLocationForm">
+                        <input id="addNewLocation" name="addNewLocation" type="text" class="form-control">
+                        <label for="addNewLocation">Location name</label>
+                    </form>
                 </div>
                 <div class="modal-footer">
-                    <div class="myModalFooter">
-                        <button type="button" class="myButton btn btn-primary" data-bs-dismiss="modal">Back</button>
-                        <button id="deleteEmployeeSubmit" class="myButton btn btn-primary" data-bs-dismiss="modal">Submit</button>
-                    </div>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button id="addLocationConfirm" type="button" class="btn btn-primary">Submit</button>
                 </div>
               </div>
             </div>
           </div>
 
-          <!--DELETE DEPARTMENT-->
-
-          <div class="modal" id="deleteDepartmentModal" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content">
+        <div class="modal fade" id="locationModal" tabindex="-1">
+            <div class="modal-dialog modal-sm modal-dialog-centered">
+            <div class="modal-content">
                 <div class="modal-header">
-                    <h1 id="deleteDepartmentConfirm" class="centerHeader">
-                        Delete Department?
-                    </h1>
+                <h5 class="modal-title">Confirm details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p id="deleteDepartmentName">name name</p>
+                    <p id="addLocationName" >name name</p>
                 </div>
                 <div class="modal-footer">
-                    <div class="myModalFooter">
-                        <button type="button" class="myButton btn btn-primary" data-bs-dismiss="modal">Back</button>
-                        <button id="deleteDepartmentSubmit" class="myButton btn btn-primary" data-bs-dismiss="modal">Submit</button>
-                    </div>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button id="addLocationSubmit" type="submit" form="addLocationForm" class="btn btn-primary" data-bs-dismiss="modal">Confirm</button>
                 </div>
-              </div>
             </div>
-          </div>
+            </div>
+        </div> 
 
-          <!--DELETE LOCATION-->
+        <!--UPDATE EMPLOYEE-->
 
-          <div class="modal" id="deleteLocationModal" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
+        <div id="updateEmployeeFormModal" class="modal fade" tabindex="-1">
+            <div class="modal-dialog modal-sm modal-dialog-centered">
               <div class="modal-content">
                 <div class="modal-header">
-                    <h1 id="deleteLocationConfirm" class="centerHeader">
-                        Delete Location?
-                    </h1>
+                  <h5 class="modal-title">Update Employee</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p id="deleteLocationName">name name</p>
+                    <form id="updateEmployeeForm">
+                        <div class="form-floating">
+                            <input id="updateEmployeeFormFirstName" name="updateEmployeeFormFirstName" type="text" class="form-control">
+                            <label for="updateEmployeeFormFirstName">First name</label>
+                        </div>
+        
+                        <div class="form-floating">
+                            <input id="updateEmployeeFormLastName" name="updateEmployeeFormLastName" type="text" class="form-control">
+                            <label for="updateEmployeeFormLastName">Last name</label>
+                        </div>
+        
+                        <div class="form-floating">
+                            <input id="updateEmployeeFormEmail" name="updateEmployeeFormEmail" type="email" class="form-control">
+                            <label for="updateEmployeeFormEmail">Email</label>
+                        </div>
+        
+                        <div class="form-floating">
+                            <select name="updateEmployeeFormDepartment" id="updateEmployeeFormDepartment" class="form-select">
+                            </select>
+                            <label for="updateEmployeeFormDepartment">Department</label>
+                        </div>
+                    </form>
                 </div>
                 <div class="modal-footer">
-                    <div class="myModalFooter">
-                        <button type="button" class="myButton btn btn-primary" data-bs-dismiss="modal">Back</button>
-                        <button id="deleteLocationSubmit" class="myButton btn btn-primary" data-bs-dismiss="modal">Submit</button>
-                    </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!--UPDATE EMPLOYEE-->
-
-          <div id="blankUpdateEmployee" class="newPage" style="display:none">    
-            <div class="spacer"></div>
-            <h1 class="addHeader">
-                Update Employee
-            </h1>
-            <form id="updateEmployeeForm">
-                <div class="formItem">
-                    <label for="updateEmployeeFormFirstName">First name</label>
-                    <br>
-                    <input id="updateEmployeeFormFirstName" name="updateEmployeeFormFirstName" type="text" class="input">
-                </div>
-
-                <div class="formItem">
-                    <label for="updateEmployeeFormLastName">Last name</label>
-                    <br>
-                    <input id="updateEmployeeFormLastName" name="updateEmployeeFormLastName" type="text" class="input">
-                </div>
-
-                <div class="formItem">
-                    <label for="updateEmployeeFormEmail">Email</label>
-                    <br>
-                    <input id="updateEmployeeFormEmail" name="updateEmployeeFormEmail" type="email" class="input">
-                </div>
-
-                <div class="formItem">
-                    <label for="updateEmployeeFormDepartment">Department</label>
-                    <br>
-                    <select name="updateEmployeeFormDepartment" id="updateEmployeeFormDepartment" class="inputSelect">
-                    </select>
-                </div>
-            </form>
-            <div id="updateEmployeeButtons">
-                <button id="updateEmployeeBack" class="myButton btn btn-primary">Back</button>
-                <button id="updateEmployeeConfirm" class="myButton btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateEmployeeModal">Confirm</button>
-            </div>
-        </div>
-
-          <div class="modal" id="updateEmployeeModal" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content">
-                <div class="modal-header">
-                    <h1 id="updateEmployeeConfirmHeader" class="centerHeader">
-                        Update Employee
-                    </h1>
-                </div>
-                <div class="modal-body">
-                    <h2>Current employee details</h2>
-                    <p id="updateModalEmployeeName" >name name</p>
-                    <p id="updateModalEmployeeEmail">email Email Email</p>
-                    <p id="updateModalEmployeeDepartment">depatment</p>
-                    <p id="updateModalEmployeeLocation">location</p>
-                    <div class="break"></div>
-                    <h2>New employee details</h2>
-                    <p id="updateModalEmployeeNameNew" >name name</p>
-                    <p id="updateModalEmployeeEmailNew">email Email Email</p>
-                    <p id="updateModalEmployeeDepartmentNew">depatment</p>
-                    <p id="updateModalEmployeeLocationNew">location</p>
-                </div>
-                <div class="modal-footer">
-                    <div class="myModalFooter">
-                        <button type="button" class="myButton btn btn-primary" data-bs-dismiss="modal">Back</button>
-                        <button id="updateEmployeeSubmit" class="myButton btn btn-primary" data-bs-dismiss="modal">Submit</button>
-                    </div>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button id="updateEmployeeConfirm" type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
                 </div>
               </div>
             </div>
@@ -420,149 +321,154 @@
 
           <!--UPDATE DEPARTMENT-->
 
-          <div id="blankUpdateDepartment" class="newPage" style="display:none">    
-            <div class="spacer"></div>
-            <h1 class="addHeader">
-                Department's
-            </h1>
-            <form id="updateDepartmentForm">
-                <div class="formItem">
-                    <label for="updateDepartmentFormName">Department</label>
-                    <br>
-                    <input name="updateDepartmentFormName" id="updateDepartmentFormName">
-                </div>
-                <div class="formItem">
-                    <label for="updateDepartmentFormLocation">Location</label>
-                    <br>
-                    <select name="updateDepartmentFormLocation" id="updateDepartmentFormLocation" class="inputSelect">
-                    </select>
-                </div>
-            </form>
-            <div id="updateDepartmentButtons">
-                <button id="updateDepartmentBack" class="myButton btn btn-primary">Back</button>
-                <button id="updateDepartmentConfirm" class="myButton btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateDepartmentModal">Confirm</button>
-            </div>
-        </div>
-
-          <div class="modal" id="updateDepartmentModal" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
+          <div id="updateDepartmentFormModal" class="modal fade" tabindex="-1">
+            <div class="modal-dialog modal-sm modal-dialog-centered">
               <div class="modal-content">
                 <div class="modal-header">
-                    <h1 id="updateDepartmentConfirmHeader" class="centerHeader">
-                        Update Department
-                    </h1>
+                  <h5 class="modal-title">Update Department</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <h2>Current Department details</h2>
-                    <p id="updateModalDepartmentDepartment">depatment</p>
-                    <p id="updateModalDepartmentLocation">location</p>
-                    <div class="break"></div>
-                    <h2>New Department details</h2>
-                    <p id="updateModalDepartmentNameNew">depatment</p>
-                    <p id="updateModalDepartmentLocationNew">location</p>
+                    <form id="updateDepartmentForm">
+                        <div class="form-floating">
+                            <input name="updateDepartmentFormName" id="updateDepartmentFormName" class="form-control">
+                            <label for="updateDepartmentFormName">Name</label>
+                        </div>
+                        <div class="form-floating">
+                            <select name="updateDepartmentFormLocation" id="updateDepartmentFormLocation" class="form-select">
+                            </select>
+                            <label for="updateDepartmentFormLocation">Department location</label>
+                        </div>
+                    </form>
                 </div>
                 <div class="modal-footer">
-                    <div class="myModalFooter">
-                        <button type="button" class="myButton btn btn-primary" data-bs-dismiss="modal">Back</button>
-                        <button id="updateDepartmentSubmit" class="myButton btn btn-primary" data-bs-dismiss="modal">Submit</button>
-                    </div>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button id="updateDepartmentConfirm" type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
                 </div>
               </div>
             </div>
           </div>
-          
+
           <!--UPDATE LOCATION-->
 
-          <div id="blankUpdateLocation" class="newPage" style="display:none">    
-            <div class="spacer"></div>
-            <h1 class="addHeader">
-                Locations's
-            </h1>
-            <form id="updateLocationForm">
-                <div class="formItem">
-                    <label for="updateLocationFormName">Department</label>
-                    <br>
-                    <input name="updateLocationFormName" id="updateLocationFormName">
-                </div>
-            </form>
-            <div id="updateLocationButtons">
-                <button id="updateLocationBack" class="myButton btn btn-primary">Back</button>
-                <button id="updateLocationConfirm" class="myButton btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateLocationModal">Confirm</button>
-            </div>
-        </div>
-
-          <div class="modal" id="updateLocationModal" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
+          <div id="updateLocationFormModal" class="modal fade" tabindex="-1">
+            <div class="modal-dialog modal-sm modal-dialog-centered">
               <div class="modal-content">
                 <div class="modal-header">
-                    <h1 id="updateLocationConfirmHeader" class="centerHeader">
-                        Update Location
-                    </h1>
+                  <h5 class="modal-title">Update Location</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <h2>Current Location details</h2>
-                    <p id="updateModalLocationLocation">location</p>
-                    <div id="updateLocationBreak"></div>
-                    <h2>New Location details</h2>
-                    <p id="updateModalLocationNameNew">depatment</p>
+                    <form id="updateLocationForm">
+                        <div class="form-floating">
+                            <input name="updateLocationFormName" id="updateLocationFormName" class="form-control">
+                            <label for="updateLocationFormName">Name</label>
+                        </div>
+                    </form>
                 </div>
                 <div class="modal-footer">
-                    <div class="myModalFooter">
-                        <button type="button" class="myButton btn btn-primary" data-bs-dismiss="modal">Back</button>
-                        <button id="updateLocationSubmit" class="myButton btn btn-primary" data-bs-dismiss="modal">Submit</button>
-                    </div>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button id="updateLocationConfirm" type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Dependancy modals -->
+          <!-- DELETE EMPLOYEE -->
 
-          <div class="modal" id="deleteDepartmentErrorModal" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
+          <div id="deleteEmployeeModal" class="modal fade" tabindex="-1">
+            <div class="modal-dialog modal-sm modal-dialog-centered">
               <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="centerHeader">
-                        Error
-                    </h1>
+                  <h5 class="modal-title">Delete Employee?</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Department could not be deleted as there is still employees assigned.</p>
+                    <p id="deleteEmployeeName" >name name</p>
+                    <p id="deleteEmployeeEmail">email Email Email</p>
+                    <p id="deleteEmployeeDepartment">depatment</p>
                 </div>
                 <div class="modal-footer">
-                    <div class="myModalFooter">
-                        <button type="button" class="myButton btn btn-primary" data-bs-dismiss="modal">Back</button>
-                    </div>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button id="deleteEmployeeSubmit" type="submit" class="btn btn-primary" data-bs-dismiss="modal">Confirm</button>
                 </div>
               </div>
             </div>
           </div>
 
-          <div class="modal" id="deleteLocationErrorModal" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
+          <!-- DELETE DEPARTMENT -->
+
+          <div id="deleteDepartmentModal" class="modal fade" tabindex="-1">
+            <div class="modal-dialog modal-sm modal-dialog-centered">
               <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="centerHeader">
-                        Error
-                    </h1>
+                  <h5 class="modal-title">Delete Department?</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Location could not be deleted as there is still departments assigned.</p>
+                    <p id="deleteDepartmentName">name name</p>
                 </div>
                 <div class="modal-footer">
-                    <div class="myModalFooter">
-                        <button type="button" class="myButton btn btn-primary" data-bs-dismiss="modal">Back</button>
-                    </div>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button id="deleteDepartmentSubmit" type="submit" class="btn btn-primary" data-bs-dismiss="modal">Confirm</button>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- END -->
+          <div class="modal fade" id="deleteDepartmentErrorModal" tabindex="-1">
+            <div class="modal-dialog modal-sm modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Error</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Cannot delete department with employees still assigned.</p>
+                </div>
+                <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>                    
+                </div>
+              </div>
+            </div>
+          </div>
 
-        <div class="spacer"></div>
-        <div id="content" class="section">
-        </div>
+          <!-- DELETE LOCATION -->
+
+          <div id="deleteLocationModal" class="modal fade" tabindex="-1">
+            <div class="modal-dialog modal-sm modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Delete Location?</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="deleteLocationName">name name</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button id="deleteLocationSubmit" type="submit" class="btn btn-primary" data-bs-dismiss="modal">Confirm</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal fade" id="deleteLocationErrorModal" tabindex="-1">
+            <div class="modal-dialog modal-sm modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Error</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Cannot delete location with departments still assigned.</p>
+                </div>
+                <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>                    
+                </div>
+              </div>
+            </div>
+          </div>
 
         <script type="text/javascript" src="js/jquery-2.2.3.min.js"></script>
         <script type="text/javascript" src="bootstrap-5.1.3-dist/js/bootstrap.min.js"></script>

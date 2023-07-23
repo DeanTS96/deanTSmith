@@ -29,7 +29,7 @@
 
     $id = $_REQUEST['id'];
 
-    $stmt = $conn->prepare('SELECT COUNT(id) as total FROM department WHERE locationID=?');
+    $stmt = $conn->prepare('SELECT COUNT(id) as numOfDepartments FROM department WHERE locationID=?');
 	$stmt->bind_param("i", $id);
 	$stmt->execute();
 

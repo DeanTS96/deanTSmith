@@ -29,7 +29,7 @@
 
     $id = $_REQUEST['id'];
 
-    $stmt = $conn->prepare('SELECT COUNT(id) as total FROM personnel WHERE departmentID=?');
+    $stmt = $conn->prepare('SELECT COUNT(id) as numOfEmployees FROM personnel WHERE departmentID=?');
 	$stmt->bind_param("i", $id);
 	$stmt->execute();
 
