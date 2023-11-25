@@ -5,7 +5,7 @@
 
 	$executionStartTime = microtime(true);
 
-	$url='https://holidayapi.com/v1/holidays?pretty&key=7cff76c3-4aea-449b-b8dd-414f2fb3521e&country='.$_REQUEST['countryCode'].'&year=2021';
+	$url='https://date.nager.at/api/v3/PublicHolidays/2023/'.$_REQUEST['countryCode'];
 
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);

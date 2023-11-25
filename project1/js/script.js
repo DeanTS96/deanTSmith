@@ -77,6 +77,40 @@
 		}
 	});
 
+	/*
+	LIVE SITE CANNOT GET LOCATION
+
+	lat = 53.483625; 
+		homeLat = 53.483625;
+		lng = -2.4889276; 
+        homeLng = -2.4889276;
+
+		map.setZoomAround([lat, lng],11);
+
+		$.ajax({
+			url: "php/getCountryCode.php",
+			type: 'POST',
+			dataType: 'json',
+			data: {
+                lat: lat,
+                lng: lng
+			},
+			success: function(result) {
+
+				if (result.status.name == "ok") {
+
+					let characters = result.data.split("");
+					countryCode = characters[0]+characters[1];
+
+					$('#countries').val(countryCode);
+					$('#countries').trigger('change');
+
+					
+				}
+			}
+		});
+	*/
+
     navigator.geolocation.getCurrentPosition((position) => {
         lat = position.coords.latitude; 
 		homeLat = position.coords.latitude;
@@ -195,6 +229,7 @@
 				countryCode: countryCode
 			},
 			success: function(result) {
+				console.log(result)
 
 				$('#active').html(result.data.active.toLocaleString());
 				$('#activePerM').html(result.data.activePerOneMillion.toLocaleString());
@@ -222,7 +257,7 @@
 				countryCode: countryCode
 			},
 			success: function(result) {
-
+				console.log(result.data)
 				if (result.status.name == "ok") {	
 
 					$("#carouselIndicators").empty();
@@ -230,11 +265,12 @@
 
 					
 					let gregorianDate = Date.parse("2021-02-14");
+					console.log(gregorianDate)
 
 					let carouselCount = 0;
 					const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
-					result.data.holidays.forEach(holiday => {
+					result.data.forEach(holiday => {
 
 						$("#carouselIndicators").append("<button></button>");
 						$("#carouselIndicators").children().last().attr({
@@ -246,10 +282,12 @@
 						carouselCount += 1;
 
 						let carouselDate = Date.parse(holiday.date).toString("MM dS").split(" ");
+						console.log(carouselDate)
 						let monthNumber = Number(carouselDate[0]);
+						console.log(monthNumber)
 
 
-						$("#carouselInner").append("<div><h1>" + holiday.name + "</h1><br><p>" + months[monthNumber-1] + ", " + holiday.weekday.date.name + "<sup>" 
+						$("#carouselInner").append("<div><h1>" + holiday.name + "</h1><br><p>" + months[monthNumber-1] + "<sup>" 
 							+ carouselDate[1] + "</sup>" + "</p></div>")
 						$("#carouselInner").children().last().attr({
 							"class" : "carousel-item"
@@ -467,8 +505,10 @@
 								shape: 'square',
 								prefix: 'fa'
 							  });
+							  console.log('L')
 								
 							  if(camLayerGroup) {
+								console.log('K')
 								  map.removeLayer(camLayerGroup);
 							  };
 		
@@ -496,7 +536,7 @@
 		
 								lat = result.data.lat;
 								lng = result.data.lng;
-		
+
 								$.ajax({
 									url:  "php/getForcastInfo.php",
 									type: 'POST',
@@ -537,7 +577,6 @@
 									},
 									error: function(jqXHR, textStatus, errorThrown) {
 										console.log("error");
-										
 									}
 								});
 							}
@@ -545,6 +584,9 @@
 						},
 						error: function(jqXHR, textStatus, errorThrown) {
 							console.log("error");
+							console.log(jqXHR)
+							console.log(textStatus)
+							console.log(errorThrown)	
 						}
 					});
 	
@@ -554,7 +596,6 @@
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
 				console.log("error");
-
 			}
 		}); 
 	});
